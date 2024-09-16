@@ -10,14 +10,14 @@ import org.hibernate.annotations.NaturalId;
 @Setter
 
 @Entity
-@Table(name = "ThuongHieu")
-public class ThuongHieu {
+@Table(name = "Size")
+public class Size {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "ten")
+    @Column(name = "sizeVn")
     @NaturalId
-    private String ten;
+    private double sizeVn;
 }

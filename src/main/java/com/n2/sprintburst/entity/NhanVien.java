@@ -62,7 +62,7 @@ public class NhanVien {
     @Column(name = "ngayXoa")
     private LocalDateTime ngayXoa;
 
-    @Column(name = "trangThai")
+    @Column(name = "trangThai", insertable=false, updatable=false)
     private boolean trangThai;
 
 }

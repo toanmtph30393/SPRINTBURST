@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "KhachHang")
-@SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
 public class KhachHang {
     @Column(name = "id")
     @Id

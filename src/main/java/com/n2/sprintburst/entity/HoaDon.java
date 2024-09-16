@@ -1,0 +1,59 @@
+package com.n2.sprintburst.entity;
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.SoftDelete;
+import org.hibernate.annotations.SoftDeleteType;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "HoaDon")
+public class HoaDon {
+    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "maHoaDon")
+    @NaturalId
+    private String maHoaDon;
+
+    @Column(name = "ngayTao")
+    private LocalDateTime ngayTao;
+
+    @Column(name = "tongTruocGiamGia")
+    private int tongTruocGiamGia;
+
+    @Column(name = "tongSauGiamGia")
+    private int tongSauGiamGia;
+
+    @Column(name = "ghiChu")
+    private String ghiChu;
+
+    @Column(name = "tenNguoiNhan")
+    private String tenNguoiNhan;
+
+    @Column(name = "dienThoaiNguoiNhan")
+    private String dienThoaiNguoiNhan;
+
+    @Column(name = "diaChiNguoiNhan")
+    private String diaChiNguoiNhan;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idKhachHang", referencedColumnName = "id")
+    private KhachHang khachHang;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idNhanVien", referencedColumnName = "id")
+    private NhanVien nhanVien;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idTrangThaiHoaDon", referencedColumnName = "id")
+    private TrangThaiHoaDon trangThaiHoaDon;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPhieuGiamGia", referencedColumnName = "id")
+    private PhieuGiamGia phieuGiamGia;
+
+}

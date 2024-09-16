@@ -10,8 +10,8 @@ import org.hibernate.annotations.NaturalId;
 @Setter
 
 @Entity
-@Table(name = "ThuongHieu")
-public class ThuongHieu {
+@Table(name = "XuatXu")
+public class XuatXu {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
