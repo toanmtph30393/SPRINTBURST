@@ -11,6 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.schema.Action;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class HibernateConfig {
     private static final SessionFactory sessionFactory;
@@ -62,6 +63,7 @@ public class HibernateConfig {
         System.out.println(getSessionFactory());
 
         NhanVien nv = new NhanVien();
+        nv.setId(0);
         nv.setMaTaiKhoan("nv1");
         nv.setHoTen("aaaa");
 
@@ -76,6 +78,8 @@ public class HibernateConfig {
         nvUpdate.setEmail("zzzzzzzzz"); //update email
         updateNvByMa(nvUpdate); //tìm nv theo mã và update
 
+        deleteNvByMa(nvUpdate); //xoa nv theo mã
+
 
     }
 
@@ -85,7 +89,6 @@ public class HibernateConfig {
             getSessionFactory().inTransaction(session -> {
                 session.persist(nv);
                 session.flush();
-                session.close();
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +102,6 @@ public class HibernateConfig {
             getSessionFactory().inTransaction(session -> {
                 session.merge(nv);
                 session.flush();
-                session.close();
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +115,7 @@ public class HibernateConfig {
             getSessionFactory().inTransaction(session -> {
                 NhanVien found = session.createSelectionQuery("from NhanVien where maTaiKhoan = :maTaiKhoan", NhanVien.class)
                         .setParameter("maTaiKhoan", nv.getMaTaiKhoan())
-                        .getSingleResult(); //tìm nv có trong db với mã này
+                        .getResultList().get(0); //tìm nv có trong db với mã này
 
                 found.setEmail(nv.getEmail()); //chuyển các thuộc tính có thể đc update từ nv sang found
                 //ten....
@@ -123,6 +125,23 @@ public class HibernateConfig {
                 //lưu found vào db
                 session.merge(found);
                 //thực hiện các câu lệnh db
+                session.flush();
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    //xoa nv qua id
+    public static void deleteNvByMa(NhanVien nv) {
+        try {
+            getSessionFactory().inTransaction(session -> {
+                NhanVien found = session.createSelectionQuery("from NhanVien where maTaiKhoan = :maTaiKhoan", NhanVien.class)
+                        .setParameter("maTaiKhoan", "nv1")
+                        .getResultList().get(0); //tìm nv có trong db với mã này
+
+                session.remove(found);
                 session.flush();
             });
         } catch (Exception e) {
