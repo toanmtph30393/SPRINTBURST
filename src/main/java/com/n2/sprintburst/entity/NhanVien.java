@@ -1,10 +1,7 @@
 package com.n2.sprintburst.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 
 @Entity
 @Table(name = "NhanVien")
@@ -30,11 +28,11 @@ public class NhanVien {
     private String maTaiKhoan;
 
     @Column(name = "email")
-    @NaturalId
+    @NaturalId(mutable = true)
     private String email;
 
     @Column(name = "dienThoai")
-    @NaturalId
+    @NaturalId(mutable = true)
     private String dienThoai;
 
     @Column(name = "password")
@@ -62,7 +60,7 @@ public class NhanVien {
     @Column(name = "ngayXoa")
     private LocalDateTime ngayXoa;
 
-    @Column(name = "trangThai", insertable=false, updatable=false)
+    @Column(name = "trangThai", insertable = false, updatable = false)
     private boolean trangThai;
 
 }
