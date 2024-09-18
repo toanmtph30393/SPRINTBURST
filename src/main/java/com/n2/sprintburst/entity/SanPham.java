@@ -26,7 +26,7 @@ public class SanPham {
     private int id;
 
     @Column(name = "tenSanPham")
-    @NaturalId(mutable = true)
+    @NaturalId
     private String tenSanPham;
 
     @Column(name = "maSanPham")

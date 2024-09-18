@@ -1,17 +1,11 @@
 package com.n2.sprintburst.config;
 
 
-import com.github.dozermapper.core.DozerBeanMapperBuilder;
-import com.github.dozermapper.core.Mapper;
 import com.n2.sprintburst.entity.*;
-import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.schema.Action;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 public class HibernateConfig {
     private static final SessionFactory sessionFactory;
@@ -46,7 +40,8 @@ public class HibernateConfig {
                 .setProperty(AvailableSettings.JAKARTA_JDBC_USER, user)
                 .setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, password)
                 // Automatic schema export
-//                .setProperty(AvailableSettings.JAKARTA_HBM2DDL_DATABASE_ACTION,Action.SPEC_ACTION_DROP_AND_CREATE)
+                .setProperty(AvailableSettings.JAKARTA_HBM2DDL_DATABASE_ACTION,
+                        Action.SPEC_ACTION_DROP_AND_CREATE)
                 // SQL statement logging
                 .setProperty(AvailableSettings.SHOW_SQL, true)
                 .setProperty(AvailableSettings.FORMAT_SQL, true)
@@ -60,95 +55,24 @@ public class HibernateConfig {
     }
 
     public static void main(String[] args) {
+        getSessionFactory().inTransaction(s -> {
+            NhanVien nv = new NhanVien();
+            nv.setHoTen("aaaaaaaaaaaaaaaa");
+            nv.setDienThoai("000000000");
+            s.persist(nv);
+
+            KhachHang kh = new KhachHang();
+            kh.setTenKhachHang("aaaaaaaaaaaaaaaa");
+            kh.setDienThoai("000000000");
+            kh.setNhanVien(nv);
+
+            s.persist(kh);
+
+            s.flush();
+
+
+        });
         System.out.println(getSessionFactory());
-
-        NhanVien nv = new NhanVien();
-        nv.setId(0);
-        nv.setMaTaiKhoan("nv1");
-        nv.setHoTen("aaaa");
-
-        insertNv(nv); //thêm nv1
-
-        nv.setHoTen(("bbbb"));
-        updateNvById(nv); // đổi tên của nv1 thành bbbb
-
-
-        NhanVien nvUpdate = new NhanVien();
-        nvUpdate.setMaTaiKhoan("nv1"); //muốn update nv có mã này
-        nvUpdate.setEmail("zzzzzzzzz"); //update email
-        updateNvByMa(nvUpdate); //tìm nv theo mã và update
-
-        deleteNvByMa(nvUpdate); //xoa nv theo mã
-
-
     }
-
-    //tạo nv mới
-    public static void insertNv(NhanVien nv) {
-        try {
-            getSessionFactory().inTransaction(session -> {
-                session.persist(nv);
-                session.flush();
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-    //update nv qua id
-    public static void updateNvById(NhanVien nv) {
-        try {
-            getSessionFactory().inTransaction(session -> {
-                session.merge(nv);
-                session.flush();
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-    //update nv qua ma
-    public static void updateNvByMa(NhanVien nv) {
-        try {
-            getSessionFactory().inTransaction(session -> {
-                NhanVien found = session.createSelectionQuery("from NhanVien where maTaiKhoan = :maTaiKhoan", NhanVien.class)
-                        .setParameter("maTaiKhoan", nv.getMaTaiKhoan())
-                        .getResultList().get(0); //tìm nv có trong db với mã này
-
-                found.setEmail(nv.getEmail()); //chuyển các thuộc tính có thể đc update từ nv sang found
-                //ten....
-                //dia chi....
-                //dien thoai....
-
-                //lưu found vào db
-                session.merge(found);
-                //thực hiện các câu lệnh db
-                session.flush();
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-    //xoa nv qua id
-    public static void deleteNvByMa(NhanVien nv) {
-        try {
-            getSessionFactory().inTransaction(session -> {
-                NhanVien found = session.createSelectionQuery("from NhanVien where maTaiKhoan = :maTaiKhoan", NhanVien.class)
-                        .setParameter("maTaiKhoan", "nv1")
-                        .getResultList().get(0); //tìm nv có trong db với mã này
-
-                session.remove(found);
-                session.flush();
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
 
 }

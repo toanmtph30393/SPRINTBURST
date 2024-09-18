@@ -8,12 +8,12 @@ package com.n2.sprintburst.view;
  *
  * @author Admin
  */
-public class HoaDonView extends javax.swing.JInternalFrame {
+public class SanPhamView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NhanVienView
      */
-    public HoaDonView() {
+    public SanPhamView() {
         initComponents();
     }
 
@@ -28,7 +28,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("Hoa don");
+        jLabel1.setText("SanPham");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -37,7 +37,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addComponent(jLabel1)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
