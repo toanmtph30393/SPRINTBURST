@@ -8,13 +8,57 @@ package com.n2.sprintburst.view;
  *
  * @author Admin
  */
-public class Home extends javax.swing.JFrame {
+public final class Home extends javax.swing.JFrame {
+
+    // Khoi tao cac menu con
+    BanHangView banHangView = new BanHangView();
+    HoaDonView hoaDonView = new HoaDonView();
+    TrangChuView trangChuView = new TrangChuView();
+    KhachHangView khachHangView = new KhachHangView();
+    NhanVienView nhanVienView = new NhanVienView();
+    PhieuGiamGiaView phieuGiamGiaView = new PhieuGiamGiaView();
+    SanPhamView sanPhamView = new SanPhamView();
+    ThongKeView thongKeView = new ThongKeView();
+
+    // Khoi tao bien check hien thi menu
+    Boolean checkBanHangView = false;
+    Boolean checkHoaDonView = false;
+    Boolean checkTrangChuView = false;
+    Boolean checkKhachHangView = false;
+    Boolean checkNhanVienView = false;
+    Boolean checkPhieuGiamGiaView = false;
+    Boolean checkSanPhamView = false;
+    Boolean checkThongKeView = false;
 
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+
+        // Them menu vao man hinh
+        add(banHangView);
+        add(hoaDonView);
+        add(trangChuView);
+        add(khachHangView);
+        add(nhanVienView);
+        add(phieuGiamGiaView);
+        add(sanPhamView);
+        add(thongKeView);
+
+        loadForm();
+    }
+
+    // Load lại menu khi chuyen form ve false;
+    public void loadForm() {
+        banHangView.setVisible(false);
+        hoaDonView.setVisible(false);
+        trangChuView.setVisible(false);
+        khachHangView.setVisible(false);
+        nhanVienView.setVisible(false);
+        phieuGiamGiaView.setVisible(false);
+        sanPhamView.setVisible(false);
+        thongKeView.setVisible(false);
     }
 
     /**
@@ -45,11 +89,13 @@ public class Home extends javax.swing.JFrame {
         btnNhanVien = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1630, 850));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Home_1.png"))); // NOI18N
         btnTrangChu.setText("Trang chủ");
         btnTrangChu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -70,6 +116,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Dollar.png"))); // NOI18N
         btnBanHang.setText("Bán hàng");
         btnBanHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -90,6 +137,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/List_1.png"))); // NOI18N
         btnHoaDon.setText("Hoá đơn");
         btnHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -110,6 +158,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add to basket.png"))); // NOI18N
         btnSanPham.setText("Sản phẩm");
         btnSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -130,6 +179,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnPhieuGiamGia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Price list.png"))); // NOI18N
         btnPhieuGiamGia.setText("Phiếu giảm giá");
         btnPhieuGiamGia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,6 +200,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/User group.png"))); // NOI18N
         btnKhachHang.setText("Khách hàng");
         btnKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -170,6 +221,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/3d bar chart.png"))); // NOI18N
         btnThongKe.setText("Thống kê");
         btnThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -190,6 +242,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(153, 153, 153));
 
+        btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Users.png"))); // NOI18N
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -260,35 +313,184 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrangChuMouseClicked
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkHoaDonView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
         // TODO add your handling code here:
+        if (checkTrangChuView == true) {
+            return;
+        }
+
+        //load lại form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        trangChuView.setBounds(220, 0, 1360, 830);
+        trangChuView.setVisible(true);
+        checkTrangChuView = true;
     }//GEN-LAST:event_btnTrangChuMouseClicked
 
     private void btnBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanHangMouseClicked
-        // TODO add your handling code here:
+        // set value check cua cac thang khac la false;
+        checkHoaDonView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
+        // Kiem tra menu da hien thi chua, neu hien thi roi thi thoat ra ngoai
+        if (checkBanHangView == true) {
+            return;
+        }
+
+        // load lai form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        banHangView.setBounds(220, 0, 1360, 830);
+        banHangView.setVisible(true);
+        checkBanHangView = true;
     }//GEN-LAST:event_btnBanHangMouseClicked
 
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
+
         // TODO add your handling code here:
+        if (checkHoaDonView == true) {
+            return;
+        }
+
+        //load lại form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        hoaDonView.setBounds(220, 0, 1360, 830);
+        hoaDonView.setVisible(true);
+        checkHoaDonView = true;
     }//GEN-LAST:event_btnHoaDonMouseClicked
 
     private void btnSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseClicked
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkHoaDonView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkThongKeView = false;
+
         // TODO add your handling code here:
+        if (checkSanPhamView == true) {
+            return;
+        }
+
+        //load lại form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        sanPhamView.setBounds(220, 0, 1360, 830);
+        sanPhamView.setVisible(true);
+        checkSanPhamView = true;
     }//GEN-LAST:event_btnSanPhamMouseClicked
 
     private void btnPhieuGiamGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhieuGiamGiaMouseClicked
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkHoaDonView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
+
         // TODO add your handling code here:
+        if (checkPhieuGiamGiaView == true) {
+            return;
+        }
+
+        //load lại form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        phieuGiamGiaView.setBounds(220, 0, 1360, 830);
+        phieuGiamGiaView.setVisible(true);
+        checkPhieuGiamGiaView = true;
     }//GEN-LAST:event_btnPhieuGiamGiaMouseClicked
 
     private void btnKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseClicked
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkHoaDonView = false;
+        checkTrangChuView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
         // TODO add your handling code here:
+        if (checkKhachHangView == true) {
+            return;
+        }
+
+        // load lai form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        khachHangView.setBounds(220, 0, 1360, 830);
+        khachHangView.setVisible(true);
+        checkKhachHangView = true;
     }//GEN-LAST:event_btnKhachHangMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkHoaDonView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
         // TODO add your handling code here:
+        if (checkThongKeView == true) {
+            return;
+        }
+
+        //load lại form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        thongKeView.setBounds(220, 0, 1360, 830);
+        thongKeView.setVisible(true);
+        checkThongKeView = true;
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
+        
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkHoaDonView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
+        
         // TODO add your handling code here:
+        if (checkNhanVienView == true) {
+            return;
+        }
+
+        //load lại form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        nhanVienView.setBounds(220, 0, 1360, 830);
+        nhanVienView.setVisible(true);
+        checkNhanVienView = true;
     }//GEN-LAST:event_btnNhanVienMouseClicked
 
     /**

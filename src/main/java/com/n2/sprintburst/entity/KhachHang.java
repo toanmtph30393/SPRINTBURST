@@ -51,5 +51,9 @@ public class KhachHang {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idNhanVien", referencedColumnName = "id")
     private NhanVien nhanVien;
+
+  
+    
+    
 }
 
