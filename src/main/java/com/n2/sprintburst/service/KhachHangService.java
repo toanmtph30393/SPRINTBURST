@@ -22,10 +22,9 @@ public class KhachHangService {
     
 
     public List<KhachHang> getAllKhachHang() {
-//        session = HibernateConfig.getSessionFactory().openSession();
-//        List<KhachHang> list = session.createQuery("from KhachHang", KhachHang.class).list();
-//        session.close();//        
+        session = HibernateConfig.getSessionFactory().openSession();
         List<KhachHang> list = session.createQuery("from KhachHang", KhachHang.class).list();
+        session.close();//        
 
         return list;
     }
