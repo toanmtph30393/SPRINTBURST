@@ -1,4 +1,4 @@
-package com.n2.sprintburst.entity;
+    package com.n2.sprintburst.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
