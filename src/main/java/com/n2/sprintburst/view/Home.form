@@ -196,9 +196,6 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnlSanPhamMouseClicked"/>
-          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -220,6 +217,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1ea3;n ph&#x1ea9;m"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSanPhamMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

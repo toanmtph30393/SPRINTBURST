@@ -70,14 +70,14 @@ public final class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlMenuBar = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnTrangChu = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnBanHang = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnHoaDon = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        pnlSanPham = new javax.swing.JPanel();
         btnSanPham = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         btnPhieuGiamGia = new javax.swing.JLabel();
@@ -87,11 +87,12 @@ public final class Home extends javax.swing.JFrame {
         btnThongKe = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnNhanVien = new javax.swing.JLabel();
+        modulePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1630, 850));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        pnlMenuBar.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -156,7 +157,7 @@ public final class Home extends javax.swing.JFrame {
             .addComponent(btnHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(153, 153, 153));
+        pnlSanPham.setBackground(new java.awt.Color(153, 153, 153));
 
         btnSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add to basket.png"))); // NOI18N
         btnSanPham.setText("Sản phẩm");
@@ -166,14 +167,14 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlSanPhamLayout = new javax.swing.GroupLayout(pnlSanPham);
+        pnlSanPham.setLayout(pnlSanPhamLayout);
+        pnlSanPhamLayout.setHorizontalGroup(
+            pnlSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlSanPhamLayout.setVerticalGroup(
+            pnlSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
@@ -191,7 +192,7 @@ public final class Home extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnPhieuGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+            .addComponent(btnPhieuGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,22 +262,22 @@ public final class Home extends javax.swing.JFrame {
             .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlMenuBarLayout = new javax.swing.GroupLayout(pnlMenuBar);
+        pnlMenuBar.setLayout(pnlMenuBarLayout);
+        pnlMenuBarLayout.setHorizontalGroup(
+            pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlMenuBarLayout.setVerticalGroup(
+            pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMenuBarLayout.createSequentialGroup()
                 .addGap(108, 108, 108)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -284,7 +285,7 @@ public final class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -293,7 +294,20 @@ public final class Home extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+
+        modulePanel.setPreferredSize(new java.awt.Dimension(900, 0));
+
+        javax.swing.GroupLayout modulePanelLayout = new javax.swing.GroupLayout(modulePanel);
+        modulePanel.setLayout(modulePanelLayout);
+        modulePanelLayout.setHorizontalGroup(
+            modulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+        );
+        modulePanelLayout.setVerticalGroup(
+            modulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -301,15 +315,22 @@ public final class Home extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(647, Short.MAX_VALUE))
+                .addComponent(pnlMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(modulePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlMenuBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(modulePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrangChuMouseClicked
@@ -389,7 +410,6 @@ public final class Home extends javax.swing.JFrame {
         checkPhieuGiamGiaView = false;
         checkThongKeView = false;
 
-        // TODO add your handling code here:
         if (checkSanPhamView == true) {
             return;
         }
@@ -397,7 +417,6 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        sanPhamView.setBounds(220, 0, 1360, 830);
         sanPhamView.setVisible(true);
         checkSanPhamView = true;
     }//GEN-LAST:event_btnSanPhamMouseClicked
@@ -421,6 +440,7 @@ public final class Home extends javax.swing.JFrame {
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
         phieuGiamGiaView.setBounds(220, 0, 1360, 830);
+        phieuGiamGiaView.setSize(900, 600);
         phieuGiamGiaView.setVisible(true);
         checkPhieuGiamGiaView = true;
     }//GEN-LAST:event_btnPhieuGiamGiaMouseClicked
@@ -470,7 +490,7 @@ public final class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
-        
+
         // set value check cua cac thang khac la false;
         checkBanHangView = false;
         checkHoaDonView = false;
@@ -479,7 +499,7 @@ public final class Home extends javax.swing.JFrame {
         checkPhieuGiamGiaView = false;
         checkSanPhamView = false;
         checkThongKeView = false;
-        
+
         // TODO add your handling code here:
         if (checkNhanVienView == true) {
             return;
@@ -537,14 +557,15 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel btnSanPham;
     private javax.swing.JLabel btnThongKe;
     private javax.swing.JLabel btnTrangChu;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel modulePanel;
+    private javax.swing.JPanel pnlMenuBar;
+    private javax.swing.JPanel pnlSanPham;
     // End of variables declaration//GEN-END:variables
 }
