@@ -11,15 +11,13 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "Size")
-public class Size implements ThuocTinh {
-
+public class Size {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "sizeVn")
-    @NaturalId(mutable = true)
-    private String ten;
-
+    @NaturalId
+    private double sizeVn;
 }

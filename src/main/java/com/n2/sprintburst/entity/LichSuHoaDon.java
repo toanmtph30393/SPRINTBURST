@@ -12,6 +12,7 @@ public class LichSuHoaDon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Version
     @Column(name = "ngayTacDong")
     private LocalDateTime ngayTacDong;
 

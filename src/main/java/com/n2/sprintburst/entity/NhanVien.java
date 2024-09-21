@@ -10,8 +10,6 @@ import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 
 import java.time.LocalDateTime;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,22 +20,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "NhanVien")
 @SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
 public class NhanVien {
-
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "maTaiKhoan")
-
+    @NaturalId
     private String maTaiKhoan;
 
     @Column(name = "email")
-
+    @NaturalId
     private String email;
 
     @Column(name = "dienThoai")
-
+    @NaturalId
     private String dienThoai;
 
     @Column(name = "password")
@@ -56,23 +53,16 @@ public class NhanVien {
     private boolean laQuanLy;
 
     @Column(name = "ngayTao")
-    @CreationTimestamp
     private LocalDateTime ngayTao;
 
     @Column(name = "ngayCapNhat")
-    @UpdateTimestamp
+    @Version
     private LocalDateTime ngayCapNhat;
 
     @Column(name = "ngayXoa")
-    @UpdateTimestamp
     private LocalDateTime ngayXoa;
 
-    @Column(name = "trangThai", insertable = false, updatable = false)
+    @Column(name = "trangThai", insertable=false, updatable=false)
     private boolean trangThai;
-
-    @Override
-    public String toString() {
-        return hoTen;
-    }
 
 }

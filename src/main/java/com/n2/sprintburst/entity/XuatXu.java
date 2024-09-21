@@ -11,8 +11,7 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "XuatXu")
-public class XuatXu implements ThuocTinh {
-
+public class XuatXu {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

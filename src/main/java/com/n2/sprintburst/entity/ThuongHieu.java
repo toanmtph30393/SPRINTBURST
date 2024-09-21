@@ -8,18 +8,16 @@ import org.hibernate.annotations.NaturalId;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 
 @Entity
 @Table(name = "ThuongHieu")
-public class ThuongHieu implements ThuocTinh {
-
+public class ThuongHieu {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "ten")
-    @NaturalId(mutable = true)
+    @NaturalId
     private String ten;
 }

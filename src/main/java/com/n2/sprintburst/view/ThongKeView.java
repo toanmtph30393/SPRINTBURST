@@ -15,7 +15,6 @@ public class ThongKeView extends javax.swing.JInternalFrame {
      */
     public ThongKeView() {
         initComponents();
-        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
     }
 
     /**
