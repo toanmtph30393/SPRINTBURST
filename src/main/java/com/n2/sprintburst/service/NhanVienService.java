@@ -24,7 +24,7 @@ public class NhanVienService {
         return list;
     }
 
-    public NhanVien getNhanVienById(int id) {
+    public NhanVien getNhanVienById(String id) {
         session = HibernateConfig.getSessionFactory().openSession();
         NhanVien nhanVien = session.get(NhanVien.class, id);
         session.close();
@@ -48,7 +48,7 @@ public class NhanVienService {
         session.close();
     }
 
-    public void deleteNhanVien(int id) {
+    public void deleteNhanVien(String id) {
         session = HibernateConfig.getSessionFactory().openSession();
         session.beginTransaction();
         NhanVien nhanVien = getNhanVienById(id);
