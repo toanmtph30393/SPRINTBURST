@@ -4,9 +4,11 @@
  */
 package com.n2.sprintburst.view;
 
-import com.n2.sprintburst.entity.KhachHang;
 import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.service.NhanVienService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -202,8 +204,6 @@ public class NhanVienView extends javax.swing.JInternalFrame {
 
         txtNgayCapNhap.setEnabled(false);
 
-        txtMaTaiKhoan.setEnabled(false);
-
         txtNgayXoa.setEnabled(false);
 
         cboLaQuanLy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý", "Nhân viên" }));
@@ -222,11 +222,6 @@ public class NhanVienView extends javax.swing.JInternalFrame {
         });
 
         btnSua.setText("Sửa");
-        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSuaMouseClicked(evt);
-            }
-        });
 
         btnLamMoi.setText("Làm mới");
         btnLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -526,69 +521,11 @@ public class NhanVienView extends javax.swing.JInternalFrame {
         nv.setMaTaiKhoan(txtMaTaiKhoan.getText());
         nv.setPassword(txtPassword.getText());
 
+//        nv.setId((int) idChon);
         nhanVienService.saveNhanVien(nv);
 
         fillData();
     }//GEN-LAST:event_btnThemMouseClicked
-
-    private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
-        // TODO add your handling code here:
-        String id = txtId.getText();
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "ID không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Tìm khách hàng hiện tại trong cơ sở dữ liệu
-        NhanVien nv = nhanVienService.getNhanVienById(id); // Phương thức tìm kiếm theo ID
-
-        if (nv == null) {
-            JOptionPane.showMessageDialog(this, "Khách hàng không tồn tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Kiểm tra các trường không được để trống
-//        if (khachHangService.isEmpty(txtMaKhachHang, "Không để trống mã")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtTenKhachHang, "Không để trống tên")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtEmail, "Không để trống email")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtDienThoai, "Không để trống điện thoại")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtDiaChi, "Không để trống địa chỉ")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtGhiChu, "Không để trống ghi chú")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtNgayTao, "Không để trống ngày")) {
-//            return;
-//        }
-
-        // Xác nhận cập nhật
-        int luaChon = JOptionPane.showConfirmDialog(this, "Xác nhận thực hiện", "Thông báo", JOptionPane.YES_NO_OPTION);
-        if (luaChon == JOptionPane.YES_OPTION) {
-            // Cập nhật thông tin vào đối tượng đã tìm thấy
-            nv.setDiaChi(txtDiaChi.getText());
-            nv.setDienThoai(txtDienThoai.getText());
-            nv.setEmail(txtEmail.getText());
-            nv.setGhiChu(txtGhiChu.getText());
-            nv.setHoTen(txtHoTen.getText());
-            nv.setMaTaiKhoan(txtMaTaiKhoan.getText());
-            nv.setPassword(txtPassword.getText());
-
-            // Cập nhật khách hàng
-            nhanVienService.updateNhanVien(nv);
-            fillData(); // Làm mới bảng dữ liệu sau khi cập nhật
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-        }
-        
-    }//GEN-LAST:event_btnSuaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
