@@ -15,6 +15,7 @@ public class SanPhamView extends javax.swing.JInternalFrame {
      */
     public SanPhamView() {
         initComponents();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
     }
 
     /**

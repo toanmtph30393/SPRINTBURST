@@ -15,6 +15,7 @@ public class BanHangView extends javax.swing.JInternalFrame {
      */
     public BanHangView() {
         initComponents();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
     }
 
     /**

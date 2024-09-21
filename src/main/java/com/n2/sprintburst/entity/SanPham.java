@@ -10,23 +10,27 @@ import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 
 @Entity
 @Table(name = "SanPham")
-@SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
+
 public class SanPham {
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "tenSanPham")
-    @NaturalId
+    @NaturalId(mutable = true)
     private String tenSanPham;
 
     @Column(name = "maSanPham")
@@ -37,12 +41,14 @@ public class SanPham {
     private LocalDateTime ngayTao;
 
     @Column(name = "ngayCapNhat")
-    @Version
     private LocalDateTime ngayCapNhat;
 
     @Column(name = "ngayXoa")
     private LocalDateTime ngayXoa;
 
-    @Column(name = "trangThai", insertable=false, updatable=false)
+    @Column(name = "trangThai")
     private boolean trangThai;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sanPham", fetch = FetchType.EAGER, orphanRemoval = true)
+    List<SanPhamChiTiet> sanPhamChiTiets;
 }
