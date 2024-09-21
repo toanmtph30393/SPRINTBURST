@@ -77,7 +77,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     public int indexOfObj(NhanVien nhanVien) {
         return nhanVienService.getAllNhanVien().indexOf(nhanVien);
     }
-    
+
     public void showData() {
         KhachHang kh = khachHangService.getAllKhachHang().get(index);
 
@@ -418,9 +418,6 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-<<<<<<< HEAD
-=======
     private void tblBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangMouseClicked
         // TODO add your handling code here:
 
@@ -523,7 +520,6 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLamMoiMouseClicked
 
 
->>>>>>> parent of 553f6d2 (Merge branch 'main' of https://github.com/toanmtph30393/SPRINTBURST)
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnSua;
