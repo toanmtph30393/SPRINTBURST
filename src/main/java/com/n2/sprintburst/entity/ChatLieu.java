@@ -22,4 +22,6 @@ public class ChatLieu implements ThuocTinh{
     private String ten;
 
     
+
+    
 }

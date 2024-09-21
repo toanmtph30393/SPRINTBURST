@@ -501,7 +501,6 @@ public class KhachHangView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         }
 
-
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
@@ -518,7 +517,6 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         clearForm();
         JOptionPane.showMessageDialog(this, "Làm Mới Thành Công.");
     }//GEN-LAST:event_btnLamMoiMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
