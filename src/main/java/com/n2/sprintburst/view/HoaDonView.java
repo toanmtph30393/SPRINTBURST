@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
@@ -400,6 +399,7 @@ public class HoaDonView extends javax.swing.JFrame {
     private javax.swing.JTable tblLichSuHoaDon;
     // End of variables declaration//GEN-END:variables
 }
+<<<<<<< HEAD
 =======
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -800,3 +800,5 @@ public class HoaDonView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of dfd8fcf (change)
