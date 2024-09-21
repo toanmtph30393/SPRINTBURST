@@ -28,7 +28,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="pnlMenuBar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="912" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="907" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -226,7 +226,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnPhieuGiamGia" alignment="0" pref="200" max="32767" attributes="0"/>
+                  <Component id="btnPhieuGiamGia" alignment="0" pref="205" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
