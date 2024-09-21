@@ -17,70 +17,67 @@ import java.util.List;
  *
  * @author NhokHip
  */
-<<<<<<< Updated upstream:src/main/java/com/n2/sprintburst/service/HoaDonService.java
-public class HoaDonService {
-     public ArrayList<HoaDonResponse> getAll() {
-    String sql = """
-                 SELECT [id]
-                       ,[idKhachHang]
-                       ,[idNhanVien]
-                       ,[idPhieuGiamGia]
-                       ,[idTrangThaiHoaDon]
-                       ,[tongSauGiamGia]
-                       ,[tongTruocGiamGia]
-                       ,[ngayTao]
-                       ,[diaChiNguoiNhan]
-                       ,[dienThoaiNguoiNhan]
-                       ,[ghiChu]
-                       ,[maHoaDon]
-                       ,[tenNguoiNhan]
-                 FROM [dbo].[HoaDon]
-                 """;
-    ArrayList<HoaDonResponse> lists = new ArrayList<>();
-    try (Connection con = (Connection) HibernateConfig.getSessionFactory();  
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            HoaDonResponse response = HoaDonResponse.builder()
-                    .id(rs.getInt("id"))
-                    .idKhachHang(rs.getString("idKhachHang"))
-                    .idNhanVien(rs.getString("idNhanVien"))
-                    .idphieuGiamGia(rs.getString("idPhieuGiamGia"))
-                    .idtrangThaiHoaDon(rs.getString("idTrangThaiHoaDon"))
-                    .tongSauGiamGia(rs.getInt("tongSauGiamGia")) 
-                    .tongTruocGiamGia(rs.getInt("tongTruocGiamGia"))
-                    .ngayTao(rs.getTimestamp("ngayTao").toLocalDateTime())  
-                    .diaChiNguoiNhan(rs.getString("diaChiNguoiNhan"))
-                    .dienThoaiNguoiNhan(rs.getString("dienThoaiNguoiNhan"))
-                    .ghiChu(rs.getString("ghiChu"))
-                    .maHoaDon(rs.getString("maHoaDon"))
-                    .tenNguoiNhan(rs.getString("tenNguoiNhan"))
-                    .build();
-            lists.add(response);
-=======
+//public class HoaDonService {
+//     public ArrayList<HoaDonResponse> getAll() {
+//    String sql = """
+//                 SELECT [id]
+//                       ,[idKhachHang]
+//                       ,[idNhanVien]
+//                       ,[idPhieuGiamGia]
+//                       ,[idTrangThaiHoaDon]
+//                       ,[tongSauGiamGia]
+//                       ,[tongTruocGiamGia]
+//                       ,[ngayTao]
+//                       ,[diaChiNguoiNhan]
+//                       ,[dienThoaiNguoiNhan]
+//                       ,[ghiChu]
+//                       ,[maHoaDon]
+//                       ,[tenNguoiNhan]
+//                 FROM [dbo].[HoaDon]
+//                 """;
+//    ArrayList<HoaDonResponse> lists = new ArrayList<>();
+//    try (Connection con = (Connection) HibernateConfig.getSessionFactory();  
+//         PreparedStatement ps = con.prepareStatement(sql)) {
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {
+//            HoaDonResponse response = HoaDonResponse.builder()
+//                    .id(rs.getInt("id"))
+//                    .idKhachHang(rs.getString("idKhachHang"))
+//                    .idNhanVien(rs.getString("idNhanVien"))
+//                    .idphieuGiamGia(rs.getString("idPhieuGiamGia"))
+//                    .idtrangThaiHoaDon(rs.getString("idTrangThaiHoaDon"))
+//                    .tongSauGiamGia(rs.getInt("tongSauGiamGia")) 
+//                    .tongTruocGiamGia(rs.getInt("tongTruocGiamGia"))
+//                    .ngayTao(rs.getTimestamp("ngayTao").toLocalDateTime())  
+//                    .diaChiNguoiNhan(rs.getString("diaChiNguoiNhan"))
+//                    .dienThoaiNguoiNhan(rs.getString("dienThoaiNguoiNhan"))
+//                    .ghiChu(rs.getString("ghiChu"))
+//                    .maHoaDon(rs.getString("maHoaDon"))
+//                    .tenNguoiNhan(rs.getString("tenNguoiNhan"))
+//                    .build();
+//            lists.add(response);
+//            
 public class HoaDonRepository {
-     public List<HoaDon> getAllHoaDon() {
-    List<HoaDon> hd = new ArrayList<>();
-    String sql = "SELECT [id]\n" +
-"      ,[idKhachHang]\n" +
-"      ,[idNhanVien]\n" +
-"      ,[idPhieuGiamGia]\n" +
-"      ,[idTrangThaiHoaDon]\n" +
-"      ,[tongSauGiamGia]\n" +
-"      ,[tongTruocGiamGia]\n" +
-"      ,[ngayTao]\n" +
-"      ,[diaChiNguoiNhan]\n" +
-"      ,[dienThoaiNguoiNhan]\n" +
-"      ,[ghiChu]\n" +
-"      ,[maHoaDon]\n" +
-"      ,[tenNguoiNhan]\n" +
-"  FROM [dbo].[HoaDon]";
-    
-    try (Connection con = (Connection) new HibernateConfig().getSessionFactory();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-            HoaDon h;
+
+    public List<HoaDonResponse> getAllHoaDon() {
+        String sql = "SELECT [id]\n"
+                + "      ,[idKhachHang]\n"
+                + "      ,[idNhanVien]\n"
+                + "      ,[idPhieuGiamGia]\n"
+                + "      ,[idTrangThaiHoaDon]\n"
+                + "      ,[tongSauGiamGia]\n"
+                + "      ,[tongTruocGiamGia]\n"
+                + "      ,[ngayTao]\n"
+                + "      ,[diaChiNguoiNhan]\n"
+                + "      ,[dienThoaiNguoiNhan]\n"
+                + "      ,[ghiChu]\n"
+                + "      ,[maHoaDon]\n"
+                + "      ,[tenNguoiNhan]\n"
+                + "  FROM [dbo].[HoaDon]";
+        ArrayList<HoaDonResponse> lists = new ArrayList<>();
+        try (Connection con = (Connection) new HibernateConfig().getSessionFactory(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                HoaDon h;
 //            h = new HoaDon(
 //                    rs.getInt(1),        
 //                    rs.getString(2),     
@@ -97,13 +94,10 @@ public class HoaDonRepository {
 //                    rs.getInt(13)      
 //            );
 //            hd.add(h);
->>>>>>> Stashed changes:src/main/java/com/n2/sprintburst/repository/HoaDonRepository.java
+            }
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
         }
-    } catch (Exception e) {
-        e.printStackTrace(System.out);
+        return lists;
     }
-    return lists;
-}
-
-
 }
