@@ -73,6 +73,7 @@ public class HibernateConfig {
 
         });
         System.out.println(getSessionFactory());
+        
     }
 
 }
