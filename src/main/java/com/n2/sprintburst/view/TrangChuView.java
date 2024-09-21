@@ -15,7 +15,6 @@ public class TrangChuView extends javax.swing.JInternalFrame {
      */
     public TrangChuView() {
         initComponents();
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
 
     /**

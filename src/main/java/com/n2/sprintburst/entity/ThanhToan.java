@@ -14,6 +14,7 @@ public class ThanhToan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Version
     @Column(name = "ngayThanhToan")
     private LocalDateTime ngayThanhToan;
 

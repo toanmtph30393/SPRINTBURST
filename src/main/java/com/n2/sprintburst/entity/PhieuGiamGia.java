@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "PhieuGiamGia")
+@SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
 
 public class PhieuGiamGia {
     @Column(name = "id")
@@ -39,6 +40,6 @@ public class PhieuGiamGia {
     @Column(name = "ngayTao")
     private LocalDateTime ngayTao;
 
-    @Column(name = "trangThai")
+    @Column(name = "trangThai", insertable=false, updatable=false)
     private boolean trangThai;
 }
