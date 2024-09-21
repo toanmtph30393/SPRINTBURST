@@ -40,8 +40,8 @@ public class HibernateConfig {
                 .setProperty(AvailableSettings.JAKARTA_JDBC_USER, user)
                 .setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, password)
                 // Automatic schema export
-                .setProperty(AvailableSettings.JAKARTA_HBM2DDL_DATABASE_ACTION,
-                        Action.SPEC_ACTION_DROP_AND_CREATE)
+//                .setProperty(AvailableSettings.JAKARTA_HBM2DDL_DATABASE_ACTION,
+//                        Action.SPEC_ACTION_DROP_AND_CREATE)
                 // SQL statement logging
                 .setProperty(AvailableSettings.SHOW_SQL, true)
                 .setProperty(AvailableSettings.FORMAT_SQL, true)
