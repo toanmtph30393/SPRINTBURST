@@ -432,11 +432,15 @@ public class HoaDonView extends javax.swing.JFrame {
      */
     public HoaDonView() {
         initComponents();
+<<<<<<< HEAD
         hoaDonRepository = new HoaDonRepository();
         hoaDonChiTietRepository = new HoaDonChiTietRepository();
         dtmHoaDon = (DefaultTableModel) tblHoaDon.getModel();
         dtmHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
 
+=======
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
     }
 
     private void showTableHoaDonChiTiet(ArrayList<HoaDonChiTietResponse> lists) {

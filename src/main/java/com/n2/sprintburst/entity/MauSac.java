@@ -11,13 +11,14 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "MauSac")
-public class MauSac {
+public class MauSac implements ThuocTinh {
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "ten")
-    @NaturalId
+    @NaturalId(mutable = true)
     private String ten;
 }

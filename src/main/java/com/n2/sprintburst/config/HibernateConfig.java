@@ -1,19 +1,33 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 package com.n2.sprintburst.config;
 
 
 import com.n2.sprintburst.entity.*;
+=======
+package com.n2.sprintburst.config;
+
+import com.n2.sprintburst.entity.*;
+import jakarta.persistence.EntityManagerFactory;
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.schema.Action;
 
 public class HibernateConfig {
+<<<<<<< HEAD
+=======
+
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
     private static final SessionFactory sessionFactory;
     private static final String user = "sa";
     private static final String password = "changeme";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
     static {
         sessionFactory = new Configuration()
                 //annotated classes
@@ -34,15 +48,23 @@ public class HibernateConfig {
                 .addAnnotatedClass(HoaDonChiTiet.class)
                 .addAnnotatedClass(ThanhToan.class)
                 .addAnnotatedClass(LichSuHoaDon.class)
+<<<<<<< HEAD
 
+=======
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
                 //MSSQL
                 .setProperty(AvailableSettings.JAKARTA_JDBC_URL, "jdbc:sqlserver://localhost:1433;databaseName=SPRINT_BURST;encrypt=true;trustServerCertificate=true;")
                 // Credentials
                 .setProperty(AvailableSettings.JAKARTA_JDBC_USER, user)
                 .setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, password)
                 // Automatic schema export
+<<<<<<< HEAD
                 .setProperty(AvailableSettings.JAKARTA_HBM2DDL_DATABASE_ACTION,
                         Action.SPEC_ACTION_DROP_AND_CREATE)
+=======
+                //                .setProperty(AvailableSettings.JAKARTA_HBM2DDL_DATABASE_ACTION,
+                //                        Action.SPEC_ACTION_DROP_AND_CREATE)
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
                 // SQL statement logging
                 .setProperty(AvailableSettings.SHOW_SQL, true)
                 .setProperty(AvailableSettings.FORMAT_SQL, true)
@@ -55,6 +77,7 @@ public class HibernateConfig {
         return sessionFactory;
     }
 
+<<<<<<< HEAD
     public static void main(String[] args) {
         getSessionFactory().inTransaction(s -> {
             NhanVien nv = new NhanVien();
@@ -73,10 +96,19 @@ public class HibernateConfig {
 
 
         });
+=======
+    public static EntityManagerFactory entityManagerFactory() {
+        return sessionFactory.unwrap(EntityManagerFactory.class);
+    }
+
+    public static void main(String[] args) {
+
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
         System.out.println(getSessionFactory());
     }
 
 }
+<<<<<<< HEAD
 =======
 package com.n2.sprintburst.config;
 
@@ -157,3 +189,5 @@ public class HibernateConfig {
 
 }
 >>>>>>> Stashed changes
+=======
+>>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
