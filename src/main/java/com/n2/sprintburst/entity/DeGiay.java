@@ -20,6 +20,4 @@ public class DeGiay implements ThuocTinh {
     @Column(name = "ten")
     @NaturalId(mutable = true)
     private String ten;
-
-    
 }

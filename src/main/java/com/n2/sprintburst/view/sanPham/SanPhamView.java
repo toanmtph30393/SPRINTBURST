@@ -45,7 +45,7 @@ public class SanPhamView extends javax.swing.JPanel {
     public SanPhamView() {
         FlatLightLaf.setup();
         initComponents();
-        
+
         //init component models
         sanPhamTableModel = (DefaultTableModel) tblSanPham.getModel();
         thuocTinhTableModel = (DefaultTableModel) tblThuocTinh.getModel();

@@ -22,5 +22,4 @@ public class ThuongHieu implements ThuocTinh {
     @Column(name = "ten")
     @NaturalId(mutable = true)
     private String ten;
-
 }

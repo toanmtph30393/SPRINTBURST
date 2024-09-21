@@ -1,8 +1,5 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
 <<<<<<< Updated upstream
-=======
->>>>>>> parent of dfd8fcf (change)
 package com.n2.sprintburst.config;
 
 
@@ -112,7 +109,6 @@ public class HibernateConfig {
 
 }
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 package com.n2.sprintburst.config;
 
@@ -195,5 +191,3 @@ public class HibernateConfig {
 >>>>>>> Stashed changes
 =======
 >>>>>>> ab1b8049a7509197e5a33dde5075f82531b6e7e5
-=======
->>>>>>> parent of dfd8fcf (change)
