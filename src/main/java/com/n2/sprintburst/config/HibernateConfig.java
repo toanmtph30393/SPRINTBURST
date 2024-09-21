@@ -1,7 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 553f6d2 (Merge branch 'main' of https://github.com/toanmtph30393/SPRINTBURST)
 package com.n2.sprintburst.config;
 
 import com.n2.sprintburst.entity.*;
@@ -67,7 +64,6 @@ public class HibernateConfig {
     }
 
 }
-<<<<<<< HEAD
 =======
 package com.n2.sprintburst.config;
 
@@ -148,5 +144,3 @@ public class HibernateConfig {
 
 }
 >>>>>>> parent of ef1cce3 (Update HibernateConfig.java)
-=======
->>>>>>> parent of 553f6d2 (Merge branch 'main' of https://github.com/toanmtph30393/SPRINTBURST)
