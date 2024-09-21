@@ -8,7 +8,6 @@ import org.hibernate.annotations.SoftDeleteType;
 @Table(name = "HoaDonChiTiet")
 @SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
 public class HoaDonChiTiet {
-
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +19,7 @@ public class HoaDonChiTiet {
     @Column(name = "giaBan")
     private int giaBan;
 
-    @Column(name = "trangThai", insertable = false, updatable = false)
+    @Column(name = "trangThai", insertable=false, updatable=false)
     private boolean trangThai;
 
     @ManyToOne(fetch = FetchType.LAZY)

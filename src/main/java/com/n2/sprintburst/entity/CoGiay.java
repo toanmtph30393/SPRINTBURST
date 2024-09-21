@@ -20,5 +20,4 @@ public class CoGiay implements ThuocTinh {
     @Column(name = "ten")
     @NaturalId(mutable = true)
     private String ten;
-
 }
