@@ -21,4 +21,5 @@ public class XuatXu implements ThuocTinh {
     @Column(name = "ten")
     @NaturalId
     private String ten;
+
 }
