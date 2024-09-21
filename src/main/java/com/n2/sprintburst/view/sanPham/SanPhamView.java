@@ -4,6 +4,7 @@
  */
 package com.n2.sprintburst.view.sanPham;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.n2.sprintburst.entity.SanPham;
 import com.n2.sprintburst.entity.SanPhamChiTiet;
 import com.n2.sprintburst.entity.Size;
@@ -42,7 +43,7 @@ public class SanPhamView extends javax.swing.JPanel {
      * Creates new form SanPhamView
      */
     public SanPhamView() {
-
+        FlatLightLaf.setup();
         initComponents();
 
         //init component models

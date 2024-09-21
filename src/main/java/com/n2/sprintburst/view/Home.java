@@ -4,6 +4,9 @@
  */
 package com.n2.sprintburst.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
+
 /**
  *
  * @author Admin
@@ -17,7 +20,7 @@ public final class Home extends javax.swing.JFrame {
     KhachHangView khachHangView = new KhachHangView();
     NhanVienView nhanVienView = new NhanVienView();
     PhieuGiamGiaView phieuGiamGiaView = new PhieuGiamGiaView();
-    SanPhamView sanPhamView = new SanPhamView();
+    SanPhamIframeBuffer sanPhamView = new SanPhamIframeBuffer();
     ThongKeView thongKeView = new ThongKeView();
 
     // Khoi tao bien check hien thi menu
@@ -34,6 +37,7 @@ public final class Home extends javax.swing.JFrame {
      * Creates new form Home
      */
     public Home() {
+        FlatLightLaf.setup();
         initComponents();
 
         // Them menu vao man hinh
@@ -397,6 +401,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        sanPhamView.setBounds(220, 0, 1360, 830);
         sanPhamView.setVisible(true);
         checkSanPhamView = true;
     }//GEN-LAST:event_btnSanPhamMouseClicked
@@ -420,7 +425,6 @@ public final class Home extends javax.swing.JFrame {
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
         phieuGiamGiaView.setBounds(220, 0, 1360, 830);
-        phieuGiamGiaView.setSize(900, 600);
         phieuGiamGiaView.setVisible(true);
         checkPhieuGiamGiaView = true;
     }//GEN-LAST:event_btnPhieuGiamGiaMouseClicked
