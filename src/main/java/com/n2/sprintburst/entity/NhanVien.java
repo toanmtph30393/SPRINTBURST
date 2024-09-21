@@ -75,8 +75,4 @@ public class NhanVien {
         return hoTen;
     }
 
-    public void setHoTen(String aaaaaaaaaaaaaaaa) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }
