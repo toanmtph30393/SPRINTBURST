@@ -87,7 +87,6 @@ public final class Home extends javax.swing.JFrame {
         btnThongKe = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnNhanVien = new javax.swing.JLabel();
-        modulePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1630, 850));
@@ -297,36 +296,17 @@ public final class Home extends javax.swing.JFrame {
                 .addContainerGap(90, Short.MAX_VALUE))
         );
 
-        modulePanel.setPreferredSize(new java.awt.Dimension(900, 0));
-
-        javax.swing.GroupLayout modulePanelLayout = new javax.swing.GroupLayout(modulePanel);
-        modulePanel.setLayout(modulePanelLayout);
-        modulePanelLayout.setHorizontalGroup(
-            modulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-        modulePanelLayout.setVerticalGroup(
-            modulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(modulePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(912, 912, 912))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlMenuBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(modulePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
-                .addContainerGap())
         );
 
         pack();
@@ -564,7 +544,6 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPanel modulePanel;
     private javax.swing.JPanel pnlMenuBar;
     private javax.swing.JPanel pnlSanPham;
     // End of variables declaration//GEN-END:variables
