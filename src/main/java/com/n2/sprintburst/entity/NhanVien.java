@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "NhanVien")
-@SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
-public class NhanVien {
+public class NhanVien  {
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,11 @@ public class NhanVien {
     private String maTaiKhoan;
 
     @Column(name = "email")
-    @NaturalId
+    @NaturalId(mutable = true)
     private String email;
 
     @Column(name = "dienThoai")
-    @NaturalId
+    @NaturalId(mutable = true)
     private String dienThoai;
 
     @Column(name = "password")
@@ -56,13 +56,12 @@ public class NhanVien {
     private LocalDateTime ngayTao;
 
     @Column(name = "ngayCapNhat")
-    @Version
     private LocalDateTime ngayCapNhat;
 
     @Column(name = "ngayXoa")
     private LocalDateTime ngayXoa;
 
-    @Column(name = "trangThai", insertable=false, updatable=false)
+    @Column(name = "trangThai")
     private boolean trangThai;
 
 }

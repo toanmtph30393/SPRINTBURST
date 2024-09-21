@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "SanPhamChiTiet")
-@SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
 public class SanPhamChiTiet {
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,13 +37,12 @@ public class SanPhamChiTiet {
     private LocalDateTime ngayTao;
 
     @Column(name = "ngayCapNhat")
-    @Version
     private LocalDateTime ngayCapNhat;
 
     @Column(name = "ngayXoa")
     private LocalDateTime ngayXoa;
 
-    @Column(name = "trangThai", insertable=false, updatable=false)
+    @Column(name = "trangThai")
     private boolean trangThai;
 
     @Column(name = "giaBan")
@@ -52,35 +51,35 @@ public class SanPhamChiTiet {
     @Column(name = "soLuong")
     private int soLuong;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSanPham", referencedColumnName = "id")
     private SanPham sanPham;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idThuongHieu", referencedColumnName = "id")
     private ThuongHieu thuongHieu;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idXuatXu", referencedColumnName = "id")
     private XuatXu xuatXu;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idChatLieu", referencedColumnName = "id")
     private ChatLieu chatLieu;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idDeGiay", referencedColumnName = "id")
     private DeGiay deGiay;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idCoGiay", referencedColumnName = "id")
     private CoGiay coGiay;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idMauSac", referencedColumnName = "id")
     private MauSac mauSac;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSize", referencedColumnName = "id")
     private Size size;
 }
