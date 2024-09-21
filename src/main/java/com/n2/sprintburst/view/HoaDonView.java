@@ -15,6 +15,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
      */
     public HoaDonView() {
         initComponents();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
     }
 
     /**

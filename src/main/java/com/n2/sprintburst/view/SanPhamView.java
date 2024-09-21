@@ -8,14 +8,14 @@ package com.n2.sprintburst.view;
  *
  * @author Admin
  */
-public class TrangChuView extends javax.swing.JInternalFrame {
+public class SanPhamView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NhanVienView
      */
-    public TrangChuView() {
+    public SanPhamView() {
         initComponents();
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
     }
 
     /**
@@ -29,7 +29,7 @@ public class TrangChuView extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("TrangChu");
+        jLabel1.setText("SanPham");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -38,7 +38,7 @@ public class TrangChuView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addComponent(jLabel1)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

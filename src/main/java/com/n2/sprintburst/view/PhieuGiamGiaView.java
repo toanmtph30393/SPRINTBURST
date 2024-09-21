@@ -15,6 +15,7 @@ public class PhieuGiamGiaView extends javax.swing.JInternalFrame {
      */
     public PhieuGiamGiaView() {
         initComponents();
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
     }
 
     /**
