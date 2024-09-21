@@ -310,10 +310,10 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtIdNhanVien" min="-2" pref="199" max="-2" attributes="0"/>
                                       <Component id="txtNgayTao" min="-2" pref="199" max="-2" attributes="0"/>
                                       <Component id="txtGhiChu" min="-2" pref="199" max="-2" attributes="0"/>
                                       <Component id="txtDiaChi" min="-2" pref="199" max="-2" attributes="0"/>
+                                      <Component id="cboNhanVien" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -371,7 +371,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtIdNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cboNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -439,6 +439,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtId">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaKhachHang">
         </Component>
@@ -453,8 +456,9 @@
         <Component class="javax.swing.JTextField" name="txtGhiChu">
         </Component>
         <Component class="javax.swing.JTextField" name="txtNgayTao">
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtIdNhanVien">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnThem">
           <Properties>
@@ -487,6 +491,17 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnLamMoiMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cboNhanVien">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;NhanVien&gt;()" type="code"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;NhanVien&gt;()"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;NhanVien&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

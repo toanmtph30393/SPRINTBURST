@@ -13,7 +13,6 @@ import com.n2.sprintburst.entity.Size;
 import com.n2.sprintburst.entity.ThuocTinh;
 import com.n2.sprintburst.entity.ThuongHieu;
 import com.n2.sprintburst.entity.XuatXu;
-import com.sun.codemodel.ClassType;
 import java.util.List;
 import org.hibernate.Session;
 

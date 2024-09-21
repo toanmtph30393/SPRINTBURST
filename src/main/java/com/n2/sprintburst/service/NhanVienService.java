@@ -14,6 +14,7 @@ import org.hibernate.Session;
  * @author Admin
  */
 public class NhanVienService {
+
     public Session session;
 
     public List<NhanVien> getAllNhanVien() {
@@ -32,15 +33,16 @@ public class NhanVienService {
 
     public void saveNhanVien(NhanVien nhanVien) {
         session = HibernateConfig.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.persist(nhanVien); // Sử dụng persist cho đối tượng mới
+        session.getTransaction().begin();
+        // Sử dụng merge thay vì persist để cập nhật nếu đối tượng đã tồn tại
+        session.persist(nhanVien);
         session.getTransaction().commit();
         session.close();
     }
 
     public void updateNhanVien(NhanVien nhanVien) {
         session = HibernateConfig.getSessionFactory().openSession();
-        session.beginTransaction();
+        session.getTransaction().begin();
         session.merge(nhanVien); // Sử dụng merge để cập nhật đối tượng đã tồn tại
         session.getTransaction().commit();
         session.close();

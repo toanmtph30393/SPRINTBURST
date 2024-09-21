@@ -6,6 +6,9 @@ package com.n2.sprintburst.view;
 
 import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.service.NhanVienService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -38,8 +41,8 @@ public class NhanVienView extends javax.swing.JInternalFrame {
         tblBangNhanVien.setModel(defaultTableModel);
         defaultTableModel.setColumnIdentifiers(new String[]{"Id", "Là quản lý", "Trạng thái", "Ngày cập nhập", "Ngày tạo", "Ngày Xoá", "Địa chỉ", "Điện thoại", "Email", "Ghi chú", "Họ tên", "Mã tài khoản", "PassWord"});
     }
-    
-     private void clearForm() {
+
+    private void clearForm() {
         txtId.setText("");
 //        cboLaQuanLy.("");
 //        txtTenKhachHang.setText("");
@@ -53,7 +56,7 @@ public class NhanVienView extends javax.swing.JInternalFrame {
         txtHoTen.setText("");
         txtMaTaiKhoan.setText("");
         txtPassword.setText("");
-        
+
         fillData();
     }
 
@@ -78,22 +81,31 @@ public class NhanVienView extends javax.swing.JInternalFrame {
                 nhanVien.getPassword(),});
         }
     }
-    
+
     int index;
 
     public void showData() {
         NhanVien nv = nhanVienService.getAllNhanVien().get(index);
 
         txtId.setText(String.valueOf(nv.getId()));
-//        txtMaKhachHang.setText(kh.getMaKhachHang());
+        cboLaQuanLy.setSelectedItem(1);
+        
+        
         if (nv.isTrangThai()) {
             rdoHoatDong.setSelected(true);
         } else {
             rdoKhongHoatDong.setSelected(true);
         }
-        txtNgayCapNhap.setText(nv.getNgayCapNhat().toString());
-        txtNgayTao.setText(nv.getNgayTao().toString());
-        txtNgayXoa.setText(nv.getNgayXoa().toString());
+        
+        if(nv.getNgayCapNhat()!=null){
+            txtNgayCapNhap.setText(nv.getNgayCapNhat().toString());
+        }
+        if(nv.getNgayTao()!=null){
+            txtNgayTao.setText(nv.getNgayTao().toString());
+        }
+        if(nv.getNgayXoa()!=null){
+            txtNgayXoa.setText(nv.getNgayXoa().toString());
+        }              
         txtDiaChi.setText(nv.getDiaChi());
         txtDienThoai.setText(nv.getDienThoai());
         txtEmail.setText(nv.getEmail());
@@ -162,7 +174,7 @@ public class NhanVienView extends javax.swing.JInternalFrame {
 
         jLabel2.setText("id");
 
-        jLabel3.setText("Là quản lý");
+        jLabel3.setText("Chức vụ");
 
         jLabel4.setText("Emai");
 
@@ -186,7 +198,15 @@ public class NhanVienView extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Password");
 
-        cboLaQuanLy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtId.setEnabled(false);
+
+        txtNgayTao.setEnabled(false);
+
+        txtNgayCapNhap.setEnabled(false);
+
+        txtNgayXoa.setEnabled(false);
+
+        cboLaQuanLy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý", "Nhân viên" }));
 
         buttonGroup1.add(rdoHoatDong);
         rdoHoatDong.setText("hoạt động");
@@ -195,6 +215,11 @@ public class NhanVienView extends javax.swing.JInternalFrame {
         rdoKhongHoatDong.setText("không hoat động");
 
         btnThem.setText("Thêm");
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThemMouseClicked(evt);
+            }
+        });
 
         btnSua.setText("Sửa");
 
@@ -475,6 +500,32 @@ public class NhanVienView extends javax.swing.JInternalFrame {
         clearForm();
         JOptionPane.showMessageDialog(this, "Làm Mới Thành Công.");
     }//GEN-LAST:event_btnLamMoiMouseClicked
+
+    private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
+        // TODO add your handling code here:
+
+        NhanVien nv = new NhanVien();
+        boolean laQuanLy = cboLaQuanLy.getSelectedIndex() == 1; // Giả sử "Có" là chỉ số 1
+        nv.setLaQuanLy(laQuanLy);
+        if (rdoHoatDong.isSelected()) {
+            nv.setTrangThai(true);  // "Hoạt động" -> true
+        } else {
+            nv.setTrangThai(false);  // "Không hoạt động" -> false
+        }
+
+        nv.setDiaChi(txtDiaChi.getText());
+        nv.setDienThoai(txtDienThoai.getText());
+        nv.setEmail(txtEmail.getText());
+        nv.setGhiChu(txtGhiChu.getText());
+        nv.setHoTen(txtHoTen.getText());
+        nv.setMaTaiKhoan(txtMaTaiKhoan.getText());
+        nv.setPassword(txtPassword.getText());
+
+//        nv.setId((int) idChon);
+        nhanVienService.saveNhanVien(nv);
+
+        fillData();
+    }//GEN-LAST:event_btnThemMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

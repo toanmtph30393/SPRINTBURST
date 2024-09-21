@@ -5,7 +5,9 @@
 package com.n2.sprintburst.view;
 
 import com.n2.sprintburst.entity.KhachHang;
+import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.service.KhachHangService;
+import com.n2.sprintburst.service.NhanVienService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -22,6 +24,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     KhachHangService khachHangService = new KhachHangService();
+    NhanVienService nhanVienService = new NhanVienService();
     List<KhachHang> kh = new ArrayList<>();
     long idChon;
 
@@ -35,6 +38,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         setUpTable();
         defaultTableModel = (DefaultTableModel) tblBang.getModel();
         fillData();
+        fillComboBox();
     }
 
     public void setUpTable() {
@@ -60,8 +64,20 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         }
     }
 
+    private void fillComboBox() {
+        cboNhanVien.removeAllItems();
+        for (NhanVien e : nhanVienService.getAllNhanVien()) {
+            cboNhanVien.addItem(e);
+            cboNhanVien.addItem(e);
+        }
+    }
+
     int index;
 
+    public int indexOfObj(NhanVien nhanVien) {
+        return nhanVienService.getAllNhanVien().indexOf(nhanVien);
+    }
+    
     public void showData() {
         KhachHang kh = khachHangService.getAllKhachHang().get(index);
 
@@ -73,7 +89,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         txtDiaChi.setText(kh.getDiaChi());
         txtGhiChu.setText(kh.getGhiChu());
         txtNgayTao.setText(kh.getNgayTao().toString());
-        txtIdNhanVien.setText(String.valueOf(kh.getNhanVien()));
+        cboNhanVien.setSelectedIndex(indexOfObj(kh.getNhanVien()));
     }
 
     private void clearForm() {
@@ -85,7 +101,6 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         txtDiaChi.setText("");
         txtGhiChu.setText("");
         txtNgayTao.setText("");
-        txtIdNhanVien.setText("");
         fillData();
     }
 
@@ -126,11 +141,11 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         txtDiaChi = new javax.swing.JTextField();
         txtGhiChu = new javax.swing.JTextField();
         txtNgayTao = new javax.swing.JTextField();
-        txtIdNhanVien = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
+        cboNhanVien = new javax.swing.JComboBox<NhanVien>();
 
         tblBang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -245,6 +260,10 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Điện thoại");
 
+        txtId.setEnabled(false);
+
+        txtNgayTao.setEnabled(false);
+
         btnThem.setText("Them");
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -272,6 +291,8 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                 btnLamMoiMouseClicked(evt);
             }
         });
+
+        cboNhanVien.setModel(new javax.swing.DefaultComboBoxModel<NhanVien>());
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -321,10 +342,10 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIdNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
                                 .addComponent(btnLamMoi)))
@@ -366,7 +387,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(txtIdNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cboNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -414,18 +435,8 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         kh.setDienThoai(txtDienThoai.getText());
         kh.setDiaChi(txtDiaChi.getText());
         kh.setGhiChu(txtGhiChu.getText());
+        kh.setNhanVien(((NhanVien) cboNhanVien.getSelectedItem()));
 
-        String ngayTaoStr = txtNgayTao.getText();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"); // Định dạng ISO 8601
-        try {
-            LocalDateTime ngayTao = LocalDateTime.parse(ngayTaoStr, formatter);
-            kh.setNgayTao(ngayTao); // Giả sử NgayTao trong KhachHang là LocalDateTime
-        } catch (DateTimeParseException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ nếu người dùng nhập sai định dạng ngày
-            JOptionPane.showMessageDialog(this, "Ngày tạo không đúng định dạng (yyyy-MM-dd'T'HH:mm)", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return; // Ngừng thực hiện thêm khách hàng nếu sai định dạng
-        }
-//        kh.setNhanVien(txtIdNhanVien.getText());
         // Thực hiện các bước thêm khách hàng vào cơ sở dữ liệu
         kh.setId((int) idChon);
         khachHangService.saveKhachHang(kh);
@@ -436,67 +447,57 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         // TODO add your handling code here:
 
-        KhachHang kh = new KhachHang();
-//        if (khachHangService.isEmpty(txtMaKhachHang, "Không để trống ma")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtTenKhachHang, "Không để trống ten")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtEmail, "Không để trống emai")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtDienThoai, "Không để trống diện thoại")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtDiaChi, "Không để trống địa chỉ")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtGhiChu, "Không để trống ghi chú")) {
-//            return;
-//        }
-//        if (khachHangService.isEmpty(txtNgayTao, "Không để trống ngày")) {
-//            return;
-//        }
+        String id = txtId.getText();
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Tìm khách hàng hiện tại trong cơ sở dữ liệu
+        KhachHang kh = khachHangService.getKhachHangById(id); // Phương thức tìm kiếm theo ID
+
+        if (kh == null) {
+            JOptionPane.showMessageDialog(this, "Khách hàng không tồn tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Kiểm tra các trường không được để trống
+        if (khachHangService.isEmpty(txtMaKhachHang, "Không để trống mã")) {
+            return;
+        }
+        if (khachHangService.isEmpty(txtTenKhachHang, "Không để trống tên")) {
+            return;
+        }
+        if (khachHangService.isEmpty(txtEmail, "Không để trống email")) {
+            return;
+        }
+        if (khachHangService.isEmpty(txtDienThoai, "Không để trống điện thoại")) {
+            return;
+        }
+        if (khachHangService.isEmpty(txtDiaChi, "Không để trống địa chỉ")) {
+            return;
+        }
+        if (khachHangService.isEmpty(txtGhiChu, "Không để trống ghi chú")) {
+            return;
+        }
+        if (khachHangService.isEmpty(txtNgayTao, "Không để trống ngày")) {
+            return;
+        }
+
+        // Xác nhận cập nhật
         int luaChon = JOptionPane.showConfirmDialog(this, "Xác nhận thực hiện", "Thông báo", JOptionPane.YES_NO_OPTION);
         if (luaChon == JOptionPane.YES_OPTION) {
-//            try {
-            // Set các trường thông tin vào đối tượng KhachHang
-//                try {
-//                    Integer id = Integer.parseInt(txtId.getText()); // Ép kiểu từ String sang Integer
-//                    kh.setId(id);
-//                } catch (NumberFormatException e) {
-//                    JOptionPane.showMessageDialog(this, "ID không hợp lệ. Vui lòng nhập số nguyên.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//                    return; // Ngừng thực hiện nếu sai định dạng ID
-//                }
+            // Cập nhật thông tin vào đối tượng đã tìm thấy
             kh.setMaKhachHang(txtMaKhachHang.getText());
             kh.setTenKhachHang(txtTenKhachHang.getText());
             kh.setEmail(txtEmail.getText());
             kh.setDienThoai(txtDienThoai.getText());
             kh.setDiaChi(txtDiaChi.getText());
             kh.setGhiChu(txtGhiChu.getText());
+            kh.setNhanVien(((NhanVien) cboNhanVien.getSelectedItem()));
 
-            // Ép kiểu cho NgayTao từ String sang LocalDateTime
-//                String ngayTaoStr = txtNgayTao.getText();
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"); // Định dạng ISO 8601
-//                LocalDateTime ngayTao = LocalDateTime.parse(ngayTaoStr, formatter);
-//                kh.setNgayTao(ngayTao); // Giả sử NgayTao trong KhachHang là LocalDateTime
-//
-//                // Ép kiểu cho Id nhân viên nếu cần
-////                Integer idNhanVien = Integer.parseInt(txtIdNhanVien.getText());
-////                kh.setNhanVien(txtIdNhanVien.); // Giả sử NhanVien trong KhachHang là kiểu Integer
-//
-//                // Cập nhật thông tin khách hàng trong cơ sở dữ liệu
-//                
-//
-//            } catch (NumberFormatException e) {
-//                // Xử lý ngoại lệ khi Id nhân viên hoặc các giá trị số không hợp lệ
-//                JOptionPane.showMessageDialog(this, "ID nhân viên không hợp lệ. Vui lòng nhập số nguyên.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//            } catch (DateTimeParseException e) {
-//                // Xử lý ngoại lệ cho ngày tạo không đúng định dạng
-//                JOptionPane.showMessageDialog(this, "Ngày tạo không đúng định dạng (yyyy-MM-dd'T'HH:mm)", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//            }
-            khachHangService.updateKhachHang(kh);  // Phương thức cập nhật thay vì save
+            // Cập nhật khách hàng
+            khachHangService.updateKhachHang(kh);
             fillData(); // Làm mới bảng dữ liệu sau khi cập nhật
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         }
@@ -506,6 +507,11 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
         // TODO add your handling code here:
+
+        // Xác nhận trước khi thực hiện xóa
+        khachHangService.deleteKhachHang(txtId.getText());
+        kh = khachHangService.getAllKhachHang();
+        fillData();
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseClicked
@@ -520,6 +526,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox<NhanVien> cboNhanVien;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -545,7 +552,6 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGhiChu;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtIdNhanVien;
     private javax.swing.JTextField txtMaKhachHang;
     private javax.swing.JTextField txtNgayTao;
     private javax.swing.JTextField txtTenKhachHang;

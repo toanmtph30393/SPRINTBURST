@@ -10,6 +10,7 @@ import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,18 +26,16 @@ public class KhachHang {
     private int id;
 
     @Column(name = "maKhachHang")
-    @NaturalId
     private String maKhachHang;
 
     @Column(name = "tenKhachHang")
     private String tenKhachHang;
 
     @Column(name = "email")
-    @NaturalId
     private String email;
 
     @Column(name = "dienThoai")
-    @NaturalId
+    
     private String dienThoai;
 
     @Column(name = "diaChi")
@@ -46,14 +45,13 @@ public class KhachHang {
     private String ghiChu;
 
     @Column(name = "ngayTao")
+    @CreationTimestamp
     private LocalDateTime ngayTao;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idNhanVien", referencedColumnName = "id")
     private NhanVien nhanVien;
 
-  
-    
     
 }
 
