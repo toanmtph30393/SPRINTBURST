@@ -49,6 +49,19 @@ public class SanPhamChiTietService {
         }
     }
 
+    public static void delte(SanPhamChiTiet spct) {
+        try {
+            HibernateConfig.getSessionFactory().inTransaction(s -> {
+                spct.setTrangThai(false);
+                s.merge(spct);
+                s.flush();
+            });
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public static void main(String[] args) {
         SanPhamChiTiet spct = new SanPhamChiTiet();
         SanPham sp = new SanPham();
