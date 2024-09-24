@@ -77,7 +77,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     public int indexOfObj(NhanVien nhanVien) {
         return nhanVienService.getAllNhanVien().indexOf(nhanVien);
     }
-
+    
     public void showData() {
         KhachHang kh = khachHangService.getAllKhachHang().get(index);
 
@@ -418,6 +418,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     private void tblBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangMouseClicked
         // TODO add your handling code here:
 
@@ -501,6 +502,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         }
 
+
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
@@ -517,6 +519,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         clearForm();
         JOptionPane.showMessageDialog(this, "Làm Mới Thành Công.");
     }//GEN-LAST:event_btnLamMoiMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;

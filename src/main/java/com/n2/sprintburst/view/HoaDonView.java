@@ -8,14 +8,14 @@ package com.n2.sprintburst.view;
  *
  * @author Admin
  */
-public class ThongKeView extends javax.swing.JInternalFrame {
+public class HoaDonView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NhanVienView
      */
-    public ThongKeView() {
+    public HoaDonView() {
         initComponents();
-        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
     }
 
     /**
@@ -29,7 +29,7 @@ public class ThongKeView extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("ThongKe");
+        jLabel1.setText("Hoa don");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -38,7 +38,7 @@ public class ThongKeView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addComponent(jLabel1)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -50,6 +50,7 @@ public class ThongKeView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
