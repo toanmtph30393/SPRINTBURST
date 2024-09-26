@@ -15,7 +15,7 @@ public final class Home extends javax.swing.JFrame {
 
     // Khoi tao cac menu con
     BanHangView banHangView = new BanHangView();
-    SanPhamIframeBuffer hoaDonView = new SanPhamIframeBuffer();
+    HoaDonView hoaDonView = new HoaDonView();
     TrangChuView trangChuView = new TrangChuView();
     KhachHangView khachHangView = new KhachHangView();
     NhanVienView nhanVienView = new NhanVienView();
