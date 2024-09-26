@@ -258,6 +258,7 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
         jLabel12 = new javax.swing.JLabel();
         txtTenSPCTCreate = new javax.swing.JTextField();
         btnCreateSPCT1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 0));
@@ -483,6 +484,19 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -495,8 +509,10 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCloseSPCTCreate)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCloseSPCTCreate)
+                        .addGap(18, 18, 18)
                         .addComponent(btnCreateSPCT1)
                         .addGap(18, 18, 18)
                         .addComponent(btnCreateSPCT))
@@ -540,11 +556,13 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
                 .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCloseSPCTCreate)
-                    .addComponent(btnCreateSPCT)
-                    .addComponent(btnCreateSPCT1))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCloseSPCTCreate)
+                        .addComponent(btnCreateSPCT)
+                        .addComponent(btnCreateSPCT1))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -657,6 +675,7 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtPriceSPCTCreate;
     private javax.swing.JTextField txtSoLuongSPCTCreate;
     private javax.swing.JTextField txtTenSPCTCreate;
