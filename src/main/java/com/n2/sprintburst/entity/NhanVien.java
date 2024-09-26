@@ -20,7 +20,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "NhanVien")
-@SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
 public class NhanVien {
 
     @Column(name = "id")
@@ -67,7 +66,7 @@ public class NhanVien {
     @UpdateTimestamp
     private LocalDateTime ngayXoa;
 
-    @Column(name = "trangThai", insertable = false, updatable = false)
+    @Column(name = "trangThai")
     private boolean trangThai;
 
     @Override

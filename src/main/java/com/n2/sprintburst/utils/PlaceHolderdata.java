@@ -5,7 +5,9 @@
 package com.n2.sprintburst.utils;
 
 import com.n2.sprintburst.config.HibernateConfig;
+import com.n2.sprintburst.entity.MauSac;
 import com.n2.sprintburst.entity.SanPham;
+import com.n2.sprintburst.entity.SanPhamChiTiet;
 import java.time.LocalDateTime;
 
 /**
@@ -28,6 +30,6 @@ public class PlaceHolderdata {
     }
 
     public static void main(String[] args) {
-        insertData();
+        System.err.println(new SanPhamChiTiet(1, "aaa", "bbb", "ccc", LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), true, 1, 2, null, null, null, null, null, null, new MauSac(0, "ff"), null).toString());
     }
 }

@@ -1,12 +1,20 @@
 package com.n2.sprintburst.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+
 @Entity
 @Table(name = "HoaDonChiTiet")
-@SoftDelete(strategy = SoftDeleteType.ACTIVE, columnName = "trangThai")
 public class HoaDonChiTiet {
 
     @Column(name = "id")
@@ -20,14 +28,14 @@ public class HoaDonChiTiet {
     @Column(name = "giaBan")
     private int giaBan;
 
-    @Column(name = "trangThai", insertable = false, updatable = false)
+    @Column(name = "trangThai")
     private boolean trangThai;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idHoaDon", referencedColumnName = "id")
     private HoaDon hoaDon;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSanPhamChiTiet", referencedColumnName = "id")
     private SanPhamChiTiet sanPhamChiTiet;
 }

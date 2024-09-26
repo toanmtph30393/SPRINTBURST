@@ -44,7 +44,7 @@ public class SanPhamService {
             StringBuilder query = new StringBuilder("from SanPham where ");
 
             if (keyword != null) {
-                query.append("maSanPham like :keyword or tenSanPham like :keyword ");
+                query.append("(maSanPham like :keyword or tenSanPham like :keyword) ");
                 query.append("and trangThai = :status");
             } else {
                 query.append("trangThai = :status");
@@ -67,6 +67,15 @@ public class SanPhamService {
         try {
 
             HibernateConfig.getSessionFactory().inTransaction(s -> {
+                List<SanPham> duplicateName = s.createSelectionQuery("from SanPham where tenSanPham like :tenSanPham", SanPham.class).setParameter("tenSanPham", sp.getTenSanPham()).getResultList();
+
+                if (!duplicateName.isEmpty()) {
+                    s.createMutationQuery("update SanPham set trangThai = true where tenSanPham like :tenSanPham").setParameter("tenSanPham", sp.getTenSanPham()).executeUpdate();
+
+                    return;
+
+                }
+
                 SanPham found = s.createSelectionQuery("from SanPham order by id desc", SanPham.class).setMaxResults(1).getSingleResultOrNull();
                 int newId;
                 if (found == null) {

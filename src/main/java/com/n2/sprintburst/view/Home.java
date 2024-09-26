@@ -5,6 +5,7 @@
 package com.n2.sprintburst.view;
 
 import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,12 +15,12 @@ public final class Home extends javax.swing.JFrame {
 
     // Khoi tao cac menu con
     BanHangView banHangView = new BanHangView();
-    SanPhamIframeBuffer hoaDonView = new SanPhamIframeBuffer();
+    HoaDonView hoaDonView = new HoaDonView();
     TrangChuView trangChuView = new TrangChuView();
     KhachHangView khachHangView = new KhachHangView();
     NhanVienView nhanVienView = new NhanVienView();
     PhieuGiamGiaView phieuGiamGiaView = new PhieuGiamGiaView();
-    SanPhamView sanPhamView = new SanPhamView();
+    SanPhamIframeBuffer sanPhamView = new SanPhamIframeBuffer();
     ThongKeView thongKeView = new ThongKeView();
 
     // Khoi tao bien check hien thi menu
@@ -328,7 +329,7 @@ public final class Home extends javax.swing.JFrame {
         if (checkTrangChuView == true) {
             return;
         }
-
+        
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
@@ -399,7 +400,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        phieuGiamGiaView.setBounds(220, 0, 1360, 830);
+        sanPhamView.setBounds(420, 100, 950, 600);
         sanPhamView.setVisible(true);
         checkSanPhamView = true;
     }//GEN-LAST:event_btnSanPhamMouseClicked

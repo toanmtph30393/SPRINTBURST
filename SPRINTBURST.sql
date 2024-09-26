@@ -94,7 +94,7 @@ go
 create table Size
 (
     id     int identity (1,1) primary key,
-    sizeVn float
+    sizeVn nvarchar(max)
 );
 go
 

@@ -2,10 +2,17 @@ package com.n2.sprintburst.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.SoftDelete;
-import org.hibernate.annotations.SoftDeleteType;
 
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 
 @Entity
 @Table(name = "HoaDon")
@@ -40,19 +47,19 @@ public class HoaDon {
     @Column(name = "diaChiNguoiNhan")
     private String diaChiNguoiNhan;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idKhachHang", referencedColumnName = "id")
     private KhachHang khachHang;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idNhanVien", referencedColumnName = "id")
     private NhanVien nhanVien;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTrangThaiHoaDon", referencedColumnName = "id")
     private TrangThaiHoaDon trangThaiHoaDon;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idPhieuGiamGia", referencedColumnName = "id")
     private PhieuGiamGia phieuGiamGia;
 

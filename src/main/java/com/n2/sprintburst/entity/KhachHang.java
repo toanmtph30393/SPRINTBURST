@@ -48,7 +48,7 @@ public class KhachHang {
     @CreationTimestamp
     private LocalDateTime ngayTao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idNhanVien", referencedColumnName = "id")
     private NhanVien nhanVien;
 

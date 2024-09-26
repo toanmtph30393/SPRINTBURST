@@ -108,14 +108,14 @@ public class SanPhamChiTietCreateview extends javax.swing.JFrame implements SanP
         sizeData = ThuocTinhService.getThuocTinhByTableName("Size");
         sanPhamData = SanPhamService.getAllActive();
 
-        Collections.reverse(thuongHieuData);
-        Collections.reverse(xuatXuData);
-        Collections.reverse(chatLieuData);
-        Collections.reverse(deGiayData);
-        Collections.reverse(coGiayData);
-        Collections.reverse(mauSacData);
-        Collections.reverse(sizeData);
-        Collections.reverse(sanPhamData);
+//        Collections.reverse(thuongHieuData);
+//        Collections.reverse(xuatXuData);
+//        Collections.reverse(chatLieuData);
+//        Collections.reverse(deGiayData);
+//        Collections.reverse(coGiayData);
+//        Collections.reverse(mauSacData);
+//        Collections.reverse(sizeData);
+//        Collections.reverse(sanPhamData);
 
         cbxThuongHieuBoxModel.removeAllElements();
         cbxXuatXuBoxModel.removeAllElements();

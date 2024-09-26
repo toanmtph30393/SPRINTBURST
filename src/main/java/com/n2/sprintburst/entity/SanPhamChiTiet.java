@@ -1,5 +1,7 @@
 package com.n2.sprintburst.entity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -80,4 +83,11 @@ public class SanPhamChiTiet {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSize", referencedColumnName = "id")
     private Size size;
+
+    @Override
+    public String toString() {
+        Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return GSON.toJson(this);
+    }
+
 }
