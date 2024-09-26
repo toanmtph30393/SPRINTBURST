@@ -166,6 +166,8 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblLichSuHoaDon = new javax.swing.JTable();
 
+        setPreferredSize(new java.awt.Dimension(1630, 700));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
