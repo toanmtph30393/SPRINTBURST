@@ -329,7 +329,7 @@ public final class Home extends javax.swing.JFrame {
         if (checkTrangChuView == true) {
             return;
         }
-
+        
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check

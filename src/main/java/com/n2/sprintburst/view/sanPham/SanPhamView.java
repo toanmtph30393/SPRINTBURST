@@ -4,6 +4,9 @@
  */
 package com.n2.sprintburst.view.sanPham;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.n2.sprintburst.entity.ChatLieu;
 import com.n2.sprintburst.entity.CoGiay;
 import com.n2.sprintburst.entity.DeGiay;
@@ -18,6 +21,7 @@ import com.n2.sprintburst.response.SanPhamChiTietFilterObject;
 import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.service.SanPhamService;
 import com.n2.sprintburst.service.ThuocTinhService;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
@@ -28,6 +32,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -98,8 +103,8 @@ public class SanPhamView extends javax.swing.JPanel {
         initSanPhamTable();
         renderSanPhamChiTietTable();
 
-        Collections.reverse(sanPhamState);
-        Collections.reverse(sanPhamChiTietState);
+//        Collections.reverse(sanPhamState);
+//        Collections.reverse(sanPhamChiTietState);
     }
 
     //STATES
@@ -233,13 +238,13 @@ public class SanPhamView extends javax.swing.JPanel {
         mauSacData = ThuocTinhService.getThuocTinhByTableName("MauSac");
         sizeData = ThuocTinhService.getThuocTinhByTableName("Size");
 
-        Collections.reverse(thuongHieuData);
-        Collections.reverse(xuatXuData);
-        Collections.reverse(chatLieuData);
-        Collections.reverse(deGiayData);
-        Collections.reverse(coGiayData);
-        Collections.reverse(mauSacData);
-        Collections.reverse(sizeData);
+//        Collections.reverse(thuongHieuData);
+//        Collections.reverse(xuatXuData);
+//        Collections.reverse(chatLieuData);
+//        Collections.reverse(deGiayData);
+//        Collections.reverse(coGiayData);
+//        Collections.reverse(mauSacData);
+//        Collections.reverse(sizeData);
 
         cbxThuongHieuBoxModel.removeAllElements();
         cbxXuatXuBoxModel.removeAllElements();
@@ -517,6 +522,8 @@ public class SanPhamView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
