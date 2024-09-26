@@ -90,4 +90,14 @@ public class KhachHangService {
             return false;
         }
     }
+    
+    public KhachHang timKiemKhachHang(String makh) {
+        List<KhachHang> khachHangList = getAllKhachHang();
+        for (KhachHang kh : khachHangList) {
+            if (kh.getMaKhachHang().equals(makh)) {
+                return kh;
+            }
+        }
+        return null;
+    }
 }
