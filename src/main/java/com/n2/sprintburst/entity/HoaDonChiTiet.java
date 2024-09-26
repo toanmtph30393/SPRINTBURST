@@ -31,11 +31,11 @@ public class HoaDonChiTiet {
     @Column(name = "trangThai")
     private boolean trangThai;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idHoaDon", referencedColumnName = "id")
     private HoaDon hoaDon;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSanPhamChiTiet", referencedColumnName = "id")
     private SanPhamChiTiet sanPhamChiTiet;
 }

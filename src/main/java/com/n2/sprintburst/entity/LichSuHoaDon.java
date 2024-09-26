@@ -28,11 +28,11 @@ public class LichSuHoaDon {
     @Column(name = "ghiChu")
     private String ghiChu;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idHoaDon", referencedColumnName = "id")
     private HoaDon hoaDon;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idNhanVien", referencedColumnName = "id")
     private NhanVien nhanVien;
 }
