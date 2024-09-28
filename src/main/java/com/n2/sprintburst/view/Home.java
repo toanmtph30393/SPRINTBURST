@@ -92,7 +92,6 @@ public final class Home extends javax.swing.JFrame {
         btnNhanVien = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1630, 850));
 
         pnlMenuBar.setBackground(new java.awt.Color(204, 204, 204));
 
