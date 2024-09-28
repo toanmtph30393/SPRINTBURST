@@ -222,6 +222,11 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                 btntimLichSuGiaoDichMouseClicked(evt);
             }
         });
+        btntimLichSuGiaoDich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimLichSuGiaoDichActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -518,6 +523,10 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         showData();
         fillComboBox();
     }//GEN-LAST:event_tblBangMouseClicked
+
+    private void btntimLichSuGiaoDichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimLichSuGiaoDichActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btntimLichSuGiaoDichActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
