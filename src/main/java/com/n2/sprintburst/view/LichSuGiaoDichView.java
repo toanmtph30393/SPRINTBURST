@@ -45,7 +45,7 @@ public class LichSuGiaoDichView extends javax.swing.JFrame {
         defaultTableModel1.setRowCount(0);
         for (HoaDon hoaDon : hd) {
             defaultTableModel1.addRow(new Object[]{
-                hoaDon.getKhachHang(),
+                hoaDon.getKhachHang().getId(),
                 hoaDon.getTongSauGiamGia(),
                 hoaDon.getTongTruocGiamGia(),
                 hoaDon.getNgayTao(),

@@ -6,6 +6,7 @@ package com.n2.sprintburst.service;
 
 import com.n2.sprintburst.config.HibernateConfig;
 import com.n2.sprintburst.entity.KhachHang;
+import com.n2.sprintburst.entity.NhanVien;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -36,18 +37,18 @@ public class KhachHangService {
         return nhanVien;
     }
 
-    public void saveKhachHang(KhachHang KhachHang) {
+    public void saveKhachHang(KhachHang khachHang) {
         session = HibernateConfig.getSessionFactory().openSession();
         session.beginTransaction();
-        session.persist(KhachHang); // Sử dụng persist cho đối tượng mới
+        session.persist(khachHang); // Sử dụng persist cho đối tượng mới
         session.getTransaction().commit();
         session.close();
     }
 
-    public void updateKhachHang(KhachHang KhachHang) {
+    public void updateKhachHang(KhachHang khachHang) {
         session = HibernateConfig.getSessionFactory().openSession();
         session.beginTransaction();
-        session.merge(KhachHang); // Sử dụng merge để cập nhật đối tượng đã tồn tại
+        session.merge(khachHang); // Sử dụng merge để cập nhật đối tượng đã tồn tại
         session.getTransaction().commit();
         session.close();
 
@@ -90,7 +91,7 @@ public class KhachHangService {
             return false;
         }
     }
-    
+
     public KhachHang timKiemKhachHang(String makh) {
         List<KhachHang> khachHangList = getAllKhachHang();
         for (KhachHang kh : khachHangList) {
