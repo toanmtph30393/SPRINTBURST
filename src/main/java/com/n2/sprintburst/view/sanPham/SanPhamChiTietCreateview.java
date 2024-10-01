@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -116,7 +117,6 @@ public class SanPhamChiTietCreateview extends javax.swing.JFrame implements SanP
 //        Collections.reverse(mauSacData);
 //        Collections.reverse(sizeData);
 //        Collections.reverse(sanPhamData);
-
         cbxThuongHieuBoxModel.removeAllElements();
         cbxXuatXuBoxModel.removeAllElements();
         cbxChatLieuBoxModel.removeAllElements();
@@ -548,6 +548,9 @@ public class SanPhamChiTietCreateview extends javax.swing.JFrame implements SanP
         this.dispose();    }//GEN-LAST:event_btnCloseSPCTCreateActionPerformed
 
     private void btnCreateSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateSPCTActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Add?", "Add?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+            return;
+        }
         addSanPhamChiTiet();
     }//GEN-LAST:event_btnCreateSPCTActionPerformed
 
