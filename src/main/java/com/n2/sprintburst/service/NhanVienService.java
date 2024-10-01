@@ -6,7 +6,10 @@ package com.n2.sprintburst.service;
 
 import com.n2.sprintburst.config.HibernateConfig;
 import com.n2.sprintburst.entity.NhanVien;
+import java.awt.Color;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import org.hibernate.Session;
 
 /**
@@ -24,7 +27,7 @@ public class NhanVienService {
         return list;
     }
 
-    public NhanVien getNhanVienById(int id) {
+    public NhanVien getNhanVienById(String id) {
         session = HibernateConfig.getSessionFactory().openSession();
         NhanVien nhanVien = session.get(NhanVien.class, id);
         session.close();
@@ -48,7 +51,7 @@ public class NhanVienService {
         session.close();
     }
 
-    public void deleteNhanVien(int id) {
+    public void deleteNhanVien(String id) {
         session = HibernateConfig.getSessionFactory().openSession();
         session.beginTransaction();
         NhanVien nhanVien = getNhanVienById(id);
@@ -58,4 +61,27 @@ public class NhanVienService {
         session.getTransaction().commit();
         session.close();
     }
+
+    public boolean isEmpty(JTextField txt, String mss) {
+        if (txt.getText().equals("")) {
+            txt.getCursor();
+            txt.requestFocus();
+            txt.setBackground(Color.lightGray);
+            JOptionPane.showMessageDialog(null, mss);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public NhanVien timKiemNhanVien(String manv) {
+        List<NhanVien> NhanVienList = getAllNhanVien();
+        for (NhanVien nv : NhanVienList) {
+            if (nv.getHoTen().equals(manv)) {
+                return nv;
+            }
+        }
+        return null;
+    }
+    
 }
