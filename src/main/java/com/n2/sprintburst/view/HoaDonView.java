@@ -178,7 +178,7 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
     if (selectedRow != -1) {
         DefaultTableModel modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
         DefaultTableModel modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
-        DefaultTableModel modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+    DefaultTableModel modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         int columnCount = tblHoaDon.getColumnCount();
         int columnCountHoaDonChiTiet = tblHoaDonChiTiet.getColumnCount();
         Object[] rowData = new Object[columnCount];
@@ -441,55 +441,56 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
 
     private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
      // TODO add your handling code here:
+   
     }//GEN-LAST:event_cbbTrangThaiActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
         int id = hoaDonService.getAllHoaDon().get(tblHoaDon.getSelectedRow()).getId();
-//         LoadHoaDonChiTiet(hoaDonChiTietService.getHoaDonByID(id));
+         LoadHoaDonChiTiet(hoaDonChiTietService.getHoaDonByID(id));
         Load();
 
         
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-//        // TODO add your handling code here:
-//         try {
-//            int row = this.tblHoaDon.getSelectedRow();
-//            if (row == -1) {
-//                JOptionPane.showMessageDialog(this, "Chọn 1 hóa đơn để in");
-//                return;
-//            }
-//            String ma = this.tblHoaDon.getValueAt(row, 1).toString();
-//            HoaDon hoaDon = hoaDonService.findHdByMa(ma);
-//            if (hoaDon.getId()==2 ) {
-//                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?");
-//                if (confirm == JOptionPane.YES_OPTION) {
-//                    JFileChooser avatarChooser = new JFileChooser("D:\\");
-//                    avatarChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //Giới hạn chỉ chọn đc thư mục
-//                    FileNameExtensionFilter avatarFilter = new FileNameExtensionFilter("Exel File", "xlsx");
-//                    avatarChooser.setFileFilter(avatarFilter);
-//                    avatarChooser.setAcceptAllFileFilterUsed(false);
-//                    int selectFileCheck = avatarChooser.showOpenDialog(this);
-//                    File selectedFile = avatarChooser.getSelectedFile();
-//                    if (!(selectFileCheck == JFileChooser.APPROVE_OPTION)) {
-//                        return;
-//                    }
-//                    //Muốn lấy đường dẫn và để vào export PDF thì 
-//                    String path = selectedFile.getAbsolutePath();
-//                    if (hoaDon.getId()== 0) {
-//                        ExportPdfHoaDon export = new ExportPdfHoaDon();
-//                        export.exportBill(hoaDon, hdct, path);
-//                    }
-//                    JOptionPane.showMessageDialog(this, "In hóa đơn thành công");
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Hãy chọn 1 hóa đơn đã thanh toán");
-//                return;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        // TODO add your handling code here:
+         try {
+            int row = this.tblHoaDon.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Chọn 1 hóa đơn để in");
+                return;
+            }
+            String ma = this.tblHoaDon.getValueAt(row, 1).toString();
+            HoaDon hoaDon = hoaDonService.findHdByMa(ma);
+            if (hoaDon.getId()==2 ) {
+                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?");
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JFileChooser avatarChooser = new JFileChooser("D:\\");
+                    avatarChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //Giới hạn chỉ chọn đc thư mục
+                    FileNameExtensionFilter avatarFilter = new FileNameExtensionFilter("Exel File", "xlsx");
+                    avatarChooser.setFileFilter(avatarFilter);
+                    avatarChooser.setAcceptAllFileFilterUsed(false);
+                    int selectFileCheck = avatarChooser.showOpenDialog(this);
+                    File selectedFile = avatarChooser.getSelectedFile();
+                    if (!(selectFileCheck == JFileChooser.APPROVE_OPTION)) {
+                        return;
+                    }
+                    //Muốn lấy đường dẫn và để vào export PDF thì 
+                    String path = selectedFile.getAbsolutePath();
+                    if (hoaDon.getId()== 0) {
+                        ExportPdfHoaDon export = new ExportPdfHoaDon();
+                        export.exportBill(hoaDon, hdct, path);
+                    }
+                    JOptionPane.showMessageDialog(this, "In hóa đơn thành công");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Hãy chọn 1 hóa đơn đã thanh toán");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
