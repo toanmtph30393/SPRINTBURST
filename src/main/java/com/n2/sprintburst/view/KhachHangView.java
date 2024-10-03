@@ -423,8 +423,19 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+
+
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
+
+        String soDienThoai = txtDienThoai.getText();
+
+        // Kiểm tra số điện thoại có trùng không
+        if (khachHangService.checkSoDienThoaiTrung(soDienThoai)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại, vui lòng nhập số khác!");
+            return;
+        }
         KhachHang kh = new KhachHang();
         kh.setMaKhachHang(txtMaKhachHang.getText());
         kh.setTenKhachHang(txtTenKhachHang.getText());
@@ -543,7 +554,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void tblBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangMouseClicked
-        
+
         index = tblBang.getSelectedRow();
         showData();
 
