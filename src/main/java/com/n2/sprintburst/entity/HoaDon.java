@@ -33,7 +33,7 @@ public class HoaDon {
     private int tongTruocGiamGia;
 
     @Column(name = "tongSauGiamGia")
-    private int  tongSauGiamGia;
+    private int tongSauGiamGia;
 
     @Column(name = "ghiChu")
     private String ghiChu;
