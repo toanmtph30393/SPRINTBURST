@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.NaturalId;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "HoaDon")
 public class HoaDon {
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +35,7 @@ public class HoaDon {
     private int tongTruocGiamGia;
 
     @Column(name = "tongSauGiamGia")
-    private int  tongSauGiamGia;
+    private int tongSauGiamGia;
 
     @Column(name = "ghiChu")
     private String ghiChu;
@@ -63,4 +65,6 @@ public class HoaDon {
     @JoinColumn(name = "idPhieuGiamGia", referencedColumnName = "id")
     private PhieuGiamGia phieuGiamGia;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hoaDon", fetch = FetchType.EAGER)
+    List<HoaDonChiTiet> hoaDonChiTiets;
 }

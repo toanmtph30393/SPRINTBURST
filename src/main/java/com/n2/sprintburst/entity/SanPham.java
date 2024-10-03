@@ -49,6 +49,6 @@ public class SanPham {
     @Column(name = "trangThai")
     private boolean trangThai;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sanPham", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sanPham", fetch = FetchType.EAGER)
     List<SanPhamChiTiet> sanPhamChiTiets;
 }

@@ -19,6 +19,30 @@ public class HoaDonService {
 
     public Session session;
 
+    public static List<HoaDon> getAllUnprocessed() {
+        try {
+            Session s = HibernateConfig.getSessionFactory().openSession();
+            return s.createQuery("from HoaDon where trangThaiHoaDon.id = :id", HoaDon.class)
+                    .setParameter("id", 1)
+                    .getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
+
+    public static List<HoaDon> getAllCompleted() {
+        try {
+            Session s = HibernateConfig.getSessionFactory().openSession();
+            return s.createQuery("from HoaDon where trangThaiHoaDon.id = :id", HoaDon.class)
+                    .setParameter("id", 2)
+                    .getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
+
     public List<HoaDon> getAllHoaDon() {
         session = HibernateConfig.getSessionFactory().openSession();
         List<HoaDon> list = session.createQuery("from HoaDon", HoaDon.class).list();
@@ -32,13 +56,13 @@ public class HoaDonService {
         KhachHang kh = new KhachHang();
         kh.setId(idKhachHang);
         List<HoaDon> list = session.createQuery("from HoaDon where hoaDon = :hoaDon ", HoaDon.class)
-                .setParameter("khachHang",kh )
+                .setParameter("khachHang", kh)
                 .list();
         session.close();//        
 
         return list;
     }
-    
+
     public HoaDon timKiemHoaDon(String mahd) {
         List<HoaDon> hoaDons = getAllHoaDon();
         for (HoaDon hd : hoaDons) {
@@ -48,14 +72,15 @@ public class HoaDonService {
         }
         return null;
     }
-     public HoaDon findHdByMa(String ma) {
+
+    public HoaDon findHdByMa(String ma) {
         HoaDon h = null;
         try {
             session = HibernateConfig.getSessionFactory().openSession();
-            String hql = "SELECT \n" +
-"      maHoaDon\n" +
-"  FROM HoaDon\n" +
-"  where maHoaDon = :maHoaDon";
+            String hql = "SELECT \n"
+                    + "      maHoaDon\n"
+                    + "  FROM HoaDon\n"
+                    + "  where maHoaDon = :maHoaDon";
             Query query = session.createQuery(hql);
             query.setParameter("maHoaDon", ma);
             if (query.getSingleResult() != null) {

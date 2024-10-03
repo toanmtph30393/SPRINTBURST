@@ -51,7 +51,7 @@ public class SanPhamChiTietService {
         }
     }
 
-    public static void delte(SanPhamChiTiet spct) {
+    public static void delete(SanPhamChiTiet spct) {
         try {
             HibernateConfig.getSessionFactory().inTransaction(s -> {
                 spct.setTrangThai(false);

@@ -221,7 +221,7 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
     }
 
     private void deleteSanPhamChiTiet() {
-        SanPhamChiTietService.delte(parseFormForDelete());
+        SanPhamChiTietService.delete(parseFormForDelete());
         parent.initOrRefreshStateSanPhamChiTiet();
         parent.renderSanPhamChiTietTable();
         this.dispose();
