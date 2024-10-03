@@ -7,6 +7,9 @@ package com.n2.sprintburst.service;
 import com.n2.sprintburst.config.HibernateConfig;
 import com.n2.sprintburst.entity.HoaDon;
 import com.n2.sprintburst.entity.KhachHang;
+import com.n2.sprintburst.entity.SanPham;
+import com.n2.sprintburst.entity.TrangThaiHoaDon;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -41,6 +44,30 @@ public class HoaDonService {
             throw e;
         }
 
+    }
+
+    public static void add(HoaDon hd) {
+        try {
+
+            HibernateConfig.getSessionFactory().inTransaction(s -> {
+
+                HoaDon found = s.createSelectionQuery("from HoaDon order by id desc", HoaDon.class).setMaxResults(1).getSingleResultOrNull();
+                int newId;
+                if (found == null) {
+                    newId = 1;
+                } else {
+                    newId = found.getId() + 1;
+                }
+
+                hd.setMaHoaDon("HD" + newId);
+                hd.setNgayTao(LocalDateTime.now());
+                hd.setTrangThaiHoaDon(s.createSelectionQuery("from TrangThaiHoaDon where id = :id", TrangThaiHoaDon.class).setParameter("id", 1).setMaxResults(1).getSingleResult());
+                s.persist(hd);
+            });
+
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public List<HoaDon> getAllHoaDon() {

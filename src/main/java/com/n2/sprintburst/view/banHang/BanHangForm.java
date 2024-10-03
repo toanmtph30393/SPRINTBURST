@@ -12,6 +12,7 @@ import com.n2.sprintburst.service.HoaDonService;
 import com.n2.sprintburst.service.SanPhamChiTietService;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -48,6 +49,7 @@ public class BanHangForm extends javax.swing.JPanel {
         new BanHangForm().setVisible(true);
     }
 
+    //STATES
     private void initSPCTState() {
         spctState = SanPhamChiTietService.getAllActive();
     }
@@ -56,6 +58,7 @@ public class BanHangForm extends javax.swing.JPanel {
         hoaDonState = HoaDonService.getAllUnprocessed();
     }
 
+    //UI
     private void renderHoaDonTable() {
         hoaDonTableModel.setRowCount(0);
 
@@ -92,6 +95,26 @@ public class BanHangForm extends javax.swing.JPanel {
                 sp.getSoLuong(),
                 sp.getGiaBan()
             });
+        }
+    }
+
+    private void refreshStatesAndTables() {
+        initHoaDonState();
+        initSPCTState();
+
+        renderHoaDonTable();
+        renderSPCTTable();
+
+    }
+    //INTERACTONS
+
+    private void createHoaDon() {
+        try {
+            HoaDonService.add(new HoaDon());
+            refreshStatesAndTables();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
@@ -196,6 +219,11 @@ public class BanHangForm extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblHoaDon);
 
         btnCreateHoaDon.setText("Tạo hóa đơn");
+        btnCreateHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateHoaDonActionPerformed(evt);
+            }
+        });
 
         btnRemoveHoaDon.setText("Hủy hóa đơn");
 
@@ -571,9 +599,9 @@ public class BanHangForm extends javax.swing.JPanel {
                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtThanhToanTienMat, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                    .addComponent(txtThanhToanTienChuyen))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtThanhToanTienMat, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtThanhToanTienChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
         jPanel10Layout.setVerticalGroup(
@@ -718,6 +746,10 @@ public class BanHangForm extends javax.swing.JPanel {
     private void cbxFilterThuongHieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFilterThuongHieuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxFilterThuongHieuActionPerformed
+
+    private void btnCreateHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateHoaDonActionPerformed
+        createHoaDon();
+    }//GEN-LAST:event_btnCreateHoaDonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -181,6 +181,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="T&#x1ea1;o h&#xf3;a &#x111;&#x1a1;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateHoaDonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnRemoveHoaDon">
               <Properties>
@@ -887,9 +890,9 @@
                               <Component id="jLabel21" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtThanhToanTienMat" pref="257" max="32767" attributes="0"/>
-                              <Component id="txtThanhToanTienChuyen" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtThanhToanTienMat" min="-2" pref="257" max="-2" attributes="0"/>
+                              <Component id="txtThanhToanTienChuyen" min="-2" pref="257" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
