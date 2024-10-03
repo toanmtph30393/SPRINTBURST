@@ -101,4 +101,15 @@ public class KhachHangService {
         }
         return null;
     }
+
+    public boolean checkSoDienThoaiTrung(String soDienThoai) {
+        List<KhachHang> dsKhachHang = getAllKhachHang(); // Lấy danh sách tất cả khách hàng từ cơ sở dữ liệu
+        for (KhachHang kh : dsKhachHang) {
+            System.out.println("Số điện thoại kiểm tra: " + kh.getDienThoai());
+            if (kh.getDienThoai().equals(soDienThoai)) {
+                return true; // Số điện thoại đã tồn tại
+            }
+        }
+        return false;
+    }
 }
