@@ -4,6 +4,7 @@
  */
 package com.n2.sprintburst.view;
 
+import com.n2.sprintburst.view.BanHangView;
 import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
 import javax.swing.JOptionPane;
 
