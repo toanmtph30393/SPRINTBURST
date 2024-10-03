@@ -4,7 +4,6 @@
  */
 package com.n2.sprintburst.view;
 
-import com.n2.sprintburst.view.banHang.BanHangForm;
 import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
 import javax.swing.JOptionPane;
 
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
 public final class Home extends javax.swing.JFrame {
 
     // Khoi tao cac menu con
-    BanHangForm banHangView = new BanHangForm();
+    BanHangView banHangView = new BanHangView();
     HoaDonView hoaDonView = new HoaDonView();
     TrangChuView trangChuView = new TrangChuView();
     KhachHangView khachHangView = new KhachHangView();
@@ -329,7 +328,7 @@ public final class Home extends javax.swing.JFrame {
         if (checkTrangChuView == true) {
             return;
         }
-
+        
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
@@ -355,7 +354,7 @@ public final class Home extends javax.swing.JFrame {
         // load lai form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        banHangView.setBounds(220, 0, 1677, 1014);
+        banHangView.setBounds(220, 0, 1360, 830);
         banHangView.setVisible(true);
         checkBanHangView = true;
     }//GEN-LAST:event_btnBanHangMouseClicked
