@@ -25,7 +25,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class HoaDonView extends javax.swing.JInternalFrame  {
+public class HoaDonView extends javax.swing.JInternalFrame {
+
     /**
      * Creates new form Test
      */
@@ -35,6 +36,7 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
     HoaDonChiTietService hoaDonChiTietService = new HoaDonChiTietService();
     List<HoaDon> hd = new ArrayList<>();
     List<HoaDonChiTiet> hdct = new ArrayList<>();
+
     public HoaDonView() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -42,7 +44,8 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
         defaultTableModel1 = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         fillData();
     }
-        public void fillData() {
+
+    public void fillData() {
         hd = hoaDonService.getAllHoaDon();
 
         defaultTableModel.setRowCount(0);
@@ -50,7 +53,7 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
             defaultTableModel.addRow(new Object[]{
                 hoaDon.getId(),
                 hoaDon.getMaHoaDon(),
-                hoaDon.getKhachHang().getId(),
+                hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
                 hoaDon.getNhanVien(),
                 hoaDon.getNgayTao(),
                 hoaDon.getTongTruocGiamGia(),
@@ -59,13 +62,14 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
                 hoaDon.getTenNguoiNhan(),
                 hoaDon.getDienThoaiNguoiNhan(),
                 hoaDon.getDiaChiNguoiNhan(),
-                hoaDon.getTrangThaiHoaDon().getTen(),
-                hoaDon.getPhieuGiamGia().getTenGiamGia()
+                hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
+                hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
             });
         }
     }
-        public void LoadHoaDonChiTiet(List<HoaDonChiTiet> chiTietList){
-            hdct = hoaDonChiTietService.getAllHoaDonChiTiets();
+
+    public void LoadHoaDonChiTiet(List<HoaDonChiTiet> chiTietList) {
+        hdct = hoaDonChiTietService.getAllHoaDonChiTiets();
 
         defaultTableModel1.setRowCount(0);
         for (HoaDonChiTiet hoaDonChiTiet : hdct) {
@@ -75,128 +79,130 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
                 hoaDonChiTiet.getSanPhamChiTiet().getId(),
                 hoaDonChiTiet.getGiaBan(),
                 hoaDonChiTiet.getSoLuong(),
-                hoaDonChiTiet.isTrangThai()?"Còn hàng":"Hết hàng",
-            });
+                hoaDonChiTiet.isTrangThai() ? "Còn hàng" : "Hết hàng",});
         }
-        }
-         public void resetTableHDCT() {
+    }
+
+    public void resetTableHDCT() {
         if (tblHoaDonChiTiet.getRowCount() > 0) {
             defaultTableModel1.setRowCount(0);
         }
-        
+
     }
-        private void exportExcelHD() {
-    try {
-        JFileChooser fileChooser = new JFileChooser("/");
-        fileChooser.setDialogTitle("Export xls file");
-        FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Excel spreadsheet files", "xls", "xlsx", "xism");
-        fileChooser.setFileFilter(extFilter);
 
-        int confirm = fileChooser.showSaveDialog(this);
+    private void exportExcelHD() {
+        try {
+            JFileChooser fileChooser = new JFileChooser("/");
+            fileChooser.setDialogTitle("Export xls file");
+            FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Excel spreadsheet files", "xls", "xlsx", "xism");
+            fileChooser.setFileFilter(extFilter);
 
-        if (confirm == JFileChooser.APPROVE_OPTION) {
-            // Create Excel workbook and sheet
-            XSSFWorkbook excelWorkbook = new XSSFWorkbook();
-            XSSFSheet sheet = excelWorkbook.createSheet("HD_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd_kk_mm_ss")));
+            int confirm = fileChooser.showSaveDialog(this);
 
-            XSSFRow row = null;
-            Cell cell = null;
+            if (confirm == JFileChooser.APPROVE_OPTION) {
+                // Create Excel workbook and sheet
+                XSSFWorkbook excelWorkbook = new XSSFWorkbook();
+                XSSFSheet sheet = excelWorkbook.createSheet("HD_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd_kk_mm_ss")));
 
-            // Header row
-            row = sheet.createRow(0); // Adjust row index here if needed
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("DANH SACH HOA DON");
-            row = sheet.createRow(1); // Adjust header row
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("STT");
-            cell = row.createCell(1, CellType.STRING);
-            cell.setCellValue("Ma Hoa Don");
-            cell = row.createCell(2, CellType.STRING);
-            cell.setCellValue("Khach Hang");
-            cell = row.createCell(3, CellType.STRING);
-            cell.setCellValue("Nhan Vien");
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue("Ngay Tao");
-            cell = row.createCell(5, CellType.STRING);
-            cell.setCellValue("Tong Truoc Giam Gia");
-            cell = row.createCell(6, CellType.STRING);
-            cell.setCellValue("Tong Sau Giam Gia");
-            cell = row.createCell(7, CellType.STRING);
-            cell.setCellValue("Ghi Chu");
-            cell = row.createCell(8, CellType.STRING);
-            cell.setCellValue("Ten Nguoi Nhan");
-            cell = row.createCell(9, CellType.STRING);
-            cell.setCellValue("So Dien Thoai");
-            cell = row.createCell(10, CellType.STRING);
-            cell.setCellValue("Dia Chi");
-            cell = row.createCell(11, CellType.STRING);
-            cell.setCellValue("Trang Thai");
-            cell = row.createCell(12, CellType.STRING);
-            cell.setCellValue("Phieu Giam Gia");
-            // Fill sheet with table data from tblHoaDon
-            for (int rowIndex = 0; rowIndex < tblHoaDon.getRowCount(); rowIndex++) {
-                XSSFRow sheetRow = sheet.createRow(rowIndex + 2); // Start after header
+                XSSFRow row = null;
+                Cell cell = null;
 
-                for (int colIndex = 0; colIndex < tblHoaDon.getColumnCount(); colIndex++) {
-                    XSSFCell cellData = sheetRow.createCell(colIndex);
+                // Header row
+                row = sheet.createRow(0); // Adjust row index here if needed
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue("DANH SACH HOA DON");
+                row = sheet.createRow(1); // Adjust header row
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue("STT");
+                cell = row.createCell(1, CellType.STRING);
+                cell.setCellValue("Ma Hoa Don");
+                cell = row.createCell(2, CellType.STRING);
+                cell.setCellValue("Khach Hang");
+                cell = row.createCell(3, CellType.STRING);
+                cell.setCellValue("Nhan Vien");
+                cell = row.createCell(4, CellType.STRING);
+                cell.setCellValue("Ngay Tao");
+                cell = row.createCell(5, CellType.STRING);
+                cell.setCellValue("Tong Truoc Giam Gia");
+                cell = row.createCell(6, CellType.STRING);
+                cell.setCellValue("Tong Sau Giam Gia");
+                cell = row.createCell(7, CellType.STRING);
+                cell.setCellValue("Ghi Chu");
+                cell = row.createCell(8, CellType.STRING);
+                cell.setCellValue("Ten Nguoi Nhan");
+                cell = row.createCell(9, CellType.STRING);
+                cell.setCellValue("So Dien Thoai");
+                cell = row.createCell(10, CellType.STRING);
+                cell.setCellValue("Dia Chi");
+                cell = row.createCell(11, CellType.STRING);
+                cell.setCellValue("Trang Thai");
+                cell = row.createCell(12, CellType.STRING);
+                cell.setCellValue("Phieu Giam Gia");
+                // Fill sheet with table data from tblHoaDon
+                for (int rowIndex = 0; rowIndex < tblHoaDon.getRowCount(); rowIndex++) {
+                    XSSFRow sheetRow = sheet.createRow(rowIndex + 2); // Start after header
 
-                    Object data = tblHoaDon.getValueAt(rowIndex, colIndex);
+                    for (int colIndex = 0; colIndex < tblHoaDon.getColumnCount(); colIndex++) {
+                        XSSFCell cellData = sheetRow.createCell(colIndex);
 
-                    if (data == null) {
-                        continue;
+                        Object data = tblHoaDon.getValueAt(rowIndex, colIndex);
+
+                        if (data == null) {
+                            continue;
+                        }
+
+                        cellData.setCellValue(data.toString());
                     }
-
-                    cellData.setCellValue(data.toString());
                 }
+
+                // Ensure the chosen file has the correct extension
+                File selectedFile = fileChooser.getSelectedFile();
+                String filePath = selectedFile.getAbsolutePath();
+                if (!filePath.endsWith(".xlsx")) {
+                    filePath += ".xlsx";
+                }
+
+                FileOutputStream fos = new FileOutputStream(filePath);
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+                excelWorkbook.write(bos);
+                bos.close();
+                excelWorkbook.close(); // Close the workbook to release resources
+
+                JOptionPane.showMessageDialog(this, "Export successful!");
+
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error during export: " + e.getMessage());
+        }
+    }
 
-            // Ensure the chosen file has the correct extension
-            File selectedFile = fileChooser.getSelectedFile();
-            String filePath = selectedFile.getAbsolutePath();
-            if (!filePath.endsWith(".xlsx")) {
-                filePath += ".xlsx";
+    public void Load() {
+        int selectedRow = tblHoaDon.getSelectedRow();
+
+        if (selectedRow != -1) {
+            DefaultTableModel modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
+            DefaultTableModel modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
+            DefaultTableModel modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+            int columnCount = tblHoaDon.getColumnCount();
+            int columnCountHoaDonChiTiet = tblHoaDonChiTiet.getColumnCount();
+            Object[] rowData = new Object[columnCount];
+            for (int i = 0; i < columnCount; i++) {
+                rowData[i] = modelHoaDon.getValueAt(selectedRow, i);
             }
+            modelLichSuHoaDon.addRow(rowData);
 
-            FileOutputStream fos = new FileOutputStream(filePath);
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            Object[] rowDataHoaDonChiTiet = new Object[columnCountHoaDonChiTiet];
 
-            excelWorkbook.write(bos);
-            bos.close();
-            excelWorkbook.close(); // Close the workbook to release resources
-
-            JOptionPane.showMessageDialog(this, "Export successful!");
-
+            for (int i = 0; i < columnCountHoaDonChiTiet; i++) {
+                rowDataHoaDonChiTiet[i] = modelHoaDon.getValueAt(selectedRow, i);
+            }
+            modelHoaDonChiTiet.addRow(rowDataHoaDonChiTiet);
+        } else {
+            System.out.println("Ko in tblHoaDon.");
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error during export: " + e.getMessage());
     }
-}
-           public void Load() {
-    int selectedRow = tblHoaDon.getSelectedRow();
-
-    if (selectedRow != -1) {
-        DefaultTableModel modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
-        DefaultTableModel modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
-    DefaultTableModel modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        int columnCount = tblHoaDon.getColumnCount();
-        int columnCountHoaDonChiTiet = tblHoaDonChiTiet.getColumnCount();
-        Object[] rowData = new Object[columnCount];
-        for (int i = 0; i < columnCount; i++) {
-            rowData[i] = modelHoaDon.getValueAt(selectedRow, i);
-        }
-        modelLichSuHoaDon.addRow(rowData);
-        
-         Object[] rowDataHoaDonChiTiet = new Object[columnCountHoaDonChiTiet];
-
-        for (int i = 0; i < columnCountHoaDonChiTiet; i++) {
-            rowDataHoaDonChiTiet[i] = modelHoaDon.getValueAt(selectedRow, i); 
-        }
-        modelHoaDonChiTiet.addRow(rowDataHoaDonChiTiet);
-    } else {
-        System.out.println("Ko in tblHoaDon.");
-    }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -423,7 +429,7 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-         DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
         TableRowSorter<DefaultTableModel> ab = new TableRowSorter<>(dtm);
         tblHoaDon.setRowSorter(ab);
         ab.setRowFilter(RowFilter.regexFilter(txtTimKiem.getText()));
@@ -432,7 +438,7 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
     private void btnXuatExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExActionPerformed
         // TODO add your handling code here:
         exportExcelHD();
-        
+
     }//GEN-LAST:event_btnXuatExActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -440,22 +446,22 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
-     // TODO add your handling code here:
-   
+        // TODO add your handling code here:
+
     }//GEN-LAST:event_cbbTrangThaiActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
         int id = hoaDonService.getAllHoaDon().get(tblHoaDon.getSelectedRow()).getId();
-         LoadHoaDonChiTiet(hoaDonChiTietService.getHoaDonByID(id));
+        LoadHoaDonChiTiet(hoaDonChiTietService.getHoaDonByID(id));
         Load();
 
-        
+
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             int row = this.tblHoaDon.getSelectedRow();
             if (row == -1) {
                 JOptionPane.showMessageDialog(this, "Chọn 1 hóa đơn để in");
@@ -463,7 +469,7 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
             }
             String ma = this.tblHoaDon.getValueAt(row, 1).toString();
             HoaDon hoaDon = hoaDonService.findHdByMa(ma);
-            if (hoaDon.getId()==2 ) {
+            if (hoaDon.getId() == 2) {
                 int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn không?");
                 if (confirm == JOptionPane.YES_OPTION) {
                     JFileChooser avatarChooser = new JFileChooser("D:\\");
@@ -478,7 +484,7 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
                     }
                     //Muốn lấy đường dẫn và để vào export PDF thì 
                     String path = selectedFile.getAbsolutePath();
-                    if (hoaDon.getId()== 0) {
+                    if (hoaDon.getId() == 0) {
                         ExportPdfHoaDon export = new ExportPdfHoaDon();
                         export.exportBill(hoaDon, hdct, path);
                     }
@@ -513,5 +519,4 @@ public class HoaDonView extends javax.swing.JInternalFrame  {
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 
-    
 }
