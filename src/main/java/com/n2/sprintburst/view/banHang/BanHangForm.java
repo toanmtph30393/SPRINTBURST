@@ -28,6 +28,7 @@ public class BanHangForm extends javax.swing.JPanel {
     List<SanPhamChiTiet> spctState;
     List<HoaDonChiTiet> gioHangState;
     List<HoaDon> hoaDonState;
+    HoaDon chosenHoaDonState;
 
     public BanHangForm() {
         FlatLightLaf.setup();
@@ -56,6 +57,16 @@ public class BanHangForm extends javax.swing.JPanel {
 
     private void initHoaDonState() {
         hoaDonState = HoaDonService.getAllUnprocessed();
+    }
+
+    private void initChosenHoaDonState() {
+        int idx = tblHoaDon.getSelectedRow();
+
+        if (idx == -1) {
+            return;
+        }
+
+        chosenHoaDonState = hoaDonState.get(idx);
     }
 
     //UI
@@ -98,6 +109,21 @@ public class BanHangForm extends javax.swing.JPanel {
         }
     }
 
+//    private void renderChosenHoaDon() {
+//        try {
+//            if (chosenHoaDonState == null) {
+//                return;
+//            }
+//            lblHoaDonMa.setText(chosenHoaDonState.getMaHoaDon());
+//            lblTienTong.setText(chosenHoaDonState.getTongTruocGiamGia());
+//            lblTienGiam.setText(chosenHoaDonState.giam);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(this, e.getMessage());
+//        }
+//
+//    }
+
     private void refreshStatesAndTables() {
         initHoaDonState();
         initSPCTState();
@@ -106,8 +132,8 @@ public class BanHangForm extends javax.swing.JPanel {
         renderSPCTTable();
 
     }
-    //INTERACTONS
 
+    //INTERACTONS
     private void createHoaDon() {
         try {
             HoaDonService.add(new HoaDon());
@@ -214,6 +240,11 @@ public class BanHangForm extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHoaDonMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblHoaDon);
@@ -750,6 +781,10 @@ public class BanHangForm extends javax.swing.JPanel {
     private void btnCreateHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateHoaDonActionPerformed
         createHoaDon();
     }//GEN-LAST:event_btnCreateHoaDonActionPerformed
+
+    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
