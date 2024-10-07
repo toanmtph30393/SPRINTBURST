@@ -797,16 +797,16 @@ public class BanHangForm extends javax.swing.JPanel {
 
     private void btnQuickCreateKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuickCreateKhachHangMouseClicked
         // TODO add your handling code here:
-        KhachHangForm khachHangForm = new KhachHangForm();
-        khachHangForm.setVisible(true);
-        khachHangForm.setDefaultCloseOperation(khachHangForm.DISPOSE_ON_CLOSE);
+        KhachHangForm1 khachHangForm1 = new KhachHangForm1();
+        khachHangForm1.setVisible(true);
+        khachHangForm1.setDefaultCloseOperation(khachHangForm1.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnQuickCreateKhachHangMouseClicked
 
     private void btnSearchKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchKhachHangMouseClicked
         // TODO add your handling code here:
-        TimKiemKhachHangForm timKiemKhachHangForm = new TimKiemKhachHangForm();
-        timKiemKhachHangForm.setVisible(true);
-        timKiemKhachHangForm.setDefaultCloseOperation(timKiemKhachHangForm.DISPOSE_ON_CLOSE);
+        TimKiemKhachHangForm1 timKiemKhachHangForm1 = new TimKiemKhachHangForm1();
+        timKiemKhachHangForm1.setVisible(true);
+        timKiemKhachHangForm1.setDefaultCloseOperation(timKiemKhachHangForm1.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnSearchKhachHangMouseClicked
 
 
