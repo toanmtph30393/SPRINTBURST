@@ -639,6 +639,7 @@
                 <Property name="text" type="java.lang.String" value="T&#xec;m"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSearchKhachHangMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchKhachHangActionPerformed"/>
               </Events>
             </Component>
@@ -646,6 +647,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnQuickCreateKhachHangMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
