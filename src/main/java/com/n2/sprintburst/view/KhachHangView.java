@@ -10,6 +10,7 @@ import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.service.HoaDonService;
 import com.n2.sprintburst.service.KhachHangService;
 import com.n2.sprintburst.service.NhanVienService;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -446,7 +447,13 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
         System.out.println(chonNhanVien.toString());
         kh.setNhanVien(chonNhanVien);
-
+        
+        
+        KhachHang khachHang = new KhachHang(WIDTH, soDienThoai, soDienThoai, title, soDienThoai, title, title, LocalDateTime.MAX, chonNhanVien);
+        Object khObject = khachHang;
+        
+         System.out.println("Đã thêm khách hàng: " + khObject.toString());
+        
         khachHangService.saveKhachHang(kh);
         JOptionPane.showMessageDialog(this, "Thêm mới thành công");
         fillData();

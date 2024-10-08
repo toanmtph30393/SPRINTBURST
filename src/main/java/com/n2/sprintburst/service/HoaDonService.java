@@ -115,7 +115,7 @@ public class HoaDonService {
         session = HibernateConfig.getSessionFactory().openSession();
         KhachHang kh = new KhachHang();
         kh.setId(idKhachHang);
-        List<HoaDon> list = session.createQuery("from HoaDon where hoaDon = :hoaDon ", HoaDon.class)
+        List<HoaDon> list = session.createQuery("from HoaDon where khachHang = :khachHang ", HoaDon.class)
                 .setParameter("khachHang", kh)
                 .list();
         session.close();//        

@@ -4,6 +4,8 @@
  */
 package com.n2.sprintburst.view;
 
+import com.n2.sprintburst.DTO.NhanVienDTO;
+import com.n2.sprintburst.entity.NhanVien;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -159,28 +161,18 @@ public class LoginFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (username.equals("nhom2") && password.equals("123456")) {
-            JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 
-            //Tạo đối tượng  của form (Home)
-//            SwingUtilities.invokeLater(new Runnable() {
-//                public void run() {
+        NhanVienDTO nhanVienDTO = new NhanVienDTO();
+        NhanVien user = nhanVienDTO.getUserByCredentials(username, password);
+
+        if (user != null) {
+            JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
             Home home = new Home();
             home.setVisible(true);
-//                }
-//            });
-            //Kiêm tra checkbox luu mật khẩu được chọn
-            if (chkLuuMK.isSelected()) {
-                JOptionPane.showMessageDialog(this, "Thông tin đăng nhập được ghi nhớ");
-
-            }
-
             this.dispose();
-
         } else {
             JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không hợp lệ", "Thất bại",
                     JOptionPane.ERROR_MESSAGE);
-
         }
     }//GEN-LAST:event_btnOKActionPerformed
 
