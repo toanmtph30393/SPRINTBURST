@@ -59,7 +59,7 @@
                       <Component id="lblTaoDonHang" min="-2" pref="1616" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="-52" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -628,22 +628,6 @@
                 <Property name="text" type="java.lang.String" value="___________________"/>
               </Properties>
             </Component>
-<<<<<<< HEAD
-=======
-            <Component class="javax.swing.JButton" name="btnSearchKhachHang">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xec;m"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchKhachHangActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnQuickCreateKhachHang">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
-              </Properties>
-            </Component>
->>>>>>> parent of abe06f6 (Merge branch 'main' of https://github.com/toanmtph30393/SPRINTBURST)
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel9">
