@@ -35,4 +35,8 @@ public class LichSuHoaDon {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idNhanVien", referencedColumnName = "id")
     private NhanVien nhanVien;
+    
+    public Object[] toDataRow(){
+        return new Object[]{id,hoaDon.getMaHoaDon(),nhanVien.getHoTen(),ghiChu,ngayTacDong};
+    }
 }
