@@ -159,6 +159,12 @@
             <artifactId>icu4j</artifactId>
             <version>58.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture -->
+        <dependency>
+            <groupId>com.github.sarxos</groupId>
+            <artifactId>webcam-capture</artifactId>
+            <version>0.3.12</version>
+        </dependency>
 
 
         <dependency>

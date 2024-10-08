@@ -13,12 +13,12 @@ import com.n2.sprintburst.service.HoaDonChiTietService;
 import com.n2.sprintburst.service.HoaDonService;
 import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.service.ThanhToanService;
+import com.n2.sprintburst.utils.QRCodeScanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,32 +26,34 @@ import javax.swing.table.DefaultTableModel;
  * @author Mtt
  */
 public class BanHangForm extends javax.swing.JPanel {
-    
+
     DefaultTableModel spctTableModel;
     DefaultTableModel hoaDonTableModel;
     DefaultTableModel gioHangTableModel;
-    
+
     List<SanPhamChiTiet> spctState;
     List<HoaDon> hoaDonState;
     HoaDon chosenHoaDonState;
-    
+
+    SanPhamChiTiet parsedQRCode;
+
     public BanHangForm() {
-        
+
         FlatLightLaf.setup();
         initComponents();
-        
+
         spctTableModel = (DefaultTableModel) tblSanPhamChiTiet.getModel();
         hoaDonTableModel = (DefaultTableModel) tblHoaDon.getModel();
         gioHangTableModel = (DefaultTableModel) tblGioHang.getModel();
-        
+
         initHoaDonState();
         initSPCTState();
-        
+
         renderHoaDonTable();
         renderSPCTTable();
-        
+
     }
-    
+
     public static void main(String[] args) {
         new BanHangForm().setVisible(true);
     }
@@ -60,14 +62,14 @@ public class BanHangForm extends javax.swing.JPanel {
     private void initSPCTState() {
         spctState = SanPhamChiTietService.getAllActive();
     }
-    
+
     private void initHoaDonState() {
         hoaDonState = HoaDonService.getAllUnprocessed();
     }
-    
+
     private void initChosenHoaDonState() {
         int idx = tblHoaDon.getSelectedRow();
-        
+
         if (idx == -1) {
             return;
         }
@@ -78,7 +80,7 @@ public class BanHangForm extends javax.swing.JPanel {
     //UI
     private void renderHoaDonTable() {
         hoaDonTableModel.setRowCount(0);
-        
+
         for (int i = 0; i < hoaDonState.size(); i++) {
             HoaDon hd = hoaDonState.get(i);
             hoaDonTableModel.addRow(new Object[]{
@@ -92,7 +94,7 @@ public class BanHangForm extends javax.swing.JPanel {
             );
         }
     }
-    
+
     private void renderSPCTTable() {
         spctTableModel.setRowCount(0);
         for (int i = 0; i < spctState.size(); i++) {
@@ -114,10 +116,10 @@ public class BanHangForm extends javax.swing.JPanel {
             });
         }
     }
-    
+
     private void renderGioHangTable() {
         gioHangTableModel.setRowCount(0);
-        
+
         if (chosenHoaDonState == null) {
             return;
         }
@@ -133,7 +135,7 @@ public class BanHangForm extends javax.swing.JPanel {
             });
         }
     }
-    
+
     private void renderChosenHoaDon() {
         try {
             if (chosenHoaDonState == null) {
@@ -143,39 +145,39 @@ public class BanHangForm extends javax.swing.JPanel {
             initHoaDonState();
             initChosenHoaDonState();
             renderGioHangTable();
-            
+
             lblHoaDonMa.setText(chosenHoaDonState.getMaHoaDon());
             lblTienTong.setText(String.valueOf(chosenHoaDonState.getTongTruocGiamGia()));
             lblThanhTien.setText(String.valueOf(chosenHoaDonState.getTongSauGiamGia()));
             lblTienGiam.setText(String.valueOf(chosenHoaDonState.getTongTruocGiamGia() - chosenHoaDonState.getTongSauGiamGia()));
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }
-    
+
     private void refreshSPCTGroup() {
         initSPCTState();
         renderSPCTTable();
     }
-    
+
     private void refreshHoaDonGroup() {
         initHoaDonState();
         renderHoaDonTable();
-        
+
         txtThanhToanTienMat.setText("0");
         txtThanhToanTienChuyen.setText("0");
-        
+
     }
-    
+
     private void refreshChosenHoaDonGroup() {
         chosenHoaDonState = null;
         renderChosenHoaDon();
         gioHangTableModel.setRowCount(0);
     }
-    
+
     private void refreshStatesAndTables() {
         refreshSPCTGroup();
         refreshHoaDonGroup();
@@ -192,25 +194,25 @@ public class BanHangForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-    
+
     private void addSPCTToHDCT() {
         try {
             int idx = tblSanPhamChiTiet.getSelectedRow();
-            
+
             if (idx == -1) {
                 return;
             }
             SanPhamChiTiet spct = spctState.get(idx);
-            
+
             HoaDonChiTiet hdct = new HoaDonChiTiet();
             hdct.setGiaBan(spct.getGiaBan());
             hdct.setHoaDon(chosenHoaDonState);
             hdct.setSanPhamChiTiet(spct);
             hdct.setSoLuong(1);
             hdct.setTrangThai(true);
-            
+
             HoaDonChiTietService.add(hdct);
-            
+
             initChosenHoaDonState();
             renderChosenHoaDon();
         } catch (Exception e) {
@@ -218,53 +220,65 @@ public class BanHangForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-    
+
     private void removeSPCTFromGioHang() {
         try {
             int idx = tblGioHang.getSelectedRow();
-            
+
             HoaDonChiTietService.remove(chosenHoaDonState.getHoaDonChiTiets().get(idx));
             initChosenHoaDonState();
             renderChosenHoaDon();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
     }
-    
+
     private void createThanhToan() {
         ThanhToan th = new ThanhToan();
         th.setHoaDon(chosenHoaDonState);
         th.setSoTienMat(Integer.parseInt(txtThanhToanTienMat.getText()));
         th.setSoTienChuyen(Integer.parseInt(txtThanhToanTienChuyen.getText()));
         th.setNgayThanhToan(LocalDateTime.now());
-        
+
         ThanhToanService.create(th);
-        
+
         initChosenHoaDonState();
-        
+
     }
-    
+
     private void completeHoaDon() {
         try {
             if (JOptionPane.showConfirmDialog(this, "Thanh toan?", "Thanh toan", JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) {
                 return;
             }
-            
+
             createThanhToan();
             HoaDon toComplete = chosenHoaDonState;
             toComplete.setTenNguoiNhan(txtNguoiNhanTen.getText());
             toComplete.setDienThoaiNguoiNhan(txtNguoiNhanSdt.getText());
-            
+
             HoaDonService.complete(toComplete);
             initChosenHoaDonState();
             new HoaDonCompletionDisplay(chosenHoaDonState).setVisible(true);
-            
+
             refreshStatesAndTables();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+    }
+
+    private void scanQRCode() {
+        new QRCodeScanner(this).setVisible(true);
+    }
+
+    private void addParsedSPCTToGioHang() {
+
+    }
+
+    public void setParsedQRCode(SanPhamChiTiet parsedQRCode) {
+        this.parsedQRCode = parsedQRCode;
     }
 
     /**
@@ -276,6 +290,7 @@ public class BanHangForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         lblTaoDonHang = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -308,8 +323,6 @@ public class BanHangForm extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         lblKhachHangDienThoai = new javax.swing.JLabel();
         lblKhachHangTen = new javax.swing.JLabel();
-        btnSearchKhachHang = new javax.swing.JButton();
-        btnQuickCreateKhachHang = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         lblHoaDonMa = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -329,6 +342,8 @@ public class BanHangForm extends javax.swing.JPanel {
         txtThanhToanTienMat = new javax.swing.JTextField();
         txtThanhToanTienChuyen = new javax.swing.JTextField();
         btnThanhToan = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
 
         setBorder(new javax.swing.border.MatteBorder(null));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -525,6 +540,11 @@ public class BanHangForm extends javax.swing.JPanel {
         jPanel7.setForeground(new java.awt.Color(204, 204, 204));
 
         btnScanToCart.setText("Quét mã");
+        btnScanToCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScanToCartActionPerformed(evt);
+            }
+        });
 
         btnAddToCart.setText("Thêm vào giỏ hàng");
         btnAddToCart.addActionListener(new java.awt.event.ActionListener() {
@@ -635,15 +655,6 @@ public class BanHangForm extends javax.swing.JPanel {
         lblKhachHangTen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblKhachHangTen.setText("___________________");
 
-        btnSearchKhachHang.setText("Tìm");
-        btnSearchKhachHang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchKhachHangActionPerformed(evt);
-            }
-        });
-
-        btnQuickCreateKhachHang.setText("Thêm");
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -651,20 +662,11 @@ public class BanHangForm extends javax.swing.JPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(lblKhachHangDienThoai)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnQuickCreateKhachHang))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(lblKhachHangTen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearchKhachHang)))
-                .addContainerGap())
+                    .addComponent(lblKhachHangTen)
+                    .addComponent(lblKhachHangDienThoai)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,16 +674,12 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblKhachHangDienThoai)
-                    .addComponent(btnQuickCreateKhachHang))
+                .addComponent(lblKhachHangDienThoai)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblKhachHangTen)
-                    .addComponent(btnSearchKhachHang))
-                .addGap(18, 18, 18))
+                .addComponent(lblKhachHangTen)
+                .addGap(21, 21, 21))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -838,7 +836,7 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -867,8 +865,10 @@ public class BanHangForm extends javax.swing.JPanel {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lblTaoDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, 1616, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(lblTaoDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, 1616, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -884,10 +884,6 @@ public class BanHangForm extends javax.swing.JPanel {
 
         getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSearchKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchKhachHangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchKhachHangActionPerformed
 
     private void txtNguoiNhanSdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNguoiNhanSdtActionPerformed
         // TODO add your handling code here:
@@ -918,17 +914,20 @@ public class BanHangForm extends javax.swing.JPanel {
         completeHoaDon();
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+    private void btnScanToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScanToCartActionPerformed
+        scanQRCode();
+    }//GEN-LAST:event_btnScanToCartActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToCart;
     private javax.swing.JButton btnCreateHoaDon;
     private javax.swing.JButton btnFilter;
-    private javax.swing.JButton btnQuickCreateKhachHang;
     private javax.swing.JButton btnRemoveFromCart;
     private javax.swing.JButton btnScanToCart;
-    private javax.swing.JButton btnSearchKhachHang;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JComboBox<String> cbxFilterThuongHieu;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
