@@ -11,8 +11,6 @@ import com.n2.sprintburst.service.HoaDonService;
 import com.n2.sprintburst.service.KhachHangService;
 import com.n2.sprintburst.service.NhanVienService;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -73,14 +71,14 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                 khachHang.getDiaChi(),
                 khachHang.getGhiChu(),
                 khachHang.getNgayTao(),
-                khachHang.getNhanVien().getHoTen(),});
+                khachHang.getNhanVien().getId(),});
         }
         nhanVienLst = nhanVienService.getAllNhanVien();
         for (NhanVien nv : nhanVienLst) {
-            String idNhanVien = String.valueOf(nv.getHoTen());
+            String idNhanVien = String.valueOf(nv.getId());
             cboIdNhanVien.addItem(idNhanVien);
         }
-        txtMaKhachHang.setText(getNewCustomerCode());
+
     }
 
     int index;
@@ -96,16 +94,9 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         txtDiaChi.setText(kh.getDiaChi());
         txtGhiChu.setText(kh.getGhiChu());
         txtNgayTao.setText(kh.getNgayTao().toString());
-        cboIdNhanVien.setSelectedItem(String.valueOf(kh.getNhanVien().getHoTen()));
+        cboIdNhanVien.setSelectedItem(String.valueOf(kh.getNhanVien().getId()));
         KhachHangView.idChon = kh.getId();
 
-    }
-
-    public String getNewCustomerCode() {
-        KhachHang khachHangMoiNhat = Collections.max(kh, Comparator.comparing(s -> s.getId()));
-        int newID = khachHangMoiNhat.getId() + 1;
-        String newCode = "KH" + newID;
-        return newCode;
     }
 
     private void clearForm() {
@@ -150,6 +141,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         txtNgayTao = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
         cboIdNhanVien = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
@@ -184,8 +176,6 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
         txtId.setEnabled(false);
 
-        txtMaKhachHang.setEnabled(false);
-
         txtNgayTao.setEnabled(false);
 
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add.png"))); // NOI18N
@@ -201,6 +191,14 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSuaMouseClicked(evt);
+            }
+        });
+
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Delete.png"))); // NOI18N
+        btnXoa.setText("Xoá");
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaMouseClicked(evt);
             }
         });
 
@@ -236,21 +234,25 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                             .addComponent(txtTenKhachHang)))
                     .addComponent(btnThem))
                 .addGap(89, 89, 89)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                            .addComponent(txtDienThoai)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnSua)
+                        .addGap(87, 87, 87)
+                        .addComponent(btnXoa)))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(36, 36, 36)
-                                .addComponent(txtDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                    .addComponent(txtDienThoai))))
                         .addGap(87, 387, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -260,14 +262,12 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtGhiChu, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                             .addComponent(txtNgayTao)
-                            .addComponent(cboIdNhanVien, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(144, 144, 144))
+                            .addComponent(cboIdNhanVien, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(btnSua)
-                        .addGap(211, 211, 211)
+                        .addGap(74, 74, 74)
                         .addComponent(btnLamMoi)
-                        .addContainerGap(574, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(144, 144, 144))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,6 +314,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(btnSua)
+                    .addComponent(btnXoa)
                     .addComponent(btnLamMoi))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -422,6 +423,8 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
@@ -446,7 +449,8 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
         System.out.println(chonNhanVien.toString());
         kh.setNhanVien(chonNhanVien);
-
+        // Thực hiện các bước thêm khách hàng vào cơ sở dữ liệu
+        kh.setId((int) idChon);
         khachHangService.saveKhachHang(kh);
         JOptionPane.showMessageDialog(this, "Thêm mới thành công");
         fillData();
@@ -518,6 +522,14 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnSuaMouseClicked
 
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+
+        khachHangService.deleteKhachHang(txtId.getText());
+        kh = khachHangService.getAllKhachHang();
+        JOptionPane.showMessageDialog(this, "Xoá Thành Công.");
+        fillData();
+    }//GEN-LAST:event_btnXoaMouseClicked
+
     private void btnLamMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseClicked
 
         clearForm();
@@ -553,6 +565,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JButton btntimLichSuGiaoDich;
     private javax.swing.JComboBox<String> cboIdNhanVien;
     private javax.swing.JLabel jLabel1;
