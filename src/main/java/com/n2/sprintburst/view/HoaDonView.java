@@ -2,8 +2,10 @@ package com.n2.sprintburst.view;
 
 import com.n2.sprintburst.entity.HoaDon;
 import com.n2.sprintburst.entity.HoaDonChiTiet;
+import com.n2.sprintburst.entity.LichSuHoaDon;
 import com.n2.sprintburst.service.HoaDonChiTietService;
 import com.n2.sprintburst.service.HoaDonService;
+import com.n2.sprintburst.service.LichSuHoaDonService;
 import com.n2.sprintburst.utils.ExportPdfHoaDon;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -32,10 +34,14 @@ public class HoaDonView extends javax.swing.JInternalFrame {
      */
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     DefaultTableModel defaultTableModel1 = new DefaultTableModel();
+    private DefaultTableModel modelHoaDonChiTiet;
+    private DefaultTableModel modelLichSuHoaDon;
     HoaDonService hoaDonService = new HoaDonService();
     HoaDonChiTietService hoaDonChiTietService = new HoaDonChiTietService();
+    LichSuHoaDonService lichSuHoaDonService = new LichSuHoaDonService();
     List<HoaDon> hd = new ArrayList<>();
     List<HoaDonChiTiet> hdct = new ArrayList<>();
+    List<LichSuHoaDon> lshd = new ArrayList<>();
 
     public HoaDonView() {
         initComponents();
@@ -47,7 +53,6 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
     public void fillData() {
         hd = hoaDonService.getAllHoaDon();
-
         defaultTableModel.setRowCount(0);
         for (HoaDon hoaDon : hd) {
             defaultTableModel.addRow(new Object[]{
@@ -68,26 +73,37 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         }
     }
 
-    public void LoadHoaDonChiTiet(List<HoaDonChiTiet> chiTietList) {
-        hdct = hoaDonChiTietService.getAllHoaDonChiTiets();
-
-        defaultTableModel1.setRowCount(0);
-        for (HoaDonChiTiet hoaDonChiTiet : hdct) {
-            defaultTableModel1.addRow(new Object[]{
-                hoaDonChiTiet.getId(),
-                hoaDonChiTiet.getHoaDon().getMaHoaDon(),
-                hoaDonChiTiet.getSanPhamChiTiet().getId(),
-                hoaDonChiTiet.getGiaBan(),
-                hoaDonChiTiet.getSoLuong(),
-                hoaDonChiTiet.isTrangThai() ? "Còn hàng" : "Hết hàng",});
-        }
-    }
 
     public void resetTableHDCT() {
         if (tblHoaDonChiTiet.getRowCount() > 0) {
             defaultTableModel1.setRowCount(0);
         }
 
+    }
+     public void loadTableHoaDonChiTiet() {
+        int row = this.tblHoaDon.getSelectedRow();
+        if (row == 0) {
+            return;
+        }
+        String mahd = this.tblHoaDon.getValueAt(row, 0).toString();
+        modelHoaDonChiTiet= (DefaultTableModel) tblHoaDonChiTiet.getModel();
+        modelHoaDonChiTiet.setRowCount(0);
+        hdct = hoaDonChiTietService.getHoaDonByID(row);
+        for (HoaDonChiTiet hd : hdct) {
+            modelHoaDonChiTiet.addRow(hd.toDataRow());
+        }
+    }
+     public void loadTableLichSuHoaDon() {
+        int row = this.tblHoaDon.getSelectedRow();
+        if (row == 0) {
+            return;
+        }
+        modelLichSuHoaDon= (DefaultTableModel) tblLichSuHoaDon.getModel();
+        modelLichSuHoaDon.setRowCount(0);
+        lshd = lichSuHoaDonService.getLichHoaDonByID(row);
+        for (LichSuHoaDon hd : lshd) {
+            modelLichSuHoaDon.addRow(hd.toDataRow());
+        }
     }
 
     private void exportExcelHD() {
@@ -178,31 +194,6 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         }
     }
 
-    public void Load() {
-        int selectedRow = tblHoaDon.getSelectedRow();
-
-        if (selectedRow != -1) {
-            DefaultTableModel modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
-            DefaultTableModel modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
-            DefaultTableModel modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-            int columnCount = tblHoaDon.getColumnCount();
-            int columnCountHoaDonChiTiet = tblHoaDonChiTiet.getColumnCount();
-            Object[] rowData = new Object[columnCount];
-            for (int i = 0; i < columnCount; i++) {
-                rowData[i] = modelHoaDon.getValueAt(selectedRow, i);
-            }
-            modelLichSuHoaDon.addRow(rowData);
-
-            Object[] rowDataHoaDonChiTiet = new Object[columnCountHoaDonChiTiet];
-
-            for (int i = 0; i < columnCountHoaDonChiTiet; i++) {
-                rowDataHoaDonChiTiet[i] = modelHoaDon.getValueAt(selectedRow, i);
-            }
-            modelHoaDonChiTiet.addRow(rowDataHoaDonChiTiet);
-        } else {
-            System.out.println("Ko in tblHoaDon.");
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -447,16 +438,19 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
     private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
         // TODO add your handling code here:
-
+                                                 
+        resetTableHDCT();
+        if (cbbTrangThai.getSelectedIndex() >0) {
+            defaultTableModel.setRowCount(0);
+            fillData();
+        }
+       
     }//GEN-LAST:event_cbbTrangThaiActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
-        int id = hoaDonService.getAllHoaDon().get(tblHoaDon.getSelectedRow()).getId();
-        LoadHoaDonChiTiet(hoaDonChiTietService.getHoaDonByID(id));
-        Load();
-
-
+        loadTableHoaDonChiTiet();
+        loadTableLichSuHoaDon();
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

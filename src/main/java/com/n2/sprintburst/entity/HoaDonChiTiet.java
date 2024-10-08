@@ -38,4 +38,8 @@ public class HoaDonChiTiet {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSanPhamChiTiet", referencedColumnName = "id")
     private SanPhamChiTiet sanPhamChiTiet;
+    
+    public Object[] toDataRow(){
+        return new Object[]{id,hoaDon.getMaHoaDon(),sanPhamChiTiet.getMaSanPhamChiTiet(),soLuong,giaBan,trangThai};
+    }
 }
