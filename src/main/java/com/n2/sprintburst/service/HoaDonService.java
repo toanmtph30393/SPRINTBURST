@@ -11,6 +11,7 @@ import com.n2.sprintburst.entity.SanPham;
 import com.n2.sprintburst.entity.TrangThaiHoaDon;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.apache.commons.math3.util.ArithmeticUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -70,6 +71,38 @@ public class HoaDonService {
         }
     }
 
+    public static void autoUpdateFields(HoaDon hd) {
+        try {
+            HibernateConfig.getSessionFactory().inTransaction(s -> {
+                HoaDon found = s.createSelectionQuery("from HoaDon where id = :id", HoaDon.class)
+                        .setParameter("id", hd.getId())
+                        .setMaxResults(1)
+                        .getSingleResult();
+                int totalValue = found.getHoaDonChiTiets().stream().map(hdct -> hdct.getSoLuong() * hdct.getGiaBan()).reduce(0, Integer::sum);
+
+                found.setTongTruocGiamGia(totalValue);
+
+                found.setTongSauGiamGia(totalValue);
+
+            });
+        } catch (Exception e) {
+            throw e;
+
+        }
+    }
+
+    public static void complete(HoaDon hd) {
+        try {
+            HibernateConfig.getSessionFactory().inTransaction(s -> {
+                hd.setTrangThaiHoaDon(s.createSelectionQuery("from TrangThaiHoaDon where id = :id", TrangThaiHoaDon.class).setParameter("id", 2).setMaxResults(1).getSingleResult());
+                s.merge(hd);
+                s.flush();
+            });
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public List<HoaDon> getAllHoaDon() {
         session = HibernateConfig.getSessionFactory().openSession();
         List<HoaDon> list = session.createQuery("from HoaDon", HoaDon.class).list();
@@ -82,7 +115,7 @@ public class HoaDonService {
         session = HibernateConfig.getSessionFactory().openSession();
         KhachHang kh = new KhachHang();
         kh.setId(idKhachHang);
-        List<HoaDon> list = session.createQuery("from HoaDon where khachHang = :khachHang ", HoaDon.class)
+        List<HoaDon> list = session.createQuery("from HoaDon where hoaDon = :hoaDon ", HoaDon.class)
                 .setParameter("khachHang", kh)
                 .list();
         session.close();//        
