@@ -18,6 +18,7 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.n2.sprintburst.entity.SanPham;
 import com.n2.sprintburst.entity.SanPhamChiTiet;
+import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.view.banHang.BanHangForm;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -50,7 +51,7 @@ public class QRCodeScanner extends JFrame implements Runnable, ThreadFactory {
 
         setLayout(new FlowLayout());
         setTitle("");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         Dimension size = WebcamResolution.QVGA.getSize();
 
@@ -99,10 +100,12 @@ public class QRCodeScanner extends JFrame implements Runnable, ThreadFactory {
             }
 
             if (result != null) {
-                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                SanPhamChiTiet parsed = gson.fromJson(result.getText(), SanPhamChiTiet.class);
-                parent.setParsedQRCode(parsed);
+                System.err.println("PARSED: " + result.getText());
+
+                parent.addParsedSPCTToGioHang(Integer.parseInt(result.getText()));
+                webcam.close();
                 this.dispose();
+
             }
 
         } while (true);

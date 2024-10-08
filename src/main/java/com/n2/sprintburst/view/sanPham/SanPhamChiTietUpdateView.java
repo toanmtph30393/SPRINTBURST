@@ -46,7 +46,7 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
     DefaultComboBoxModel cbxMauSacBoxModel;
     DefaultComboBoxModel cbxSizeBoxModel;
     DefaultComboBoxModel cbxSanPhamBoxModel;
-
+    
     List<ThuocTinh> thuongHieuData;
     List<ThuocTinh> xuatXuData;
     List<ThuocTinh> chatLieuData;
@@ -56,7 +56,7 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
     List<ThuocTinh> sizeData;
     List<SanPham> sanPhamData;
     SanPhamChiTiet spct;
-
+    
     SanPhamView parent;
 
     /**
@@ -65,11 +65,11 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
     public SanPhamChiTietUpdateView(SanPhamChiTiet spct, SanPhamView parent) {
         FlatLightLaf.setup();
         initComponents();
-
+        
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.spct = spct;
         this.parent = parent;
-
+        
         cbxThuongHieuBoxModel = (DefaultComboBoxModel) cbxThuongHieuSPCTCreate.getModel();
         cbxXuatXuBoxModel = (DefaultComboBoxModel) cbxXuatXuSPCTCreate.getModel();
         cbxChatLieuBoxModel = (DefaultComboBoxModel) cbxChatLieuSPCTCreate.getModel();
@@ -78,23 +78,23 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
         cbxMauSacBoxModel = (DefaultComboBoxModel) cbxMauSacSPCTCreate.getModel();
         cbxSizeBoxModel = (DefaultComboBoxModel) cbxSizeSPCTCreate.getModel();
         cbxSanPhamBoxModel = (DefaultComboBoxModel) cbxSanPhamSPCTCreate.getModel();
-
+        
         try {
             initForm();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     public void initForm() throws Exception {
-
+        
         initCbxData();
         initCbxUI();
         inittxtUI();
         renderSPCTQRcode(generateQRCode(spct));
-
+        
     }
-
+    
     public void initCbxUI() {
         int thuongHieuDataidx = spct.getThuongHieu() == null ? -1 : thuongHieuData.indexOf(thuongHieuData.stream().filter(e -> e.getId() == spct.getThuongHieu().getId()).findFirst().get());
         int xuatXuDataidx = spct.getXuatXu() == null ? -1 : xuatXuData.indexOf(xuatXuData.stream().filter(e -> e.getId() == spct.getXuatXu().getId()).findFirst().get());
@@ -104,7 +104,7 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
         int mauSacDataidx = spct.getMauSac() == null ? -1 : mauSacData.indexOf(mauSacData.stream().filter(e -> e.getId() == spct.getMauSac().getId()).findFirst().get());
         int sizeDataidx = spct.getSize() == null ? -1 : sizeData.indexOf(sizeData.stream().filter(e -> e.getId() == spct.getSize().getId()).findFirst().get());
         int sanphamDataidx = sanPhamData.indexOf(sanPhamData.stream().filter(e -> e.getId() == spct.getSanPham().getId()).findFirst().get());
-
+        
         cbxThuongHieuSPCTCreate.setSelectedIndex(thuongHieuDataidx);
         cbxXuatXuSPCTCreate.setSelectedIndex(xuatXuDataidx);
         cbxChatLieuSPCTCreate.setSelectedIndex(chatLieuDataidx);
@@ -114,14 +114,14 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
         cbxSizeSPCTCreate.setSelectedIndex(sizeDataidx);
         cbxSanPhamSPCTCreate.setSelectedIndex(sanphamDataidx);
     }
-
+    
     public void inittxtUI() {
         txtPriceSPCTCreate.setText(String.valueOf(spct.getGiaBan()));
         txtSoLuongSPCTCreate.setText(String.valueOf(spct.getSoLuong()));
         txtTenSPCTCreate.setText(spct.getTenSanPhamChiTiet());
-
+        
     }
-
+    
     public void initCbxData() {
         thuongHieuData = ThuocTinhService.getThuocTinhByTableName("ThuongHieu");
         xuatXuData = ThuocTinhService.getThuocTinhByTableName("XuatXu");
@@ -148,7 +148,7 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
         cbxMauSacBoxModel.removeAllElements();
         cbxSizeBoxModel.removeAllElements();
         cbxSanPhamBoxModel.removeAllElements();
-
+        
         cbxThuongHieuBoxModel.addAll(thuongHieuData.stream().map(e -> e.getTen()).toList());
         cbxXuatXuBoxModel.addAll(xuatXuData.stream().map(e -> e.getTen()).toList());
         cbxChatLieuBoxModel.addAll(chatLieuData.stream().map(e -> e.getTen()).toList());
@@ -157,12 +157,12 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
         cbxMauSacBoxModel.addAll(mauSacData.stream().map(e -> e.getTen()).toList());
         cbxSizeBoxModel.addAll(sizeData.stream().map(e -> e.getTen()).toList());
         cbxSanPhamBoxModel.addAll(sanPhamData.stream().map(e -> e.getTenSanPham()).toList());
-
+        
     }
-
+    
     private SanPhamChiTiet parseFormForUpdate() {
         SanPhamChiTiet spctEdit = spct;
-
+        
         spctEdit.setTenSanPhamChiTiet(txtTenSPCTCreate.getText());
         spctEdit.setNgayTao(LocalDateTime.now());
         spctEdit.setNgayCapNhat(LocalDateTime.now());
@@ -172,11 +172,11 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
             spctEdit.setSoLuong(Integer.parseInt(txtSoLuongSPCTCreate.getText()));
         } catch (Exception e) {
             throw new RuntimeException("Phai la so");
-
+            
         }
-
+        
         spctEdit.setSanPham(sanPhamData.get(cbxSanPhamSPCTCreate.getSelectedIndex()));
-
+        
         if (cbxThuongHieuSPCTCreate.getSelectedIndex() != -1) {
             spctEdit.setThuongHieu((ThuongHieu) thuongHieuData.get(cbxThuongHieuSPCTCreate.getSelectedIndex()));
         }
@@ -198,44 +198,44 @@ public class SanPhamChiTietUpdateView extends javax.swing.JFrame implements SanP
         if (cbxSizeSPCTCreate.getSelectedIndex() != -1) {
             spctEdit.setSize((Size) sizeData.get(cbxSizeSPCTCreate.getSelectedIndex()));
         }
-
+        
         return spctEdit;
-
+        
     }
-
+    
     private void displayThuocTinhCreateWindow(String tbl) {
         new CreateThuocTinhForm(tbl, this).setVisible(true);
-
+        
     }
-
+    
     private SanPhamChiTiet parseFormForDelete() {
         return spct;
     }
-
+    
     private void addSanPhamChiTiet() {
         SanPhamChiTietService.addOrUpdate(parseFormForUpdate());
         parent.initOrRefreshStateSanPhamChiTiet();
         parent.renderSanPhamChiTietTable();
         this.dispose();
-
+        
     }
-
+    
     private void deleteSanPhamChiTiet() {
         SanPhamChiTietService.delete(parseFormForDelete());
         parent.initOrRefreshStateSanPhamChiTiet();
         parent.renderSanPhamChiTietTable();
         this.dispose();
     }
-
+    
     private BufferedImage generateQRCode(SanPhamChiTiet spct) throws Exception {
         QRCodeWriter writer = new QRCodeWriter();
-
-        return MatrixToImageWriter.toBufferedImage(writer.encode(spct.toString(), BarcodeFormat.QR_CODE, 100, 100));
+        
+        return MatrixToImageWriter.toBufferedImage(writer.encode(String.valueOf(spct.getId()), BarcodeFormat.QR_CODE, 100, 100));
     }
-
+    
     private void renderSPCTQRcode(BufferedImage bufferedImage) {
         ImageIcon icon = new ImageIcon(bufferedImage);
-
+        
         lblQRCode.setIcon(icon);
     }
 

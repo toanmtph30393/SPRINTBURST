@@ -64,6 +64,18 @@ public class SanPhamChiTietService {
         }
     }
 
+    public static SanPhamChiTiet findById(int id) {
+        try {
+            Session s = HibernateConfig.getSessionFactory().openSession();
+            return s.createQuery("from SanPhamChiTiet where id = :id", SanPhamChiTiet.class)
+                    .setParameter("id", id)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public static void main(String[] args) {
         SanPhamChiTiet spct = new SanPhamChiTiet();
         SanPham sp = new SanPham();

@@ -84,10 +84,6 @@ public class SanPhamChiTiet {
     @JoinColumn(name = "idSize", referencedColumnName = "id")
     private Size size;
 
-    @Override
-    public String toString() {
-        Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        return GSON.toJson(this);
-    }
+   
 
 }

@@ -26,34 +26,32 @@ import javax.swing.table.DefaultTableModel;
  * @author Mtt
  */
 public class BanHangForm extends javax.swing.JPanel {
-
+    
     DefaultTableModel spctTableModel;
     DefaultTableModel hoaDonTableModel;
     DefaultTableModel gioHangTableModel;
-
+    
     List<SanPhamChiTiet> spctState;
     List<HoaDon> hoaDonState;
     HoaDon chosenHoaDonState;
-
-    SanPhamChiTiet parsedQRCode;
-
+    
     public BanHangForm() {
-
+        
         FlatLightLaf.setup();
         initComponents();
-
+        
         spctTableModel = (DefaultTableModel) tblSanPhamChiTiet.getModel();
         hoaDonTableModel = (DefaultTableModel) tblHoaDon.getModel();
         gioHangTableModel = (DefaultTableModel) tblGioHang.getModel();
-
+        
         initHoaDonState();
         initSPCTState();
-
+        
         renderHoaDonTable();
         renderSPCTTable();
-
+        
     }
-
+    
     public static void main(String[] args) {
         new BanHangForm().setVisible(true);
     }
@@ -62,14 +60,14 @@ public class BanHangForm extends javax.swing.JPanel {
     private void initSPCTState() {
         spctState = SanPhamChiTietService.getAllActive();
     }
-
+    
     private void initHoaDonState() {
         hoaDonState = HoaDonService.getAllUnprocessed();
     }
-
+    
     private void initChosenHoaDonState() {
         int idx = tblHoaDon.getSelectedRow();
-
+        
         if (idx == -1) {
             return;
         }
@@ -80,7 +78,7 @@ public class BanHangForm extends javax.swing.JPanel {
     //UI
     private void renderHoaDonTable() {
         hoaDonTableModel.setRowCount(0);
-
+        
         for (int i = 0; i < hoaDonState.size(); i++) {
             HoaDon hd = hoaDonState.get(i);
             hoaDonTableModel.addRow(new Object[]{
@@ -94,7 +92,7 @@ public class BanHangForm extends javax.swing.JPanel {
             );
         }
     }
-
+    
     private void renderSPCTTable() {
         spctTableModel.setRowCount(0);
         for (int i = 0; i < spctState.size(); i++) {
@@ -116,10 +114,10 @@ public class BanHangForm extends javax.swing.JPanel {
             });
         }
     }
-
+    
     private void renderGioHangTable() {
         gioHangTableModel.setRowCount(0);
-
+        
         if (chosenHoaDonState == null) {
             return;
         }
@@ -135,7 +133,7 @@ public class BanHangForm extends javax.swing.JPanel {
             });
         }
     }
-
+    
     private void renderChosenHoaDon() {
         try {
             if (chosenHoaDonState == null) {
@@ -145,39 +143,39 @@ public class BanHangForm extends javax.swing.JPanel {
             initHoaDonState();
             initChosenHoaDonState();
             renderGioHangTable();
-
+            
             lblHoaDonMa.setText(chosenHoaDonState.getMaHoaDon());
             lblTienTong.setText(String.valueOf(chosenHoaDonState.getTongTruocGiamGia()));
             lblThanhTien.setText(String.valueOf(chosenHoaDonState.getTongSauGiamGia()));
             lblTienGiam.setText(String.valueOf(chosenHoaDonState.getTongTruocGiamGia() - chosenHoaDonState.getTongSauGiamGia()));
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
+        
     }
-
+    
     private void refreshSPCTGroup() {
         initSPCTState();
         renderSPCTTable();
     }
-
+    
     private void refreshHoaDonGroup() {
         initHoaDonState();
         renderHoaDonTable();
-
+        
         txtThanhToanTienMat.setText("0");
         txtThanhToanTienChuyen.setText("0");
-
+        
     }
-
+    
     private void refreshChosenHoaDonGroup() {
         chosenHoaDonState = null;
         renderChosenHoaDon();
         gioHangTableModel.setRowCount(0);
     }
-
+    
     private void refreshStatesAndTables() {
         refreshSPCTGroup();
         refreshHoaDonGroup();
@@ -194,91 +192,119 @@ public class BanHangForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-
+    
     private void addSPCTToHDCT() {
         try {
             int idx = tblSanPhamChiTiet.getSelectedRow();
-
+            
             if (idx == -1) {
                 return;
             }
+            
+            int hdIdx = tblHoaDon.getSelectedRow();
+            
             SanPhamChiTiet spct = spctState.get(idx);
-
+            
             HoaDonChiTiet hdct = new HoaDonChiTiet();
             hdct.setGiaBan(spct.getGiaBan());
             hdct.setHoaDon(chosenHoaDonState);
             hdct.setSanPhamChiTiet(spct);
             hdct.setSoLuong(1);
             hdct.setTrangThai(true);
-
+            
             HoaDonChiTietService.add(hdct);
-
+            
             initChosenHoaDonState();
             renderChosenHoaDon();
+            initHoaDonState();
+            renderHoaDonTable();
+            
+            tblHoaDon.setRowSelectionInterval(hdIdx, hdIdx);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-
+    
     private void removeSPCTFromGioHang() {
         try {
             int idx = tblGioHang.getSelectedRow();
-
+            
             HoaDonChiTietService.remove(chosenHoaDonState.getHoaDonChiTiets().get(idx));
             initChosenHoaDonState();
             renderChosenHoaDon();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
+        
     }
-
+    
     private void createThanhToan() {
         ThanhToan th = new ThanhToan();
         th.setHoaDon(chosenHoaDonState);
         th.setSoTienMat(Integer.parseInt(txtThanhToanTienMat.getText()));
         th.setSoTienChuyen(Integer.parseInt(txtThanhToanTienChuyen.getText()));
         th.setNgayThanhToan(LocalDateTime.now());
-
+        
         ThanhToanService.create(th);
-
+        
         initChosenHoaDonState();
-
+        
     }
-
+    
     private void completeHoaDon() {
         try {
             if (JOptionPane.showConfirmDialog(this, "Thanh toan?", "Thanh toan", JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) {
                 return;
             }
-
+            
             createThanhToan();
             HoaDon toComplete = chosenHoaDonState;
             toComplete.setTenNguoiNhan(txtNguoiNhanTen.getText());
             toComplete.setDienThoaiNguoiNhan(txtNguoiNhanSdt.getText());
-
+            
             HoaDonService.complete(toComplete);
             initChosenHoaDonState();
             new HoaDonCompletionDisplay(chosenHoaDonState).setVisible(true);
-
+            
             refreshStatesAndTables();
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-
+    
     private void scanQRCode() {
         new QRCodeScanner(this).setVisible(true);
+        
     }
-
-    private void addParsedSPCTToGioHang() {
-
-    }
-
-    public void setParsedQRCode(SanPhamChiTiet parsedQRCode) {
-        this.parsedQRCode = parsedQRCode;
+    
+    public void addParsedSPCTToGioHang(int id) {
+        try {
+            
+            int idx = spctState.indexOf(spctState.stream().filter(spct -> spct.getId() == id).findFirst().get());
+            
+            if (idx == -1) {
+                return;
+            }
+            SanPhamChiTiet spct = SanPhamChiTietService.findById(id);
+            
+            HoaDonChiTiet hdct = new HoaDonChiTiet();
+            hdct.setGiaBan(spct.getGiaBan());
+            hdct.setHoaDon(chosenHoaDonState);
+            hdct.setSanPhamChiTiet(spct);
+            hdct.setSoLuong(1);
+            hdct.setTrangThai(true);
+            
+            HoaDonChiTietService.add(hdct);
+            
+            initChosenHoaDonState();
+            renderChosenHoaDon();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
     }
 
     /**
@@ -915,7 +941,12 @@ public class BanHangForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnScanToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScanToCartActionPerformed
+        if (tblHoaDon.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Phai chon hoa don");
+            return;
+        }
         scanQRCode();
+
     }//GEN-LAST:event_btnScanToCartActionPerformed
 
 
