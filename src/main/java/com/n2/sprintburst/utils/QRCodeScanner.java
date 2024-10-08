@@ -93,26 +93,16 @@ public class QRCodeScanner extends JFrame implements Runnable, ThreadFactory {
 
                 try {
                     result = new MultiFormatReader().decode(bitmap);
-                    System.err.println("Running scan");
                 } catch (NotFoundException e) {
                     // fall thru, it means there is no QR code in image
                 }
             }
 
             if (result != null) {
-                System.err.println("Scan success");
-
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                try {
-                    SanPhamChiTiet parsed = gson.fromJson(result.getText(), SanPhamChiTiet.class);
-                    parent.setParsedQRCode(parsed);
-                } catch (Exception e) {
-                    this.dispose();
-                    break;
-                }
-
+                SanPhamChiTiet parsed = gson.fromJson(result.getText(), SanPhamChiTiet.class);
+                parent.setParsedQRCode(parsed);
                 this.dispose();
-                break;
             }
 
         } while (true);
