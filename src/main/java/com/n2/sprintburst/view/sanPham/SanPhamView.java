@@ -443,7 +443,7 @@ public class SanPhamView extends javax.swing.JPanel {
 
     private void filterSpct() {
         SanPhamChiTietFilterObject filterObj = parseSPCTFilter();
-        List<SanPhamChiTiet> result = SanPhamChiTietService.filter(filterObj);
+        List<SanPhamChiTiet> result = SanPhamChiTietService.filterByFilterObj(filterObj);
         sanPhamChiTietState = result;
 
         renderSanPhamChiTietTable();

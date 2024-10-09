@@ -86,7 +86,7 @@ public class SanPhamChiTietService {
         addOrUpdate(spct);
     }
 
-    public static List<SanPhamChiTiet> filter(SanPhamChiTietFilterObject filterObj) {
+    public static List<SanPhamChiTiet> filterByFilterObj(SanPhamChiTietFilterObject filterObj) {
         try {
             Session s = HibernateConfig.getSessionFactory().openSession();
             StringBuilder query = new StringBuilder("from SanPhamChiTiet ");
@@ -154,4 +154,32 @@ public class SanPhamChiTietService {
             throw e;
         }
     }
+
+    public static List<SanPhamChiTiet> filterByKeyword(String keyword, Integer min, Integer max) {
+        try {
+            Session s = HibernateConfig.getSessionFactory().openSession();
+            StringBuilder query = new StringBuilder("from SanPhamChiTiet "
+                    + "where (giaBan between :min and :max "
+                    + "and trangThai = true) "
+                    + "and (thuongHieu.ten like :keyword "
+                    + "or xuatXu.ten like :keyword "
+                    + "or chatLieu.ten like :keyword "
+                    + "or deGiay.ten like :keyword "
+                    + "or coGiay.ten like :keyword "
+                    + "or mauSac.ten like :keyword "
+                    + "or size.ten like :keyword "
+                    + "or tenSanPhamChiTiet like :keyword)"
+            );
+
+            Query q = s.createQuery(query.toString(), SanPhamChiTiet.class);
+            q.setParameter("keyword", "%" + keyword + "%");
+            q.setParameter("min", min);
+            q.setParameter("max", max);
+
+            return q.getResultList();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }

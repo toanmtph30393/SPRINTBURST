@@ -62,6 +62,8 @@ public class HoaDonService {
 
                 hd.setMaHoaDon("HD" + newId);
                 hd.setNgayTao(LocalDateTime.now());
+                hd.setTongTruocGiamGia(0);
+                hd.setTongSauGiamGia(0);
                 hd.setTrangThaiHoaDon(s.createSelectionQuery("from TrangThaiHoaDon where id = :id", TrangThaiHoaDon.class).setParameter("id", 1).setMaxResults(1).getSingleResult());
                 s.persist(hd);
             });
@@ -88,6 +90,17 @@ public class HoaDonService {
         } catch (Exception e) {
             throw e;
 
+        }
+    }
+
+    public static void merge(HoaDon hd) {
+        try {
+            HibernateConfig.getSessionFactory().inTransaction(s -> {
+                s.merge(hd);
+                s.flush();
+            });
+        } catch (Exception e) {
+            throw e;
         }
     }
 
