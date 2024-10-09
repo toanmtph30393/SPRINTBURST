@@ -8,6 +8,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.n2.sprintburst.entity.HoaDon;
 import com.n2.sprintburst.entity.HoaDonChiTiet;
 import com.n2.sprintburst.entity.KhachHang;
+import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.entity.SanPhamChiTiet;
 import com.n2.sprintburst.entity.ThanhToan;
 import com.n2.sprintburst.service.HoaDonChiTietService;
@@ -39,10 +40,14 @@ public class BanHangForm extends javax.swing.JPanel {
     
     KhachHang khachHangState;
     
-    public BanHangForm() {
+    NhanVien userState;
+    
+    public BanHangForm(NhanVien user) {
         
         FlatLightLaf.setup();
         initComponents();
+        
+        this.userState = user;
         
         spctTableModel = (DefaultTableModel) tblSanPhamChiTiet.getModel();
         hoaDonTableModel = (DefaultTableModel) tblHoaDon.getModel();
@@ -54,10 +59,6 @@ public class BanHangForm extends javax.swing.JPanel {
         renderHoaDonTable();
         renderSPCTTable();
         
-    }
-    
-    public static void main(String[] args) {
-        new BanHangForm().setVisible(true);
     }
 
     //STATES
@@ -281,7 +282,7 @@ public class BanHangForm extends javax.swing.JPanel {
             
             HoaDonService.complete(toComplete);
             initChosenHoaDonState();
-            new HoaDonCompletionDisplay(chosenHoaDonState).setVisible(true);
+            JOptionPane.showMessageDialog(this, "Đã thanh toán");
             
             refreshStatesAndTables();
             

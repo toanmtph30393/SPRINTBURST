@@ -4,6 +4,8 @@
  */
 package com.n2.sprintburst.view;
 
+import com.n2.sprintburst.entity.NhanVien;
+import com.n2.sprintburst.service.NhanVienService;
 import com.n2.sprintburst.view.banHang.BanHangForm;
 import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
 import javax.swing.JOptionPane;
@@ -15,7 +17,7 @@ import javax.swing.JOptionPane;
 public final class Home extends javax.swing.JFrame {
 
     // Khoi tao cac menu con
-    BanHangForm banHangView = new BanHangForm();
+    BanHangForm banHangView;
     HoaDonView hoaDonView = new HoaDonView();
     TrangChuView trangChuView = new TrangChuView();
     KhachHangView khachHangView = new KhachHangView();
@@ -34,12 +36,19 @@ public final class Home extends javax.swing.JFrame {
     Boolean checkSanPhamView = false;
     Boolean checkThongKeView = false;
 
+    //Logged in user information
+    NhanVien userState;
+
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home(NhanVien user) {
+        setExtendedState(MAXIMIZED_BOTH);
+        
         initComponents();
-
+        
+        userState = user;
+        banHangView = new BanHangForm(userState);
         // Them menu vao man hinh
         add(banHangView);
         add(hoaDonView);
@@ -49,8 +58,19 @@ public final class Home extends javax.swing.JFrame {
         add(phieuGiamGiaView);
         add(sanPhamView);
         add(thongKeView);
-
+        
         loadForm();
+        
+        int height = pnlMenuBar.getHeight();
+        
+        displayUserInfo();
+        
+        if (!user.isLaQuanLy()) {
+            btnPhieuGiamGia.setVisible(false);
+            btnThongKe.setVisible(false);
+            btnNhanVien.setVisible(false);
+//            pnlMenuBar.setSize(220, height);
+        }
     }
 
     // Load lại menu khi chuyen form ve false;
@@ -63,6 +83,11 @@ public final class Home extends javax.swing.JFrame {
         phieuGiamGiaView.setVisible(false);
         sanPhamView.setVisible(false);
         thongKeView.setVisible(false);
+    }
+    
+    public void displayUserInfo() {
+        txtUsername.setText(userState.getHoTen());
+        txtUserRole.setText(userState.isLaQuanLy() ? "Quan ly" : "Nhan vien");
     }
 
     /**
@@ -83,19 +108,25 @@ public final class Home extends javax.swing.JFrame {
         btnHoaDon = new javax.swing.JLabel();
         pnlSanPham = new javax.swing.JPanel();
         btnSanPham = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        btnPhieuGiamGia = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        pnlKhachHang = new javax.swing.JPanel();
         btnKhachHang = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        pnlGiamGia = new javax.swing.JPanel();
+        btnPhieuGiamGia = new javax.swing.JLabel();
+        pnlThongKe = new javax.swing.JPanel();
         btnThongKe = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
+        pnlNhanVien = new javax.swing.JPanel();
         btnNhanVien = new javax.swing.JLabel();
+        pnlUser = new javax.swing.JPanel();
+        txtUsername = new javax.swing.JLabel();
+        txtUserRole = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 0, 153));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(220, 2147483647));
+        setMinimumSize(new java.awt.Dimension(1920, 1080));
+        setPreferredSize(new java.awt.Dimension(220, 596));
 
-        pnlMenuBar.setBackground(new java.awt.Color(204, 204, 204));
+        pnlMenuBar.setPreferredSize(new java.awt.Dimension(220, 1080));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -181,7 +212,41 @@ public final class Home extends javax.swing.JFrame {
             .addComponent(btnSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        jPanel6.setBackground(new java.awt.Color(153, 153, 153));
+        pnlKhachHang.setBackground(new java.awt.Color(153, 153, 153));
+
+        btnKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/User group.png"))); // NOI18N
+        btnKhachHang.setText("Khách hàng");
+        btnKhachHang.setMaximumSize(new java.awt.Dimension(81, 24));
+        btnKhachHang.setMinimumSize(new java.awt.Dimension(81, 24));
+        btnKhachHang.setPreferredSize(new java.awt.Dimension(81, 24));
+        btnKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKhachHangMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlKhachHangLayout = new javax.swing.GroupLayout(pnlKhachHang);
+        pnlKhachHang.setLayout(pnlKhachHangLayout);
+        pnlKhachHangLayout.setHorizontalGroup(
+            pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlKhachHangLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        pnlKhachHangLayout.setVerticalGroup(
+            pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+            .addGroup(pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlKhachHangLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        pnlGiamGia.setBackground(new java.awt.Color(153, 153, 153));
 
         btnPhieuGiamGia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Price list.png"))); // NOI18N
         btnPhieuGiamGia.setText("Phiếu giảm giá");
@@ -191,39 +256,18 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnPhieuGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlGiamGiaLayout = new javax.swing.GroupLayout(pnlGiamGia);
+        pnlGiamGia.setLayout(pnlGiamGiaLayout);
+        pnlGiamGiaLayout.setHorizontalGroup(
+            pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnPhieuGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlGiamGiaLayout.setVerticalGroup(
+            pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnPhieuGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        jPanel7.setBackground(new java.awt.Color(153, 153, 153));
-
-        btnKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/User group.png"))); // NOI18N
-        btnKhachHang.setText("Khách hàng");
-        btnKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnKhachHangMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-        );
-
-        jPanel8.setBackground(new java.awt.Color(153, 153, 153));
+        pnlThongKe.setBackground(new java.awt.Color(153, 153, 153));
 
         btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/3d bar chart.png"))); // NOI18N
         btnThongKe.setText("Thống kê");
@@ -233,18 +277,18 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlThongKeLayout = new javax.swing.GroupLayout(pnlThongKe);
+        pnlThongKe.setLayout(pnlThongKeLayout);
+        pnlThongKeLayout.setHorizontalGroup(
+            pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlThongKeLayout.setVerticalGroup(
+            pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        jPanel9.setBackground(new java.awt.Color(153, 153, 153));
+        pnlNhanVien.setBackground(new java.awt.Color(153, 153, 153));
 
         btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Users.png"))); // NOI18N
         btnNhanVien.setText("Nhân viên");
@@ -254,15 +298,42 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlNhanVienLayout = new javax.swing.GroupLayout(pnlNhanVien);
+        pnlNhanVien.setLayout(pnlNhanVienLayout);
+        pnlNhanVienLayout.setHorizontalGroup(
+            pnlNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlNhanVienLayout.setVerticalGroup(
+            pnlNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+        );
+
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtUsername.setText("Username");
+
+        txtUserRole.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtUserRole.setText("Role");
+
+        javax.swing.GroupLayout pnlUserLayout = new javax.swing.GroupLayout(pnlUser);
+        pnlUser.setLayout(pnlUserLayout);
+        pnlUserLayout.setHorizontalGroup(
+            pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsername)
+                    .addComponent(txtUserRole))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlUserLayout.setVerticalGroup(
+            pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtUsername)
+                .addGap(18, 18, 18)
+                .addComponent(txtUserRole)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlMenuBarLayout = new javax.swing.GroupLayout(pnlMenuBar);
@@ -273,15 +344,16 @@ public final class Home extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlMenuBarLayout.setVerticalGroup(
             pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuBarLayout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addGap(100, 100, 100)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,14 +362,15 @@ public final class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addComponent(pnlNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 508, Short.MAX_VALUE)
+                .addComponent(pnlUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,7 +379,7 @@ public final class Home extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(912, 912, 912))
+                .addGap(0, 1718, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +466,7 @@ public final class Home extends javax.swing.JFrame {
         checkNhanVienView = false;
         checkPhieuGiamGiaView = false;
         checkThongKeView = false;
-
+        
         if (checkSanPhamView == true) {
             return;
         }
@@ -527,7 +600,7 @@ public final class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new Home(new NhanVienService().getNhanVienById("1")).setVisible(true);
             }
         });
     }
@@ -544,11 +617,14 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel pnlGiamGia;
+    private javax.swing.JPanel pnlKhachHang;
     private javax.swing.JPanel pnlMenuBar;
+    private javax.swing.JPanel pnlNhanVien;
     private javax.swing.JPanel pnlSanPham;
+    private javax.swing.JPanel pnlThongKe;
+    private javax.swing.JPanel pnlUser;
+    private javax.swing.JLabel txtUserRole;
+    private javax.swing.JLabel txtUsername;
     // End of variables declaration//GEN-END:variables
 }

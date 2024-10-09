@@ -167,7 +167,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         if (user != null) {
             JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-            Home home = new Home();
+            Home home = new Home(user);
             home.setVisible(true);
             this.dispose();
         } else {
