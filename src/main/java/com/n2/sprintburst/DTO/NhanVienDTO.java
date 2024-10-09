@@ -16,7 +16,7 @@ import org.hibernate.query.Query;
  * @author Admin
  */
 public class NhanVienDTO {
-    public NhanVien getUserByCredentials(String maTaiKhoan, String password) {
+    public NhanVien getUserByCredentials(String dienThoai, String password) {
         Transaction transaction = null;
         NhanVien nv = null;
 
@@ -25,9 +25,9 @@ public class NhanVienDTO {
             transaction = session.beginTransaction();
 
             // Tạo câu truy vấn để tìm user dựa trên username và password
-            String hql = "FROM NhanVien U WHERE U.maTaiKhoan = :maTaiKhoan AND U.password = :password";
+            String hql = "FROM NhanVien U WHERE U.dienThoai = :dienThoai AND U.password = :password";
             Query<NhanVien> query = session.createQuery(hql, NhanVien.class);
-            query.setParameter("maTaiKhoan", maTaiKhoan);
+            query.setParameter("dienThoai", dienThoai);
             query.setParameter("password", password);
 
             // Lấy kết quả
