@@ -20,6 +20,7 @@ import com.n2.sprintburst.utils.QRCodeScanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -68,6 +69,7 @@ public class BanHangForm extends javax.swing.JPanel {
     
     private void initHoaDonState() {
         hoaDonState = HoaDonService.getAllUnprocessed();
+        Collections.reverse(hoaDonState);
     }
     
     private void initChosenHoaDonState() {
