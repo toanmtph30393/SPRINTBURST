@@ -61,8 +61,14 @@ public final class Home extends javax.swing.JFrame {
         add(phieuGiamGiaView);
         add(sanPhamView);
         add(thongKeView);
+        
+        
 
         loadForm();
+        
+         trangChuView.setBounds(220, 0, 1360, 830);
+        trangChuView.setVisible(true);
+        checkTrangChuView = true;
 
         int height = pnlMenuBar.getHeight();
 
@@ -143,7 +149,6 @@ public final class Home extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(220, 2147483647));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
-        setPreferredSize(new java.awt.Dimension(220, 596));
 
         pnlMenuBar.setPreferredSize(new java.awt.Dimension(220, 1080));
 

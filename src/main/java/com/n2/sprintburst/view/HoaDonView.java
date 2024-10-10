@@ -39,6 +39,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
     HoaDonService hoaDonService = new HoaDonService();
     HoaDonChiTietService hoaDonChiTietService = new HoaDonChiTietService();
     LichSuHoaDonService lichSuHoaDonService = new LichSuHoaDonService();
+
     List<HoaDon> hd = new ArrayList<>();
     List<HoaDonChiTiet> hdct = new ArrayList<>();
     List<LichSuHoaDon> lshd = new ArrayList<>();
@@ -48,31 +49,49 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
         defaultTableModel1 = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        fillData();
+        fillData(0);
     }
 
-    public void fillData() {
+    public void fillData(int index) {
         hd = hoaDonService.getAllHoaDon();
         defaultTableModel.setRowCount(0);
         for (HoaDon hoaDon : hd) {
-            defaultTableModel.addRow(new Object[]{
-                hoaDon.getId(),
-                hoaDon.getMaHoaDon(),
-                hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
-                hoaDon.getNhanVien(),
-                hoaDon.getNgayTao(),
-                hoaDon.getTongTruocGiamGia(),
-                hoaDon.getTongSauGiamGia(),
-                hoaDon.getGhiChu(),
-                hoaDon.getTenNguoiNhan(),
-                hoaDon.getDienThoaiNguoiNhan(),
-                hoaDon.getDiaChiNguoiNhan(),
-                hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
-                hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
-            });
+            if (index == 0) {
+                defaultTableModel.addRow(new Object[]{
+                    hoaDon.getId(),
+                    hoaDon.getMaHoaDon(),
+                    hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
+                    hoaDon.getNhanVien(),
+                    hoaDon.getNgayTao(),
+                    hoaDon.getTongTruocGiamGia(),
+                    hoaDon.getTongSauGiamGia(),
+                    hoaDon.getGhiChu(),
+                    hoaDon.getTenNguoiNhan(),
+                    hoaDon.getDienThoaiNguoiNhan(),
+                    hoaDon.getDiaChiNguoiNhan(),
+                    hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
+                    hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
+                });
+            } else if (index == hoaDon.getTrangThaiHoaDon().getId()) {
+                defaultTableModel.addRow(new Object[]{
+                    hoaDon.getId(),
+                    hoaDon.getMaHoaDon(),
+                    hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
+                    hoaDon.getNhanVien(),
+                    hoaDon.getNgayTao(),
+                    hoaDon.getTongTruocGiamGia(),
+                    hoaDon.getTongSauGiamGia(),
+                    hoaDon.getGhiChu(),
+                    hoaDon.getTenNguoiNhan(),
+                    hoaDon.getDienThoaiNguoiNhan(),
+                    hoaDon.getDiaChiNguoiNhan(),
+                    hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
+                    hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
+                });
+            }
+
         }
     }
-
 
     public void resetTableHDCT() {
         if (tblHoaDonChiTiet.getRowCount() > 0) {
@@ -80,25 +99,27 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         }
 
     }
-     public void loadTableHoaDonChiTiet() {
+
+    public void loadTableHoaDonChiTiet() {
         int row = this.tblHoaDon.getSelectedRow();
         if (row == 0) {
             return;
         }
         String mahd = this.tblHoaDon.getValueAt(row, 0).toString();
-        modelHoaDonChiTiet= (DefaultTableModel) tblHoaDonChiTiet.getModel();
+        modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         modelHoaDonChiTiet.setRowCount(0);
         hdct = hoaDonChiTietService.getHoaDonByID(row);
         for (HoaDonChiTiet hd : hdct) {
             modelHoaDonChiTiet.addRow(hd.toDataRow());
         }
     }
-     public void loadTableLichSuHoaDon() {
+
+    public void loadTableLichSuHoaDon() {
         int row = this.tblHoaDon.getSelectedRow();
         if (row == 0) {
             return;
         }
-        modelLichSuHoaDon= (DefaultTableModel) tblLichSuHoaDon.getModel();
+        modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
         modelLichSuHoaDon.setRowCount(0);
         lshd = lichSuHoaDonService.getLichHoaDonByID(row);
         for (LichSuHoaDon hd : lshd) {
@@ -194,7 +215,6 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         }
     }
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,7 +233,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
         btnXuatEx = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        cbbTrangThai = new javax.swing.JComboBox<>();
+        cbbTrangThaiTimKiem = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblHoaDonChiTiet = new javax.swing.JTable();
@@ -233,12 +253,6 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemActionPerformed(evt);
-            }
-        });
-
-        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimKiemActionPerformed(evt);
             }
         });
 
@@ -273,10 +287,10 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Trạng thái hóa đơn");
 
-        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chưa thanh toán", "Đã thanh toán" }));
-        cbbTrangThai.addActionListener(new java.awt.event.ActionListener() {
+        cbbTrangThaiTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Đã thanh toán", "Chưa thanh toán", "" }));
+        cbbTrangThaiTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbTrangThaiActionPerformed(evt);
+                cbbTrangThaiTimKiemActionPerformed(evt);
             }
         });
 
@@ -305,7 +319,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbbTrangThaiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -322,7 +336,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cbbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbTrangThaiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -433,20 +447,27 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnXuatExActionPerformed
 
-    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+    private void cbbTrangThaiTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiTimKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemActionPerformed
 
-    private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
-        // TODO add your handling code here:
-                                                 
-        resetTableHDCT();
-        if (cbbTrangThai.getSelectedIndex() >0) {
-            defaultTableModel.setRowCount(0);
-            fillData();
+        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
+
+        // Tạo TableRowSorter để có thể áp dụng bộ lọc trên bảng
+        // Lấy giá trị trạng thái được chọn trong ComboBox
+        int selectedStatus = cbbTrangThaiTimKiem.getSelectedIndex();
+
+        // Kiểm tra nếu người dùng chọn "Tất cả", hiển thị toàn bộ dữ liệu
+        if (selectedStatus == 0) {
+            fillData(0);
+        } else if (selectedStatus == 2) {
+            // Áp dụng bộ lọc chỉ hiển thị hàng có trạng thái "Đã thanh toán"
+            System.out.println("dathanhtoam" + selectedStatus);
+            fillData(2);
+        } else if (selectedStatus == 1) {
+            // Áp dụng bộ lọc chỉ hiển thị hàng có trạng thái "Chưa thanh toán"
+            fillData(1);
         }
-       
-    }//GEN-LAST:event_cbbTrangThaiActionPerformed
+    }//GEN-LAST:event_cbbTrangThaiTimKiemActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
@@ -498,7 +519,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXuatEx;
-    private javax.swing.JComboBox<String> cbbTrangThai;
+    private javax.swing.JComboBox<String> cbbTrangThaiTimKiem;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
