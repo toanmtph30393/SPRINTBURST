@@ -9,8 +9,11 @@ package com.n2.sprintburst.view;
  * @author Admin
  */
 public class Main {
+
     public static void main(String[] args) {
-        Progressbar progressbar = new Progressbar();
-        progressbar.main(args);
+//        Progressbar progressbar = new Progressbar();
+//        progressbar.main(args);
+        LoginFrame loginFrame = new LoginFrame();
+        loginFrame.setVisible(true);
     }
 }
