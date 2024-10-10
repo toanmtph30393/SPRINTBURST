@@ -319,10 +319,10 @@ public final class Home extends javax.swing.JFrame {
         txtUserRole.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtUserRole.setText("Role");
 
-        txtUsername1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtUsername1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsername1.setText("Xin chào,");
 
-        txtUsername2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtUsername2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsername2.setText("Bạn là: ");
 
         javax.swing.GroupLayout pnlUserLayout = new javax.swing.GroupLayout(pnlUser);
