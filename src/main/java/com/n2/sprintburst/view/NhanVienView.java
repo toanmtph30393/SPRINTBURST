@@ -159,6 +159,7 @@ public class NhanVienView extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblBangNhanVien = new javax.swing.JTable();
 
+        setBorder(null);
         setPreferredSize(new java.awt.Dimension(1360, 800));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thiết lập thông tin nhân viên"));
@@ -268,7 +269,7 @@ public class NhanVienView extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel4)
                                 .addGap(47, 47, 47)
                                 .addComponent(txtEmail)))
-                        .addGap(0, 51, Short.MAX_VALUE))
+                        .addGap(0, 61, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem)

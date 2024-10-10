@@ -31,6 +31,8 @@ public class TrangChuView extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
 
+        setBorder(null);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/slider-2.png"))); // NOI18N
         jLabel1.setText("TrangChu");
 
@@ -40,13 +42,13 @@ public class TrangChuView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 592, Short.MAX_VALUE))
+                .addGap(0, 604, Short.MAX_VALUE))
         );
 
         pack();
