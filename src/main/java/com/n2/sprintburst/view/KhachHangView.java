@@ -161,6 +161,8 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         btntimLichSuGiaoDich = new javax.swing.JButton();
 
+        setBorder(null);
+        setClosable(true);
         setPreferredSize(new java.awt.Dimension(1630, 800));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thiết lập thông tin khách hàng"));
@@ -252,7 +254,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                                     .addComponent(txtDienThoai))))
-                        .addGap(87, 387, Short.MAX_VALUE)
+                        .addGap(87, 397, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
@@ -268,7 +270,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                         .addComponent(btnSua)
                         .addGap(211, 211, 211)
                         .addComponent(btnLamMoi)
-                        .addContainerGap(574, Short.MAX_VALUE))))
+                        .addContainerGap(584, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,7 +404,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(btntimLichSuGiaoDich)
                         .addGap(32, 32, 32)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

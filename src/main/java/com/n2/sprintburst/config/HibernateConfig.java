@@ -10,7 +10,7 @@ public class HibernateConfig {
 
     private static final SessionFactory sessionFactory;
     private static final String user = "sa";
-    private static final String password = "changeme";
+    private static final String password = "123456";
 
     static {
         sessionFactory = new Configuration()
@@ -53,23 +53,23 @@ public class HibernateConfig {
     }
 
     public static void main(String[] args) {
-        getSessionFactory().inTransaction(s -> {
-            NhanVien nv = new NhanVien();
-            nv.setHoTen("aaaaaaaaaaaaaaaa");
-            nv.setDienThoai("000000000");
-            s.persist(nv);
-
-            KhachHang kh = new KhachHang();
-            kh.setTenKhachHang("aaaaaaaaaaaaaaaa");
-            kh.setDienThoai("000000000");
-            kh.setNhanVien(nv);
-
-            s.persist(kh);
-
-            s.flush();
-
-        });
-        System.out.println(getSessionFactory());
+//        getSessionFactory().inTransaction(s -> {
+//            NhanVien nv = new NhanVien();
+//            nv.setHoTen("aaaaaaaaaaaaaaaa");
+//            nv.setDienThoai("000000000");
+//            s.persist(nv);
+//
+//            KhachHang kh = new KhachHang();
+//            kh.setTenKhachHang("aaaaaaaaaaaaaaaa");
+//            kh.setDienThoai("000000000");
+//            kh.setNhanVien(nv);
+//
+//            s.persist(kh);
+//
+//            s.flush();
+//
+//        });
+//        System.out.println(getSessionFactory());
     }
 
 }
