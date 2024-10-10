@@ -6,8 +6,11 @@ package com.n2.sprintburst.view.sanPham;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.n2.sprintburst.service.ThuocTinhService;
+import com.n2.sprintburst.view.Home;
 import com.n2.sprintburst.view.sanPham.SanPhamChiTietCreateview;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +28,7 @@ public class CreateThuocTinhForm extends javax.swing.JFrame {
         FlatLightLaf.setup();
 
         initComponents();
+        setFrameIcon();
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -39,6 +43,17 @@ public class CreateThuocTinhForm extends javax.swing.JFrame {
         parent.initCbxData();
         parent.initCbxUI();
 
+    }
+
+    private void setFrameIcon() {
+        ImageIcon logoIcon = null;
+        java.net.URL imgURL = Home.class.getResource("/icon/mini_logo.png");
+        if (imgURL != null) {
+            logoIcon = new ImageIcon(imgURL);
+            this.setIconImage(logoIcon.getImage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Icon image not found.");
+        }
     }
 
     /**
@@ -56,6 +71,7 @@ public class CreateThuocTinhForm extends javax.swing.JFrame {
         btnThuocTinhCreate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Thêm thuộc tính sản phẩm - SPRINTBURST");
         setMinimumSize(new java.awt.Dimension(312, 160));
 
         jLabel1.setText("Tên");

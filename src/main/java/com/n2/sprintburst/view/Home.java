@@ -8,6 +8,7 @@ import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.service.NhanVienService;
 import com.n2.sprintburst.view.banHang.BanHangForm;
 import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,6 +47,8 @@ public final class Home extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
 
         initComponents();
+
+        setFrameIcon();
 
         userState = user;
         banHangView = new BanHangForm(userState);
@@ -90,6 +93,16 @@ public final class Home extends javax.swing.JFrame {
         txtUserRole.setText(userState.isLaQuanLy() ? "Quản lý" : "Nhân viên");
     }
 
+    private void setFrameIcon() {
+        ImageIcon logoIcon = null;
+        java.net.URL imgURL = Home.class.getResource("/icon/mini_logo.png");
+        if (imgURL != null) {
+            logoIcon = new ImageIcon(imgURL);
+            this.setIconImage(logoIcon.getImage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Icon image not found.");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +138,10 @@ public final class Home extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Giày thể thao SPRINTBURST");
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(220, 2147483647));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
         setPreferredSize(new java.awt.Dimension(220, 596));

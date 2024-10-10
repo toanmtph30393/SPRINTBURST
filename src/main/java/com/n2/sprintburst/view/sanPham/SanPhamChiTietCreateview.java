@@ -18,10 +18,12 @@ import com.n2.sprintburst.entity.XuatXu;
 import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.service.SanPhamService;
 import com.n2.sprintburst.service.ThuocTinhService;
+import com.n2.sprintburst.view.Home;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
@@ -58,6 +60,7 @@ public class SanPhamChiTietCreateview extends javax.swing.JFrame implements SanP
     public SanPhamChiTietCreateview(SanPhamView parent) {
         FlatLightLaf.setup();
         initComponents();
+        setFrameIcon();
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.parent = parent;
@@ -72,6 +75,17 @@ public class SanPhamChiTietCreateview extends javax.swing.JFrame implements SanP
         cbxSanPhamBoxModel = (DefaultComboBoxModel) cbxSanPhamSPCTCreate.getModel();
 
         initForm();
+    }
+
+    private void setFrameIcon() {
+        ImageIcon logoIcon = null;
+        java.net.URL imgURL = Home.class.getResource("/icon/mini_logo.png");
+        if (imgURL != null) {
+            logoIcon = new ImageIcon(imgURL);
+            this.setIconImage(logoIcon.getImage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Icon image not found.");
+        }
     }
 
     public void initForm() {
@@ -254,13 +268,14 @@ public class SanPhamChiTietCreateview extends javax.swing.JFrame implements SanP
         txtTenSPCTCreate = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Thêm chi tết sản phẩm - SPRINTBURST");
         setMaximumSize(new java.awt.Dimension(900, 600));
         setMinimumSize(new java.awt.Dimension(900, 0));
         setPreferredSize(new java.awt.Dimension(900, 400));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("TẠO SẢN PHẨM CHI TIẾT");
+        jLabel7.setText("THÊM CHI TIẾT SẢN PHẨM");
 
         jLabel1.setText("Sản phẩm");
 

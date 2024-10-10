@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +27,7 @@ import javax.swing.table.TableRowSorter;
  * @author Admin
  */
 public class TimKiemKhachHangForm extends javax.swing.JFrame {
-    
+
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     DefaultTableModel defaultTableModel1 = new DefaultTableModel();
     DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
@@ -35,11 +36,11 @@ public class TimKiemKhachHangForm extends javax.swing.JFrame {
     NhanVienService nhanVienService = new NhanVienService();
     List<KhachHang> kh = new ArrayList<>();
     List<NhanVien> nhanVienLst = new ArrayList<>();
-    
+
     List<HoaDon> hd = new ArrayList<>();
-    
+
     static int idChon;
-    
+
     BanHangForm parent;
 
     /**
@@ -47,29 +48,41 @@ public class TimKiemKhachHangForm extends javax.swing.JFrame {
      */
     public TimKiemKhachHangForm(BanHangForm parent) {
         initComponents();
+        setFrameIcon();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 //        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         this.setLocationRelativeTo(null);
-        
+
         this.parent = parent;
-        
+
         setUpTable();
         defaultTableModel = (DefaultTableModel) tblBang.getModel();
-        
+
         fillData();
-        
+
     }
-    
+
+    private void setFrameIcon() {
+        ImageIcon logoIcon = null;
+        java.net.URL imgURL = Home.class.getResource("/icon/mini_logo.png");
+        if (imgURL != null) {
+            logoIcon = new ImageIcon(imgURL);
+            this.setIconImage(logoIcon.getImage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Icon image not found.");
+        }
+    }
+
     public void setUpTable() {
         tblBang.setModel(defaultTableModel);
         defaultTableModel.setColumnIdentifiers(new String[]{"Stt", "Mã khách hàng", "Tên khách hàng", "Emai", "Điện thoại", "Điạ chỉ", "Ghi chú", "Ngày tạo", "Tên nhân viên"});
     }
-    
+
     public void fillData() {
         kh = khachHangService.getAllKhachHang();
 //        cboIdNhanVien.removeAllItems();
         defaultTableModel.setRowCount(0);
-        
+
         for (KhachHang khachHang : kh) {
             defaultTableModel.addRow(new Object[]{
                 khachHang.getId(),
@@ -84,17 +97,17 @@ public class TimKiemKhachHangForm extends javax.swing.JFrame {
         }
         nhanVienLst = nhanVienService.getAllNhanVien();
     }
-    
+
     int index;
-    
+
     private void chooseKhachHang() {
         try {
             int idx = tblBang.getSelectedRow();
-            
+
             if (idx == -1) {
                 return;
             }
-            
+
             KhachHang chosen = new KhachHangService().getKhachHangById(String.valueOf(tblBang.getValueAt(idx, 0)));
             parent.addChosenKhachHang(chosen);
             this.dispose();
@@ -119,7 +132,9 @@ public class TimKiemKhachHangForm extends javax.swing.JFrame {
         txtTimKiem = new javax.swing.JTextField();
         btnChooseKhachHang = new javax.swing.JButton();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"));
+        setTitle("Tìm kiếm khách hàng - SPRINT BURST");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm khách hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         tblBang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,7 +203,7 @@ public class TimKiemKhachHangForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnChooseKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -211,7 +226,7 @@ public class TimKiemKhachHangForm extends javax.swing.JFrame {
 
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-        
+
         DefaultTableModel dtm = (DefaultTableModel) tblBang.getModel();
         TableRowSorter<DefaultTableModel> ab = new TableRowSorter<>(dtm);
         tblBang.setRowSorter(ab);

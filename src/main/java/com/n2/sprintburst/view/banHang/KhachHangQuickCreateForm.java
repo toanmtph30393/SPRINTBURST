@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +28,7 @@ import javax.swing.table.TableRowSorter;
  * @author Admin
  */
 public class KhachHangQuickCreateForm extends javax.swing.JFrame {
-    
+
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     DefaultTableModel defaultTableModel1 = new DefaultTableModel();
     DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
@@ -36,11 +37,11 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
     NhanVienService nhanVienService = new NhanVienService();
     List<KhachHang> kh = new ArrayList<>();
     List<NhanVien> nhanVienLst = new ArrayList<>();
-    
+
     List<HoaDon> hd = new ArrayList<>();
-    
+
     static int idChon;
-    
+
     BanHangForm parent;
 
     /**
@@ -48,15 +49,27 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
      */
     public KhachHangQuickCreateForm(BanHangForm parent) {
         initComponents();
+        setFrameIcon();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 //        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
         this.parent = parent;
         this.setLocationRelativeTo(null);
         kh = khachHangService.getAllKhachHang();
-        
+
     }
-    
+
+    private void setFrameIcon() {
+        ImageIcon logoIcon = null;
+        java.net.URL imgURL = Home.class.getResource("/icon/mini_logo.png");
+        if (imgURL != null) {
+            logoIcon = new ImageIcon(imgURL);
+            this.setIconImage(logoIcon.getImage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Icon image not found.");
+        }
+    }
+
     public String getNewCustomerCode() {
         KhachHang khachHangMoiNhat = Collections.max(kh, Comparator.comparing(s -> s.getId()));
         int newID = khachHangMoiNhat.getId() + 1;
@@ -86,9 +99,10 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
         txtGhiChu = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
 
+        setTitle("Tạo khách hàng - SPRINTBURST");
         setPreferredSize(new java.awt.Dimension(1630, 800));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thiết lập thông tin khách hàng"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "THÊM KHÁCH HÀNG", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         jLabel3.setText("Tên khách hàng");
 
@@ -100,6 +114,7 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
 
         jLabel9.setText("Điện thoại");
 
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,7 +180,7 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(btnThem)
                 .addGap(24, 24, 24))
         );
@@ -193,7 +208,7 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(this, "Them?", "Them", JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) {
                 return;
             }
-            
+
             String soDienThoai = txtDienThoai.getText();
 
             // Kiểm tra số điện thoại có trùng không
@@ -210,9 +225,9 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
             newKh.setGhiChu(txtGhiChu.getText());
             newKh.setNhanVien(new NhanVien());
             newKh.setNgayTao(LocalDateTime.now());
-            
+
             khachHangService.saveKhachHang(newKh);
-            
+
             parent.addChosenKhachHang(newKh);
             this.dispose();
         } catch (Exception e) {
