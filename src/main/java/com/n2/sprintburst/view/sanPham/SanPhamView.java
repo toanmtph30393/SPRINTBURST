@@ -52,7 +52,7 @@ public class SanPhamView extends javax.swing.JPanel {
     private DefaultTableModel sanPhamTableModel;
     private DefaultTableModel thuocTinhTableModel;
     private DefaultTableModel sanPhamChiTietTableModel;
-
+    
     DefaultComboBoxModel cbxThuongHieuBoxModel;
     DefaultComboBoxModel cbxXuatXuBoxModel;
     DefaultComboBoxModel cbxChatLieuBoxModel;
@@ -65,7 +65,7 @@ public class SanPhamView extends javax.swing.JPanel {
     List<SanPham> sanPhamState;
     List<ThuocTinh> thuocTinhState;
     List<SanPhamChiTiet> sanPhamChiTietState;
-
+    
     List<ThuocTinh> thuongHieuData;
     List<ThuocTinh> xuatXuData;
     List<ThuocTinh> chatLieuData;
@@ -78,14 +78,14 @@ public class SanPhamView extends javax.swing.JPanel {
      * Creates new form SanPhamView
      */
     public SanPhamView() {
-
+        
         initComponents();
 
         //init component models
         sanPhamTableModel = (DefaultTableModel) tblSanPham.getModel();
         thuocTinhTableModel = (DefaultTableModel) tblThuocTinh.getModel();
         sanPhamChiTietTableModel = (DefaultTableModel) tblSanPhamChiTiet.getModel();
-
+        
         cbxThuongHieuBoxModel = (DefaultComboBoxModel) cbxThuongHieu.getModel();
         cbxXuatXuBoxModel = (DefaultComboBoxModel) cbxXuatXu.getModel();
         cbxChatLieuBoxModel = (DefaultComboBoxModel) cbxChatLieu.getModel();
@@ -111,11 +111,11 @@ public class SanPhamView extends javax.swing.JPanel {
     private void initOrRefreshStateSanPham() {
         sanPhamState = SanPhamService.getAllActive();
     }
-
+    
     private void initOrRefreshStateThuocTinh() {
-
+        
     }
-
+    
     protected void initOrRefreshStateSanPhamChiTiet() {
         sanPhamChiTietState = SanPhamChiTietService.getAllActive();
     }
@@ -123,21 +123,21 @@ public class SanPhamView extends javax.swing.JPanel {
     //UI
     private void renderOrRefreshSanPhamForm() {
         initSanPhamTable();
-
+        
         txtAddSanPhamName.setText("");
         txtSearchSanPham.setText("");
         cbxFilterTrangThaiSanPham.setSelectedIndex(0);
     }
-
+    
     private void initSanPhamTable() {
         loadSanPhamTable(sanPhamState);
-
+        
     }
-
+    
     private void loadSanPhamTable(List<SanPham> list) {
-
+        
         sanPhamTableModel.setRowCount(0);
-
+        
         for (int i = 0; i < list.size(); i++) {
             SanPham sp = list.get(i);
             sanPhamTableModel.addRow(new Object[]{
@@ -149,15 +149,15 @@ public class SanPhamView extends javax.swing.JPanel {
             });
         }
     }
-
+    
     private int getSelectedSanPhamTblIdx() {
         return tblSanPham.getSelectedRow();
     }
-
+    
     private void filterThuocTinh(String rawText) {
-
+        
         String tbl;
-
+        
         switch (rawText) {
             case "Thương hiệu":
                 tbl = "ThuongHieu";
@@ -183,14 +183,14 @@ public class SanPhamView extends javax.swing.JPanel {
         }
         System.err.println(rawText);
         System.err.println(tbl);
-
+        
         thuocTinhState = ThuocTinhService.getThuocTinhByTableName(tbl);
         loadThuocTinhTable();
     }
-
+    
     private void loadThuocTinhTable() {
         thuocTinhTableModel.setRowCount(0);
-
+        
         if (thuocTinhState.isEmpty()) {
             System.err.println("state is empty");
             return;
@@ -206,7 +206,7 @@ public class SanPhamView extends javax.swing.JPanel {
             }
         }
     }
-
+    
     protected void renderSanPhamChiTietTable() {
         sanPhamChiTietTableModel.setRowCount(0);
         for (int i = 0; i < sanPhamChiTietState.size(); i++) {
@@ -228,7 +228,7 @@ public class SanPhamView extends javax.swing.JPanel {
             });
         }
     }
-
+    
     private void initSpctCbxData() {
         thuongHieuData = ThuocTinhService.getThuocTinhByTableName("ThuongHieu");
         xuatXuData = ThuocTinhService.getThuocTinhByTableName("XuatXu");
@@ -252,7 +252,7 @@ public class SanPhamView extends javax.swing.JPanel {
         cbxCoGiayBoxModel.removeAllElements();
         cbxMauSacBoxModel.removeAllElements();
         cbxSizeBoxModel.removeAllElements();
-
+        
         cbxThuongHieuBoxModel.addAll(thuongHieuData.stream().map(e -> e.getTen()).toList());
         cbxXuatXuBoxModel.addAll(xuatXuData.stream().map(e -> e.getTen()).toList());
         cbxChatLieuBoxModel.addAll(chatLieuData.stream().map(e -> e.getTen()).toList());
@@ -260,7 +260,7 @@ public class SanPhamView extends javax.swing.JPanel {
         cbxCoGiayBoxModel.addAll(coGiayData.stream().map(e -> e.getTen()).toList());
         cbxMauSacBoxModel.addAll(mauSacData.stream().map(e -> e.getTen()).toList());
         cbxSizeBoxModel.addAll(sizeData.stream().map(e -> e.getTen()).toList());
-
+        
         cbxThuongHieu.setSelectedIndex(-1);
         cbxXuatXu.setSelectedIndex(-1);
         cbxChatLieu.setSelectedIndex(-1);
@@ -268,52 +268,52 @@ public class SanPhamView extends javax.swing.JPanel {
         cbxCoGiay.setSelectedIndex(-1);
         cbxMauSac.setSelectedIndex(-1);
         cbxSize.setSelectedIndex(-1);
-
+        
     }
 
     //INTERACTIONS
     private void addSanPham() {
         try {
             String text = txtAddSanPhamName.getText();
-
+            
             SanPham newSp = new SanPham();
             newSp.setTenSanPham(text);
-
+            
             if (JOptionPane.showConfirmDialog(this, "add?", "add", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
                 return;
             }
             SanPhamService.add(newSp);
-
+            
             initOrRefreshStateSanPham();
             renderOrRefreshSanPhamForm();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-
+    
     private void editSanPham() {
         try {
             String text = txtAddSanPhamName.getText();
-
+            
             SanPham editSp = getSelectedSanPham();
             editSp.setTenSanPham(text);
-
+            
             if (JOptionPane.showConfirmDialog(this, "edit?", "edit", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
                 return;
             }
             SanPhamService.update(editSp);
-
+            
             initOrRefreshStateSanPham();
             renderOrRefreshSanPhamForm();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-
+    
     private void deleteSanPham() {
         try {
             SanPham deleteSp = getSelectedSanPham();
@@ -321,39 +321,39 @@ public class SanPhamView extends javax.swing.JPanel {
                 return;
             }
             SanPhamService.delete(deleteSp);
-
+            
             initOrRefreshStateSanPham();
             renderOrRefreshSanPhamForm();
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-
+    
     private void chooseSanPhamTblRow() {
         int idx = getSelectedSanPhamTblIdx();
         txtAddSanPhamName.setText(sanPhamState.get(idx).getTenSanPham());
     }
-
+    
     private SanPham getSelectedSanPham() {
         int idx = getSelectedSanPhamTblIdx();
         return sanPhamState.get(idx);
     }
-
+    
     private void filterSanPhamTable() {
         boolean status = cbxFilterTrangThaiSanPham.getSelectedIndex() == 0;
         String keyword = txtSearchSanPham.getText();
-
+        
         sanPhamState = SanPhamService.getByFilter(status, keyword);
         loadSanPhamTable(sanPhamState);
-
+        
     }
-
+    
     private void addThuocTinh() {
         String rawText = ThuocTinhFilterGroup.getSelection().getActionCommand();
         String tbl;
-
+        
         switch (rawText) {
             case "Thương hiệu":
                 tbl = "ThuongHieu";
@@ -377,19 +377,19 @@ public class SanPhamView extends javax.swing.JPanel {
                 tbl = "Size";
                 break;
         }
-
+        
         String ten = txtThuocTinhAdd.getText();
-
+        
         ThuocTinhService.add(ten, tbl);
         filterThuocTinh(rawText);
         loadThuocTinhTable();
-
+        
     }
-
+    
     private void deleteThuocTinh() {
         String rawText = ThuocTinhFilterGroup.getSelection().getActionCommand();
         String tbl;
-
+        
         switch (rawText) {
             case "Thương hiệu":
                 tbl = "ThuongHieu";
@@ -413,19 +413,19 @@ public class SanPhamView extends javax.swing.JPanel {
                 tbl = "Size";
                 break;
         }
-
+        
         String ten = tblThuocTinh.getValueAt(tblThuocTinh.getSelectedRow(), 1).toString();
-
+        
         ThuocTinhService.delete(ten, tbl);
-
+        
         filterThuocTinh(rawText);
         loadThuocTinhTable();
-
+        
     }
-
+    
     private SanPhamChiTietFilterObject parseSPCTFilter() {
         SanPhamChiTietFilterObject filterObj = new SanPhamChiTietFilterObject();
-
+        
         filterObj.setThuongHieuFilter(thuongHieuData.isEmpty() || cbxThuongHieu.getSelectedIndex() == -1 ? null : (ThuongHieu) thuongHieuData.get(cbxThuongHieu.getSelectedIndex()));
         filterObj.setXuatXuFilter(xuatXuData.isEmpty() || cbxXuatXu.getSelectedIndex() == -1 ? null : (XuatXu) xuatXuData.get(cbxXuatXu.getSelectedIndex()));
         filterObj.setChatLieuFilter(chatLieuData.isEmpty() || cbxChatLieu.getSelectedIndex() == -1 ? null : (ChatLieu) chatLieuData.get(cbxChatLieu.getSelectedIndex()));
@@ -437,19 +437,19 @@ public class SanPhamView extends javax.swing.JPanel {
         filterObj.setKeyword(txtSearchSPCT.getText());
         filterObj.setMinPrice(Integer.valueOf(txtFilterPriceMin.getText()));
         filterObj.setMaxPrice(Integer.valueOf(txtFilterPriceMax.getText()));
-
+        
         return filterObj;
     }
-
+    
     private void filterSpct() {
         SanPhamChiTietFilterObject filterObj = parseSPCTFilter();
         List<SanPhamChiTiet> result = SanPhamChiTietService.filterByFilterObj(filterObj);
         sanPhamChiTietState = result;
-
+        
         renderSanPhamChiTietTable();
-
+        
     }
-
+    
     private void resetSPCTFilter() {
         cbxThuongHieu.setSelectedIndex(-1);
         cbxXuatXu.setSelectedIndex(-1);
@@ -461,22 +461,22 @@ public class SanPhamView extends javax.swing.JPanel {
         txtSearchSPCT.setText("");
         txtFilterPriceMin.setText("0");
         txtFilterPriceMax.setText("999999999");
-
+        
         initOrRefreshStateSanPhamChiTiet();
         renderSanPhamChiTietTable();
-
+        
     }
-
+    
     private void exportExcelSPCT() {
         try {
-
+            
             JFileChooser fileChooser = new JFileChooser("/");
             fileChooser.setDialogTitle("Export xls file");
             FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Excel spreeadsheet files", "xls", "xlsx", "xism");
             fileChooser.setFileFilter(extFilter);
-
+            
             int confirm = fileChooser.showSaveDialog(this);
-
+            
             if (confirm == JFileChooser.APPROVE_OPTION) {
                 XSSFWorkbook excelWorkbook = new XSSFWorkbook();
                 XSSFSheet sheet = excelWorkbook.createSheet("SPCT_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd_kk_mm_ss")));
@@ -494,26 +494,26 @@ public class SanPhamView extends javax.swing.JPanel {
 //                fill sheet with table data
                 for (int row = 0; row < tblSanPhamChiTiet.getRowCount(); row++) {
                     XSSFRow sheetRow = sheet.createRow(row);
-
+                    
                     for (int col = 0; col < tblSanPhamChiTiet.getColumnCount(); col++) {
                         XSSFCell cell = sheetRow.createCell(col);
-
+                        
                         Object data = tblSanPhamChiTiet.getValueAt(row, col);
-
+                        
                         if (data == null) {
                             continue;
                         }
-
+                        
                         cell.setCellValue(data.toString());
                     }
-
+                    
                 }
                 FileOutputStream fos = new FileOutputStream(fileChooser.getSelectedFile() + ".xlsx");
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
-
+                
                 excelWorkbook.write(bos);
                 bos.close();
-
+                
                 JOptionPane.showMessageDialog(this, "Exported");
             }
         } catch (Exception e) {
@@ -1014,6 +1014,11 @@ public class SanPhamView extends javax.swing.JPanel {
         });
 
         btnImportQR.setText("Đọc QR");
+        btnImportQR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportQRActionPerformed(evt);
+            }
+        });
 
         btnSPCTFormReset.setText("Reset form");
         btnSPCTFormReset.addActionListener(new java.awt.event.ActionListener() {
@@ -1388,14 +1393,14 @@ public class SanPhamView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditSanPhamActionPerformed
 
     private void btnDeleteSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSanPhamActionPerformed
-         if (JOptionPane.showConfirmDialog(this, "Delete?", "Delete?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Delete?", "Delete?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
             return;
         }
         deleteSanPham();
     }//GEN-LAST:event_btnDeleteSanPhamActionPerformed
 
     private void btnAddSanPhamChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSanPhamChiTietActionPerformed
-        // TODO addOrUpdate your handling code here:
+        new SanPhamChiTietCreateview(this).setVisible(true);
     }//GEN-LAST:event_btnAddSanPhamChiTietActionPerformed
 
     private void btnResetFormSanPhamTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetFormSanPhamTabActionPerformed
@@ -1403,7 +1408,7 @@ public class SanPhamView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnResetFormSanPhamTabActionPerformed
 
     private void btnAddSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSanPhamActionPerformed
-         if (JOptionPane.showConfirmDialog(this, "Add?", "Add?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Add?", "Add?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
             return;
         }
         addSanPham();
@@ -1418,7 +1423,7 @@ public class SanPhamView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchSanPhamActionPerformed
 
     private void btnDeleteThuocTinh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteThuocTinh1ActionPerformed
-         if (JOptionPane.showConfirmDialog(this, "Delete?", "Delete?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Delete?", "Delete?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
             return;
         }
         deleteThuocTinh();
@@ -1460,7 +1465,7 @@ public class SanPhamView extends javax.swing.JPanel {
 
     private void tblSanPhamChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamChiTietMouseClicked
         SanPhamChiTiet spct = sanPhamChiTietState.get(tblSanPhamChiTiet.getSelectedRow());
-
+        
         new SanPhamChiTietUpdateView(spct, this).setVisible(true);
     }//GEN-LAST:event_tblSanPhamChiTietMouseClicked
 
@@ -1479,6 +1484,10 @@ public class SanPhamView extends javax.swing.JPanel {
         exportExcelSPCT();
         
     }//GEN-LAST:event_btnExportExlActionPerformed
+
+    private void btnImportQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportQRActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImportQRActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup ThuocTinhFilterGroup;

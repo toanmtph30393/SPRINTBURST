@@ -110,7 +110,7 @@
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="TH&#xca;M CHI TI&#x1ebe;T S&#x1ea2;N PH&#x1ea8;M"/>
+        <Property name="text" type="java.lang.String" value="TH&#xca;M S&#x1ea2;N PH&#x1ea8;M CHI TI&#x1ebe;T"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

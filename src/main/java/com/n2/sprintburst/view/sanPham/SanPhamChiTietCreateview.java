@@ -275,7 +275,7 @@ public class SanPhamChiTietCreateview extends javax.swing.JFrame implements SanP
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("THÊM CHI TIẾT SẢN PHẨM");
+        jLabel7.setText("THÊM SẢN PHẨM CHI TIẾT");
 
         jLabel1.setText("Sản phẩm");
 
