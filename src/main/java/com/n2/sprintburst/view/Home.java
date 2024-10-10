@@ -44,9 +44,9 @@ public final class Home extends javax.swing.JFrame {
      */
     public Home(NhanVien user) {
         setExtendedState(MAXIMIZED_BOTH);
-        
+
         initComponents();
-        
+
         userState = user;
         banHangView = new BanHangForm(userState);
         // Them menu vao man hinh
@@ -58,13 +58,13 @@ public final class Home extends javax.swing.JFrame {
         add(phieuGiamGiaView);
         add(sanPhamView);
         add(thongKeView);
-        
+
         loadForm();
-        
+
         int height = pnlMenuBar.getHeight();
-        
+
         displayUserInfo();
-        
+
         if (!user.isLaQuanLy()) {
             btnPhieuGiamGia.setVisible(false);
             btnThongKe.setVisible(false);
@@ -84,10 +84,10 @@ public final class Home extends javax.swing.JFrame {
         sanPhamView.setVisible(false);
         thongKeView.setVisible(false);
     }
-    
+
     public void displayUserInfo() {
         txtUsername.setText(userState.getHoTen());
-        txtUserRole.setText(userState.isLaQuanLy() ? "Quan ly" : "Nhan vien");
+        txtUserRole.setText(userState.isLaQuanLy() ? "Quản lý" : "Nhân viên");
     }
 
     /**
@@ -119,6 +119,10 @@ public final class Home extends javax.swing.JFrame {
         pnlUser = new javax.swing.JPanel();
         txtUsername = new javax.swing.JLabel();
         txtUserRole = new javax.swing.JLabel();
+        txtUsername1 = new javax.swing.JLabel();
+        txtUsername2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -260,7 +264,7 @@ public final class Home extends javax.swing.JFrame {
         pnlGiamGia.setLayout(pnlGiamGiaLayout);
         pnlGiamGiaLayout.setHorizontalGroup(
             pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnPhieuGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+            .addComponent(btnPhieuGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlGiamGiaLayout.setVerticalGroup(
             pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,6 +319,12 @@ public final class Home extends javax.swing.JFrame {
         txtUserRole.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtUserRole.setText("Role");
 
+        txtUsername1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtUsername1.setText("Xin chào,");
+
+        txtUsername2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtUsername2.setText("Bạn là: ");
+
         javax.swing.GroupLayout pnlUserLayout = new javax.swing.GroupLayout(pnlUser);
         pnlUser.setLayout(pnlUserLayout);
         pnlUserLayout.setHorizontalGroup(
@@ -322,18 +332,41 @@ public final class Home extends javax.swing.JFrame {
             .addGroup(pnlUserLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsername)
-                    .addComponent(txtUserRole))
+                    .addGroup(pnlUserLayout.createSequentialGroup()
+                        .addComponent(txtUsername1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUsername))
+                    .addGroup(pnlUserLayout.createSequentialGroup()
+                        .addComponent(txtUsername2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUserRole)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlUserLayout.setVerticalGroup(
             pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtUsername)
-                .addGap(18, 18, 18)
-                .addComponent(txtUserRole)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUsername)
+                    .addComponent(txtUsername1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(pnlUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUserRole)
+                    .addComponent(txtUsername2))
+                .addContainerGap())
+        );
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/sprintburst_logo.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout pnlMenuBarLayout = new javax.swing.GroupLayout(pnlMenuBar);
@@ -349,11 +382,13 @@ public final class Home extends javax.swing.JFrame {
             .addComponent(pnlThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlMenuBarLayout.setVerticalGroup(
             pnlMenuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuBarLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -369,7 +404,7 @@ public final class Home extends javax.swing.JFrame {
                 .addComponent(pnlThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 508, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(pnlUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -379,11 +414,11 @@ public final class Home extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1718, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMenuBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlMenuBar, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
         );
 
         pack();
@@ -466,7 +501,7 @@ public final class Home extends javax.swing.JFrame {
         checkNhanVienView = false;
         checkPhieuGiamGiaView = false;
         checkThongKeView = false;
-        
+
         if (checkSanPhamView == true) {
             return;
         }
@@ -614,6 +649,8 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel btnSanPham;
     private javax.swing.JLabel btnThongKe;
     private javax.swing.JLabel btnTrangChu;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -626,5 +663,7 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JPanel pnlUser;
     private javax.swing.JLabel txtUserRole;
     private javax.swing.JLabel txtUsername;
+    private javax.swing.JLabel txtUsername1;
+    private javax.swing.JLabel txtUsername2;
     // End of variables declaration//GEN-END:variables
 }
