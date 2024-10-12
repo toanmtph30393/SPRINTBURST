@@ -8,6 +8,7 @@ import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.service.NhanVienService;
 import com.n2.sprintburst.view.banHang.BanHangForm;
 import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
+import com.n2.sprintburst.view.sanPham.SanPhamView;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -24,7 +25,7 @@ public final class Home extends javax.swing.JFrame {
     KhachHangView khachHangView = new KhachHangView();
     NhanVienView nhanVienView = new NhanVienView();
     PhieuGiamGiaView phieuGiamGiaView = new PhieuGiamGiaView();
-    SanPhamIframeBuffer sanPhamView = new SanPhamIframeBuffer();
+    SanPhamView sanPhamView = new SanPhamView();
     ThongKeView thongKeView = new ThongKeView();
 
     // Khoi tao bien check hien thi menu
@@ -61,12 +62,10 @@ public final class Home extends javax.swing.JFrame {
         add(phieuGiamGiaView);
         add(sanPhamView);
         add(thongKeView);
-        
-        
 
         loadForm();
-        
-         trangChuView.setBounds(220, 0, 1360, 830);
+
+        trangChuView.setBounds(220, 0, 1360, 830);
         trangChuView.setVisible(true);
         checkTrangChuView = true;
 
@@ -109,6 +108,7 @@ public final class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Icon image not found.");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -529,7 +529,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        sanPhamView.setBounds(420, 100, 950, 600);
+        sanPhamView.setBounds(230, 0, 1677, 1014);
         sanPhamView.setVisible(true);
         checkSanPhamView = true;
     }//GEN-LAST:event_btnSanPhamMouseClicked

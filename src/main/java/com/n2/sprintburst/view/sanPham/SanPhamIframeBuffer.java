@@ -36,9 +36,9 @@ public class SanPhamIframeBuffer extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         setBorder(null);
-        setMaximumSize(new java.awt.Dimension(900, 600));
-        setMinimumSize(new java.awt.Dimension(900, 600));
-        setPreferredSize(new java.awt.Dimension(900, 600));
+        setMaximumSize(new java.awt.Dimension(1677, 1014));
+        setMinimumSize(new java.awt.Dimension(1677, 1014));
+        setPreferredSize(new java.awt.Dimension(1677, 1014));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         pack();

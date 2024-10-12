@@ -8,6 +8,7 @@ import com.n2.sprintburst.config.HibernateConfig;
 import com.n2.sprintburst.entity.HoaDon;
 import com.n2.sprintburst.entity.HoaDonChiTiet;
 import com.n2.sprintburst.entity.SanPham;
+import com.n2.sprintburst.entity.SanPhamChiTiet;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -16,9 +17,9 @@ import org.hibernate.Session;
  * @author NhokHip
  */
 public class HoaDonChiTietService {
-    
+
     public Session session;
-    
+
     public List<HoaDonChiTiet> getAllHoaDonChiTiets() {
         session = HibernateConfig.getSessionFactory().openSession();
         List<HoaDonChiTiet> list = session.createQuery("from HoaDonChiTiet", HoaDonChiTiet.class).list();
@@ -26,7 +27,7 @@ public class HoaDonChiTietService {
 
         return list;
     }
-    
+
     public List<HoaDonChiTiet> getHoaDonByID(int idHoaDon) {
         session = HibernateConfig.getSessionFactory().openSession();
         HoaDon hd = new HoaDon();
@@ -38,7 +39,7 @@ public class HoaDonChiTietService {
 
         return list;
     }
-    
+
     public static void add(HoaDonChiTiet hdct) {
         try {
             HibernateConfig.getSessionFactory().inTransaction(s -> {
@@ -46,22 +47,36 @@ public class HoaDonChiTietService {
                         .setParameter("hdId", hdct.getHoaDon().getId())
                         .setParameter("spctId", hdct.getSanPhamChiTiet().getId())
                         .setMaxResults(1).getSingleResultOrNull();
-                
+
+                SanPhamChiTiet remaining = s.createSelectionQuery("from SanPhamChiTiet where id = :spctId", SanPhamChiTiet.class)
+                        .setParameter("spctId", hdct.getSanPhamChiTiet().getId())
+                        .setMaxResults(1).getSingleResultOrNull();
+
+                if (remaining.getSoLuong() == 0) {
+                    throw new RuntimeException("Không còn sản phẩm tồn");
+                }
+
                 if (found != null) {
                     found.setSoLuong(found.getSoLuong() + 1);
-                    s.flush();
+                    s.merge(found);
                 } else {
                     s.persist(hdct);
-                    s.flush();
                 }
+
+                int newNum = remaining.getSoLuong() - 1;
+
+                remaining.setSoLuong(newNum);
+                s.merge(remaining);
+                s.flush();
+
             });
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
-    
+
     public static void remove(HoaDonChiTiet hdct) {
         try {
             HibernateConfig.getSessionFactory().inTransaction(s -> {
@@ -72,5 +87,5 @@ public class HoaDonChiTietService {
             throw e;
         }
     }
-    
+
 }
