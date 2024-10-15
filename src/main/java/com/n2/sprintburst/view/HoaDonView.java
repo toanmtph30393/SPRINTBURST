@@ -34,31 +34,58 @@ public class HoaDonView extends javax.swing.JInternalFrame {
      */
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     DefaultTableModel defaultTableModel1 = new DefaultTableModel();
+    DefaultTableModel defaultTableModel2 = new DefaultTableModel();
     private DefaultTableModel modelHoaDonChiTiet;
     private DefaultTableModel modelLichSuHoaDon;
     HoaDonService hoaDonService = new HoaDonService();
     HoaDonChiTietService hoaDonChiTietService = new HoaDonChiTietService();
     LichSuHoaDonService lichSuHoaDonService = new LichSuHoaDonService();
-
+    
     List<HoaDon> hd = new ArrayList<>();
     List<HoaDonChiTiet> hdct = new ArrayList<>();
     List<LichSuHoaDon> lshd = new ArrayList<>();
-
+    
     public HoaDonView() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
         defaultTableModel1 = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+        defaultTableModel2 = (DefaultTableModel) tblLichSuHoaDon.getModel();
         fillData(0);
+        setUpTableHoaDon();
+        setUpTableChiTiet();
+        setUpTableLichSu();
+    }
+
+    public void setUpTableHoaDon() {
+        tblHoaDon.setModel(defaultTableModel);
+        defaultTableModel.setColumnIdentifiers(new String[]{
+            "STT", "Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày tạo", "Tổng trước giảm giá", "Tổng sau giảm giá", "Ghi chú", "Tên người nhận","Số điện thoại",
+            "Địa chỉ", "Trạng thái"});
+    }
+
+    public void setUpTableChiTiet() {
+        tblHoaDonChiTiet.setModel(defaultTableModel1);
+        defaultTableModel1.setColumnIdentifiers(new String[]{
+            "STT", "Mã hóa đơn", "Sản phẩm chi tiết", "Số lượng", "Gía bán", "Trạng thái"});
+    }
+
+    public void setUpTableLichSu() {
+        tblLichSuHoaDon.setModel(defaultTableModel2);
+        defaultTableModel2.setColumnIdentifiers(new String[]{
+            "STT", "Mã hóa đơn", "Nhân viên", "Ghi chú", "Ngày tác động"});
     }
 
     public void fillData(int index) {
         hd = hoaDonService.getAllHoaDon();
         defaultTableModel.setRowCount(0);
+        int soThuTu = 1;
         for (HoaDon hoaDon : hd) {
             if (index == 0) {
+                
                 defaultTableModel.addRow(new Object[]{
-                    hoaDon.getId(),
+                    
+                    soThuTu++,
                     hoaDon.getMaHoaDon(),
                     hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
                     hoaDon.getNhanVien(),
@@ -74,7 +101,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                 });
             } else if (index == hoaDon.getTrangThaiHoaDon().getId()) {
                 defaultTableModel.addRow(new Object[]{
-                    hoaDon.getId(),
+                   soThuTu++,
                     hoaDon.getMaHoaDon(),
                     hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
                     hoaDon.getNhanVien(),
@@ -89,58 +116,67 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                     hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
                 });
             }
-
+            
         }
     }
 
-    public void resetTableHDCT() {
-        if (tblHoaDonChiTiet.getRowCount() > 0) {
-            defaultTableModel1.setRowCount(0);
-        }
-
+   public void loadTableHoaDonChiTiet() {
+    int row = tblHoaDon.getSelectedRow();
+    if (row < 0) {
+        return;
     }
-
-    public void loadTableHoaDonChiTiet() {
-        int row = this.tblHoaDon.getSelectedRow();
-        if (row == 0) {
-            return;
-        }
-        String mahd = this.tblHoaDon.getValueAt(row, 0).toString();
-        modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        modelHoaDonChiTiet.setRowCount(0);
-        hdct = hoaDonChiTietService.getHoaDonByID(row);
-        for (HoaDonChiTiet hd : hdct) {
-            modelHoaDonChiTiet.addRow(hd.toDataRow());
-        }
+    modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+    modelHoaDonChiTiet.setRowCount(0);
+    int hdctId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString()); 
+    List<HoaDonChiTiet> hdctList = hoaDonChiTietService.getHoaDonByID(hdctId);
+    int soThuTu = 1;  // Biến đếm số thứ tự
+    for (HoaDonChiTiet hd : hdctList) {
+        modelHoaDonChiTiet.addRow(new Object[]{
+            soThuTu++,  // Thêm số thứ tự
+            hd.getHoaDon().getMaHoaDon(),
+            hd.getSanPhamChiTiet().getTenSanPhamChiTiet(),
+            hd.getSoLuong(),
+            hd.getGiaBan(),
+            hd.isTrangThai()?"Còn hàng":"Hết hàng",
+        });
     }
-
+}
+    
     public void loadTableLichSuHoaDon() {
-        int row = this.tblHoaDon.getSelectedRow();
-        if (row == 0) {
-            return;
-        }
-        modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
-        modelLichSuHoaDon.setRowCount(0);
-        lshd = lichSuHoaDonService.getLichHoaDonByID(row);
-        for (LichSuHoaDon hd : lshd) {
-            modelLichSuHoaDon.addRow(hd.toDataRow());
-        }
+    int row = tblHoaDon.getSelectedRow();
+    if (row < 0) {
+        return;
     }
-
+    modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
+    modelLichSuHoaDon.setRowCount(0);
+    int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
+    List<LichSuHoaDon> lshdList = lichSuHoaDonService.getLichHoaDonByID(hoaDonId);
+    int soThuTu = 1;  // Biến đếm số thứ tự
+    for (LichSuHoaDon hd : lshdList) {
+        modelLichSuHoaDon.addRow(new Object[]{
+            soThuTu++,  // Thêm số thứ tự
+            hd.getHoaDon().getMaHoaDon(),
+            hd.getNhanVien().getHoTen(),
+            hd.getGhiChu(),
+            hd.getNgayTacDong(),
+        });
+    }
+}
+    
     private void exportExcelHD() {
         try {
             JFileChooser fileChooser = new JFileChooser("/");
             fileChooser.setDialogTitle("Export xls file");
             FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Excel spreadsheet files", "xls", "xlsx", "xism");
             fileChooser.setFileFilter(extFilter);
-
+            
             int confirm = fileChooser.showSaveDialog(this);
-
+            
             if (confirm == JFileChooser.APPROVE_OPTION) {
                 // Create Excel workbook and sheet
                 XSSFWorkbook excelWorkbook = new XSSFWorkbook();
                 XSSFSheet sheet = excelWorkbook.createSheet("HD_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd_kk_mm_ss")));
-
+                
                 XSSFRow row = null;
                 Cell cell = null;
 
@@ -181,13 +217,13 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
                     for (int colIndex = 0; colIndex < tblHoaDon.getColumnCount(); colIndex++) {
                         XSSFCell cellData = sheetRow.createCell(colIndex);
-
+                        
                         Object data = tblHoaDon.getValueAt(rowIndex, colIndex);
-
+                        
                         if (data == null) {
                             continue;
                         }
-
+                        
                         cellData.setCellValue(data.toString());
                     }
                 }
@@ -198,16 +234,16 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                 if (!filePath.endsWith(".xlsx")) {
                     filePath += ".xlsx";
                 }
-
+                
                 FileOutputStream fos = new FileOutputStream(filePath);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
-
+                
                 excelWorkbook.write(bos);
                 bos.close();
                 excelWorkbook.close(); // Close the workbook to release resources
 
                 JOptionPane.showMessageDialog(this, "Export successful!");
-
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -261,7 +297,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "STT", "Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày tạo", "Tổng trước giảm giá", "Tổng sau giảm giá", "Ghi chú", "Tên người nhận", "Số điện thoại", "Địa chỉ", "Trạng thái", "Phiếu giảm giá"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -354,7 +390,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "STT", "Hóa đơn", "Sản phẩm chi tiết", "Số lượng", "Gía bán", "Trạng thái"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
         jScrollPane2.setViewportView(tblHoaDonChiTiet);
@@ -384,7 +420,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "STT", "Hóa đơn", "Nhân viên", "Ghi chú", "Ngày tác động"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jScrollPane3.setViewportView(tblLichSuHoaDon);
