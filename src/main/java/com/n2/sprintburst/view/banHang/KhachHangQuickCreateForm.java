@@ -100,7 +100,6 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
 
         setTitle("Tạo khách hàng - SPRINTBURST");
-        setPreferredSize(new java.awt.Dimension(1630, 800));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "THÊM KHÁCH HÀNG", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 

@@ -39,7 +39,6 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtTaiKhoan = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        chkLuuMK = new javax.swing.JCheckBox();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
@@ -77,8 +76,6 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Mật khẩu");
 
-        chkLuuMK.setText("Lưu mật khẩu");
-
         btnOK.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Accept.png"))); // NOI18N
         btnOK.setText("OK");
@@ -114,9 +111,6 @@ public class LoginFrame extends javax.swing.JFrame {
                                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(chkLuuMK)
-                                    .addGap(189, 189, 189))
                                 .addComponent(txtTaiKhoan)
                                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -138,13 +132,11 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(13, 13, 13)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkLuuMK)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 50, Short.MAX_VALUE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 74, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,7 +179,7 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtTaiKhoan.setText("");
         txtPassword.setText("");
-        chkLuuMK.setSelected(true);
+        
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
@@ -197,7 +189,6 @@ public class LoginFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
-    private javax.swing.JCheckBox chkLuuMK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
