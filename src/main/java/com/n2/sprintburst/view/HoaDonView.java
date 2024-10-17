@@ -40,11 +40,11 @@ public class HoaDonView extends javax.swing.JInternalFrame {
     HoaDonService hoaDonService = new HoaDonService();
     HoaDonChiTietService hoaDonChiTietService = new HoaDonChiTietService();
     LichSuHoaDonService lichSuHoaDonService = new LichSuHoaDonService();
-    
+
     List<HoaDon> hd = new ArrayList<>();
     List<HoaDonChiTiet> hdct = new ArrayList<>();
     List<LichSuHoaDon> lshd = new ArrayList<>();
-    
+
     public HoaDonView() {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -60,7 +60,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
     public void setUpTableHoaDon() {
         tblHoaDon.setModel(defaultTableModel);
         defaultTableModel.setColumnIdentifiers(new String[]{
-            "STT", "Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày tạo", "Tổng trước giảm giá", "Tổng sau giảm giá", "Ghi chú", "Tên người nhận","Số điện thoại",
+            "STT", "Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày tạo", "Tổng trước giảm giá", "Tổng sau giảm giá", "Ghi chú", "Tên người nhận", "Số điện thoại",
             "Địa chỉ", "Trạng thái"});
     }
 
@@ -82,9 +82,24 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         int soThuTu = 1;
         for (HoaDon hoaDon : hd) {
             if (index == 0) {
-                
+
                 defaultTableModel.addRow(new Object[]{
-                    
+                    soThuTu++,
+                    hoaDon.getMaHoaDon(),
+                    hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getMaKhachHang(),
+                    hoaDon.getNhanVien(),
+                    hoaDon.getNgayTao(),
+                    hoaDon.getTongTruocGiamGia(),
+                    hoaDon.getTongSauGiamGia(),
+                    hoaDon.getGhiChu(),
+                    hoaDon.getTenNguoiNhan(),
+                    hoaDon.getDienThoaiNguoiNhan(),
+                    hoaDon.getDiaChiNguoiNhan(),
+                    hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
+                    hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
+                });
+            } else if (index == hoaDon.getTrangThaiHoaDon().getId()) {
+                defaultTableModel.addRow(new Object[]{
                     soThuTu++,
                     hoaDon.getMaHoaDon(),
                     hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
@@ -99,84 +114,66 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                     hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
                     hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
                 });
-            } else if (index == hoaDon.getTrangThaiHoaDon().getId()) {
-                defaultTableModel.addRow(new Object[]{
-                   soThuTu++,
-                    hoaDon.getMaHoaDon(),
-                    hoaDon.getKhachHang() == null ? null : hoaDon.getKhachHang().getId(),
-                    hoaDon.getNhanVien(),
-                    hoaDon.getNgayTao(),
-                    hoaDon.getTongTruocGiamGia(),
-                    hoaDon.getTongSauGiamGia(),
-                    hoaDon.getGhiChu(),
-                    hoaDon.getTenNguoiNhan(),
-                    hoaDon.getDienThoaiNguoiNhan(),
-                    hoaDon.getDiaChiNguoiNhan(),
-                    hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
-                    hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
-                });
             }
-            
+
         }
     }
 
-   public void loadTableHoaDonChiTiet() {
-    int row = tblHoaDon.getSelectedRow();
-    if (row < 0) {
-        return;
+    public void loadTableHoaDonChiTiet() {
+        int row = tblHoaDon.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+        modelHoaDonChiTiet.setRowCount(0);
+        int hdctId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
+        List<HoaDonChiTiet> hdctList = hoaDonChiTietService.getHoaDonByID(hdctId);
+        int soThuTu = 1;  // Biến đếm số thứ tự
+        for (HoaDonChiTiet hd : hdctList) {
+            modelHoaDonChiTiet.addRow(new Object[]{
+                soThuTu++, // Thêm số thứ tự
+                hd.getHoaDon().getMaHoaDon(),
+                hd.getSanPhamChiTiet().getTenSanPhamChiTiet(),
+                hd.getSoLuong(),
+                hd.getGiaBan(),
+                hd.isTrangThai() ? "Còn hàng" : "Hết hàng",});
+        }
     }
-    modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-    modelHoaDonChiTiet.setRowCount(0);
-    int hdctId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString()); 
-    List<HoaDonChiTiet> hdctList = hoaDonChiTietService.getHoaDonByID(hdctId);
-    int soThuTu = 1;  // Biến đếm số thứ tự
-    for (HoaDonChiTiet hd : hdctList) {
-        modelHoaDonChiTiet.addRow(new Object[]{
-            soThuTu++,  // Thêm số thứ tự
-            hd.getHoaDon().getMaHoaDon(),
-            hd.getSanPhamChiTiet().getTenSanPhamChiTiet(),
-            hd.getSoLuong(),
-            hd.getGiaBan(),
-            hd.isTrangThai()?"Còn hàng":"Hết hàng",
-        });
-    }
-}
-    
+
     public void loadTableLichSuHoaDon() {
-    int row = tblHoaDon.getSelectedRow();
-    if (row < 0) {
-        return;
+        int row = tblHoaDon.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
+        modelLichSuHoaDon.setRowCount(0);
+        int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
+        List<LichSuHoaDon> lshdList = lichSuHoaDonService.getLichHoaDonByID(hoaDonId);
+        int soThuTu = 1;  // Biến đếm số thứ tự
+        for (LichSuHoaDon hd : lshdList) {
+            modelLichSuHoaDon.addRow(new Object[]{
+                soThuTu++, // Thêm số thứ tự
+                hd.getHoaDon().getMaHoaDon(),
+                hd.getNhanVien().getHoTen(),
+                hd.getGhiChu(),
+                hd.getNgayTacDong(),});
+        }
     }
-    modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
-    modelLichSuHoaDon.setRowCount(0);
-    int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
-    List<LichSuHoaDon> lshdList = lichSuHoaDonService.getLichHoaDonByID(hoaDonId);
-    int soThuTu = 1;  // Biến đếm số thứ tự
-    for (LichSuHoaDon hd : lshdList) {
-        modelLichSuHoaDon.addRow(new Object[]{
-            soThuTu++,  // Thêm số thứ tự
-            hd.getHoaDon().getMaHoaDon(),
-            hd.getNhanVien().getHoTen(),
-            hd.getGhiChu(),
-            hd.getNgayTacDong(),
-        });
-    }
-}
-    
+
     private void exportExcelHD() {
         try {
             JFileChooser fileChooser = new JFileChooser("/");
             fileChooser.setDialogTitle("Export xls file");
             FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Excel spreadsheet files", "xls", "xlsx", "xism");
             fileChooser.setFileFilter(extFilter);
-            
+
             int confirm = fileChooser.showSaveDialog(this);
-            
+
             if (confirm == JFileChooser.APPROVE_OPTION) {
                 // Create Excel workbook and sheet
                 XSSFWorkbook excelWorkbook = new XSSFWorkbook();
                 XSSFSheet sheet = excelWorkbook.createSheet("HD_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd_kk_mm_ss")));
-                
+
                 XSSFRow row = null;
                 Cell cell = null;
 
@@ -217,13 +214,13 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
                     for (int colIndex = 0; colIndex < tblHoaDon.getColumnCount(); colIndex++) {
                         XSSFCell cellData = sheetRow.createCell(colIndex);
-                        
+
                         Object data = tblHoaDon.getValueAt(rowIndex, colIndex);
-                        
+
                         if (data == null) {
                             continue;
                         }
-                        
+
                         cellData.setCellValue(data.toString());
                     }
                 }
@@ -234,16 +231,16 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                 if (!filePath.endsWith(".xlsx")) {
                     filePath += ".xlsx";
                 }
-                
+
                 FileOutputStream fos = new FileOutputStream(filePath);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
-                
+
                 excelWorkbook.write(bos);
                 bos.close();
                 excelWorkbook.close(); // Close the workbook to release resources
 
-                JOptionPane.showMessageDialog(this, "Export successful!");
-                
+                JOptionPane.showMessageDialog(this, "Xuất ra Ex thành công!");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -251,6 +248,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         }
     }
 //ok
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -310,7 +308,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Trạng thái hóa đơn");
 
-        cbbTrangThaiTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Đã thanh toán", "Chưa thanh toán", "" }));
+        cbbTrangThaiTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chờ thanh toán", "Đã thanh toán", "Đã hủy" }));
         cbbTrangThaiTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTrangThaiTimKiemActionPerformed(evt);
@@ -369,14 +367,15 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lịch sử hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -401,7 +400,8 @@ public class HoaDonView extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save as.png"))); // NOI18N
@@ -470,23 +470,28 @@ public class HoaDonView extends javax.swing.JInternalFrame {
 
     private void cbbTrangThaiTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiTimKiemActionPerformed
         // TODO add your handling code here:
-
-        DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
-
-        // Tạo TableRowSorter để có thể áp dụng bộ lọc trên bảng
-        // Lấy giá trị trạng thái được chọn trong ComboBox
+// Tạo TableRowSorter để có thể áp dụng bộ lọc trên bảng
+// Lấy giá trị trạng thái được chọn trong ComboBox
         int selectedStatus = cbbTrangThaiTimKiem.getSelectedIndex();
 
-        // Kiểm tra nếu người dùng chọn "Tất cả", hiển thị toàn bộ dữ liệu
+// Kiểm tra nếu người dùng chọn "Tất cả", hiển thị toàn bộ dữ liệu
         if (selectedStatus == 0) {
+            // Show all records
             fillData(0);
-        } else if (selectedStatus == 2) {
-            // Áp dụng bộ lọc chỉ hiển thị hàng có trạng thái "Đã thanh toán"
-            System.out.println("dathanhtoam" + selectedStatus);
-            fillData(2);
         } else if (selectedStatus == 1) {
-            // Áp dụng bộ lọc chỉ hiển thị hàng có trạng thái "Chưa thanh toán"
+            // Apply filter for "Chờ thanh toán" (Unpaid)
+            System.out.println("Hiển thị hóa đơn chờ thanh toán");
             fillData(1);
+        } else if (selectedStatus == 2) {
+            // Apply filter for "Chưa thanh toán" (Pending Payment)
+            System.out.println("Hiển thị hóa đơn chưa thanh toán");
+            fillData(2);
+        } else if (selectedStatus == 3) {
+            // Apply filter for "Đã hủy" (Pending Payment)
+            System.out.println("Hiển thị hóa đơn đã hủy");
+            fillData(3);
+        } else {
+            System.out.println("Trạng thái không hợp lệ");
         }
     }//GEN-LAST:event_cbbTrangThaiTimKiemActionPerformed
 
