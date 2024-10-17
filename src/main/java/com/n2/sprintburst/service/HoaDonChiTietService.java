@@ -80,6 +80,14 @@ public class HoaDonChiTietService {
     public static void remove(HoaDonChiTiet hdct) {
         try {
             HibernateConfig.getSessionFactory().inTransaction(s -> {
+                SanPhamChiTiet remaining = s.createSelectionQuery("from SanPhamChiTiet where id = :spctId", SanPhamChiTiet.class)
+                        .setParameter("spctId", hdct.getSanPhamChiTiet().getId())
+                        .setMaxResults(1).getSingleResultOrNull();
+
+                int returnToStore = hdct.getSoLuong();
+
+                remaining.setSoLuong(remaining.getSoLuong() + returnToStore);
+                s.merge(remaining);
                 s.remove(hdct);
                 s.flush();
             });

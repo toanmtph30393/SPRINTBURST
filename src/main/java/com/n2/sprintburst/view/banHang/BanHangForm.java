@@ -205,7 +205,7 @@ public class BanHangForm extends javax.swing.JPanel {
     //INTERACTONS
     private void createHoaDon() {
         try {
-            HoaDonService.add(new HoaDon());
+            HoaDonService.add(new HoaDon(), userState);
             refreshStatesAndTables();
         } catch (Exception e) {
             e.printStackTrace();
@@ -257,6 +257,8 @@ public class BanHangForm extends javax.swing.JPanel {
             HoaDonChiTietService.remove(chosenHoaDonState.getHoaDonChiTiets().get(idx));
             initChosenHoaDonState();
             renderChosenHoaDon();
+            initSPCTState();
+            renderSPCTTable();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -287,7 +289,7 @@ public class BanHangForm extends javax.swing.JPanel {
             toComplete.setTenNguoiNhan(txtNguoiNhanTen.getText());
             toComplete.setDienThoaiNguoiNhan(txtNguoiNhanSdt.getText());
 
-            HoaDonService.complete(toComplete);
+            HoaDonService.complete(toComplete, userState);
             initChosenHoaDonState();
             JOptionPane.showMessageDialog(this, "Đã thanh toán");
 
@@ -342,7 +344,7 @@ public class BanHangForm extends javax.swing.JPanel {
         new KhachHangService().updateKhachHang(khachHangState);
 
         chosenHoaDonState.setKhachHang(kh);
-        HoaDonService.merge(chosenHoaDonState);
+        HoaDonService.merge(chosenHoaDonState, userState);
 
         initChosenHoaDonState();
         renderChosenHoaDon();

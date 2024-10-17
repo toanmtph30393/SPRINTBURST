@@ -7,6 +7,8 @@ package com.n2.sprintburst.service;
 import com.n2.sprintburst.config.HibernateConfig;
 import com.n2.sprintburst.entity.HoaDon;
 import com.n2.sprintburst.entity.KhachHang;
+import com.n2.sprintburst.entity.LichSuHoaDon;
+import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.entity.SanPham;
 import com.n2.sprintburst.entity.TrangThaiHoaDon;
 import java.time.LocalDateTime;
@@ -20,9 +22,9 @@ import org.hibernate.query.Query;
  * @author Admin
  */
 public class HoaDonService {
-
+    
     public Session session;
-
+    
     public static List<HoaDon> getAllUnprocessed() {
         try {
             Session s = HibernateConfig.getSessionFactory().openSession();
@@ -32,9 +34,9 @@ public class HoaDonService {
         } catch (Exception e) {
             throw e;
         }
-
+        
     }
-
+    
     public static List<HoaDon> getAllCompleted() {
         try {
             Session s = HibernateConfig.getSessionFactory().openSession();
@@ -44,14 +46,14 @@ public class HoaDonService {
         } catch (Exception e) {
             throw e;
         }
-
+        
     }
-
-    public static void add(HoaDon hd) {
+    
+    public static void add(HoaDon hd, NhanVien nhanVien) {
         try {
-
+            
             HibernateConfig.getSessionFactory().inTransaction(s -> {
-
+                
                 HoaDon found = s.createSelectionQuery("from HoaDon order by id desc", HoaDon.class).setMaxResults(1).getSingleResultOrNull();
                 int newId;
                 
@@ -60,20 +62,28 @@ public class HoaDonService {
                 } else {
                     newId = found.getId() + 1;
                 }
-
+                
                 hd.setMaHoaDon("HD" + newId);
                 hd.setNgayTao(LocalDateTime.now());
                 hd.setTongTruocGiamGia(0);
                 hd.setTongSauGiamGia(0);
                 hd.setTrangThaiHoaDon(s.createSelectionQuery("from TrangThaiHoaDon where id = :id", TrangThaiHoaDon.class).setParameter("id", 1).setMaxResults(1).getSingleResult());
                 s.persist(hd);
+                
+                LichSuHoaDon historyEntry = new LichSuHoaDon();
+                historyEntry.setGhiChu("Hóa đơn được tạo");
+                historyEntry.setNhanVien(nhanVien);
+                historyEntry.setHoaDon(hd);
+                historyEntry.setNgayTacDong(LocalDateTime.now());
+                
+                s.persist(historyEntry);
             });
-
+            
         } catch (Exception e) {
             throw e;
         }
     }
-
+    
     public static void autoUpdateFields(HoaDon hd) {
         try {
             HibernateConfig.getSessionFactory().inTransaction(s -> {
@@ -82,41 +92,59 @@ public class HoaDonService {
                         .setMaxResults(1)
                         .getSingleResult();
                 int totalValue = found.getHoaDonChiTiets().stream().map(hdct -> hdct.getSoLuong() * hdct.getGiaBan()).reduce(0, Integer::sum);
-
+                
                 found.setTongTruocGiamGia(totalValue);
-
+                
                 found.setTongSauGiamGia(totalValue);
-
+                
             });
         } catch (Exception e) {
             throw e;
-
+            
         }
     }
-
-    public static void merge(HoaDon hd) {
+    
+    public static void merge(HoaDon hd, NhanVien nhanVien) {
         try {
             HibernateConfig.getSessionFactory().inTransaction(s -> {
                 s.merge(hd);
                 s.flush();
+                
+                LichSuHoaDon historyEntry = new LichSuHoaDon();
+                historyEntry.setGhiChu("Cập nhật hóa đơn");
+                historyEntry.setNhanVien(nhanVien);
+                historyEntry.setHoaDon(hd);
+                historyEntry.setNgayTacDong(LocalDateTime.now());
+                
+                s.persist(historyEntry);
             });
         } catch (Exception e) {
             throw e;
         }
     }
-
-    public static void complete(HoaDon hd) {
+    
+    public static void complete(HoaDon hd, NhanVien nhanVien) {
         try {
             HibernateConfig.getSessionFactory().inTransaction(s -> {
                 hd.setTrangThaiHoaDon(s.createSelectionQuery("from TrangThaiHoaDon where id = :id", TrangThaiHoaDon.class).setParameter("id", 2).setMaxResults(1).getSingleResult());
+                hd.setNhanVien(nhanVien);
                 s.merge(hd);
                 s.flush();
+                
+                LichSuHoaDon historyEntry = new LichSuHoaDon();
+                historyEntry.setGhiChu("Hóa đơn được thanh toán");
+                historyEntry.setNhanVien(nhanVien);
+                historyEntry.setHoaDon(hd);
+                historyEntry.setNgayTacDong(LocalDateTime.now());
+                
+                s.persist(historyEntry);
+                
             });
         } catch (Exception e) {
             throw e;
         }
     }
-
+    
     public List<HoaDon> getAllHoaDon() {
         session = HibernateConfig.getSessionFactory().openSession();
         List<HoaDon> list = session.createQuery("from HoaDon", HoaDon.class).list();
@@ -124,7 +152,7 @@ public class HoaDonService {
 
         return list;
     }
-
+    
     public List<HoaDon> getHoaDonByKhachHangID(int idKhachHang) {
         session = HibernateConfig.getSessionFactory().openSession();
         KhachHang kh = new KhachHang();
@@ -136,7 +164,7 @@ public class HoaDonService {
 
         return list;
     }
-
+    
     public HoaDon timKiemHoaDon(String mahd) {
         List<HoaDon> hoaDons = getAllHoaDon();
         for (HoaDon hd : hoaDons) {
@@ -146,7 +174,7 @@ public class HoaDonService {
         }
         return null;
     }
-
+    
     public HoaDon findHdByMa(String ma) {
         HoaDon h = null;
         try {
