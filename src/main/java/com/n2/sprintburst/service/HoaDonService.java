@@ -54,6 +54,7 @@ public class HoaDonService {
 
                 HoaDon found = s.createSelectionQuery("from HoaDon order by id desc", HoaDon.class).setMaxResults(1).getSingleResultOrNull();
                 int newId;
+                
                 if (found == null) {
                     newId = 1;
                 } else {

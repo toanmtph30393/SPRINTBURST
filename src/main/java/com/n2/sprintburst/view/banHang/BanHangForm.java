@@ -92,7 +92,7 @@ public class BanHangForm extends javax.swing.JPanel {
             hoaDonTableModel.addRow(new Object[]{
                 i + 1,
                 hd.getMaHoaDon(),
-                hd.getNgayTao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                hd.getNgayTao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-hh:mm")),
                 hd.getTongSauGiamGia(),
                 hd.getKhachHang() == null ? null : hd.getKhachHang().getTenKhachHang(),
                 hd.getKhachHang() == null ? null : hd.getKhachHang().getDienThoai(),

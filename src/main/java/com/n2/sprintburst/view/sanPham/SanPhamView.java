@@ -384,6 +384,7 @@ public class SanPhamView extends javax.swing.JPanel {
         ThuocTinhService.add(ten, tbl);
         filterThuocTinh(rawText);
         loadThuocTinhTable();
+        txtThuocTinhAdd.setText("");
 
     }
 
@@ -1411,9 +1412,7 @@ public class SanPhamView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnResetFormSanPhamTabActionPerformed
 
     private void btnAddSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSanPhamActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Add?", "Add?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
-            return;
-        }
+
         addSanPham();
     }//GEN-LAST:event_btnAddSanPhamActionPerformed
 
