@@ -8,7 +8,6 @@ import com.n2.sprintburst.entity.NhanVien;
 import com.n2.sprintburst.service.NhanVienService;
 import com.n2.sprintburst.view.banHang.BanHangForm;
 import com.n2.sprintburst.view.sanPham.SanPhamIframeBuffer;
-import com.n2.sprintburst.view.sanPham.SanPhamView;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -25,7 +24,7 @@ public final class Home extends javax.swing.JFrame {
     KhachHangView khachHangView = new KhachHangView();
     NhanVienView nhanVienView = new NhanVienView();
     PhieuGiamGiaView phieuGiamGiaView = new PhieuGiamGiaView();
-    SanPhamView sanPhamView = new SanPhamView();
+    SanPhamIframeBuffer sanPhamView = new SanPhamIframeBuffer();
     ThongKeView thongKeView = new ThongKeView();
 
     // Khoi tao bien check hien thi menu
@@ -62,10 +61,12 @@ public final class Home extends javax.swing.JFrame {
         add(phieuGiamGiaView);
         add(sanPhamView);
         add(thongKeView);
+        
+        
 
         loadForm();
-
-        trangChuView.setBounds(220, 0, 1360, 830);
+        
+         trangChuView.setBounds(220, 0, 1700, 1014);
         trangChuView.setVisible(true);
         checkTrangChuView = true;
 
@@ -108,7 +109,6 @@ public final class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Icon image not found.");
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -462,7 +462,8 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        trangChuView.setBounds(220, 0, 1360, 830);
+        //trangChuView.setBounds(220, 0, 1360, 830);
+        trangChuView.setBounds(220, 0, 1700, 1014);
         trangChuView.setVisible(true);
         checkTrangChuView = true;
     }//GEN-LAST:event_btnTrangChuMouseClicked
@@ -484,7 +485,7 @@ public final class Home extends javax.swing.JFrame {
         // load lai form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        banHangView.setBounds(220, 0, 1677, 1014);
+        banHangView.setBounds(220, 0, 1700, 1014);
         banHangView.setVisible(true);
         checkBanHangView = true;
     }//GEN-LAST:event_btnBanHangMouseClicked
@@ -507,7 +508,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        hoaDonView.setBounds(220, 0, 1360, 830);
+        hoaDonView.setBounds(220, 0, 1700, 1014);
         hoaDonView.setVisible(true);
         checkHoaDonView = true;
     }//GEN-LAST:event_btnHoaDonMouseClicked
@@ -529,7 +530,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        sanPhamView.setBounds(230, 0, 1677, 1014);
+        sanPhamView.setBounds(220, 0, 1700, 1014);
         sanPhamView.setVisible(true);
         checkSanPhamView = true;
     }//GEN-LAST:event_btnSanPhamMouseClicked
@@ -552,7 +553,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        phieuGiamGiaView.setBounds(220, 0, 1360, 830);
+        phieuGiamGiaView.setBounds(220, 0, 1700, 1014);
         phieuGiamGiaView.setVisible(true);
         checkPhieuGiamGiaView = true;
     }//GEN-LAST:event_btnPhieuGiamGiaMouseClicked
@@ -574,7 +575,7 @@ public final class Home extends javax.swing.JFrame {
         // load lai form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        khachHangView.setBounds(220, 0, 1360, 830);
+        khachHangView.setBounds(220, 0, 1700, 1014);
         khachHangView.setVisible(true);
         checkKhachHangView = true;
     }//GEN-LAST:event_btnKhachHangMouseClicked
@@ -596,7 +597,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        thongKeView.setBounds(220, 0, 1360, 830);
+        thongKeView.setBounds(220, 0, 1700, 1014);
         thongKeView.setVisible(true);
         checkThongKeView = true;
     }//GEN-LAST:event_btnThongKeMouseClicked
@@ -620,7 +621,7 @@ public final class Home extends javax.swing.JFrame {
         //load lại form
         loadForm();
         // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        nhanVienView.setBounds(220, 0, 1360, 830);
+        nhanVienView.setBounds(220, 0, 1700, 1014);
         nhanVienView.setVisible(true);
         checkNhanVienView = true;
     }//GEN-LAST:event_btnNhanVienMouseClicked

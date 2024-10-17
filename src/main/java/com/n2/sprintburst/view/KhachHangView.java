@@ -51,6 +51,8 @@ public class KhachHangView extends javax.swing.JInternalFrame {
         defaultTableModel = (DefaultTableModel) tblBang.getModel();
 
         fillData();
+        
+        this.setSize(600, 400); // Cố định kích thước sau khi dùng pack()
 
     }
 
@@ -163,9 +165,11 @@ public class KhachHangView extends javax.swing.JInternalFrame {
 
         setBorder(null);
         setClosable(true);
+        setMaximumSize(null);
+        setMinimumSize(null);
         setPreferredSize(new java.awt.Dimension(1630, 800));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thiết lập thông tin khách hàng"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thiết lập thông tin khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         jLabel1.setText("Stt");
 
@@ -321,7 +325,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
         tblBang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -389,8 +393,8 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(221, 221, 221)
                 .addComponent(btntimLichSuGiaoDich)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(825, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,7 +408,7 @@ public class KhachHangView extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(btntimLichSuGiaoDich)
                         .addGap(32, 32, 32)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
