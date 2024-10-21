@@ -7,8 +7,6 @@ package com.n2.sprintburst.utils;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.MultiFormatReader;
@@ -16,9 +14,6 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
-import com.n2.sprintburst.entity.SanPham;
-import com.n2.sprintburst.entity.SanPhamChiTiet;
-import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.view.banHang.BanHangForm;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,7 +22,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 
 /**
  *
@@ -98,13 +92,12 @@ public class QRCodeScannerForBanHang extends JFrame implements Runnable, ThreadF
                     // fall thru, it means there is no QR code in image
                 }
             }
-
             if (result != null) {
                 System.err.println("PARSED: " + result.getText());
-
-                parent.addParsedSPCTToGioHang(Integer.parseInt(result.getText()));
                 webcam.close();
+                parent.addParsedSPCTToGioHang(Integer.parseInt(result.getText()));
                 this.dispose();
+                return;
 
             }
 

@@ -51,7 +51,7 @@ public final class Home extends javax.swing.JFrame {
         setFrameIcon();
 
         userState = user;
-        banHangView = new BanHangForm(userState);
+        banHangView = new BanHangForm(userState, this);
         // Them menu vao man hinh
         add(banHangView);
         add(hoaDonView);
@@ -98,6 +98,31 @@ public final class Home extends javax.swing.JFrame {
         banHangView.setBounds(220, 0, 1700, 1014);
         banHangView.setVisible(true);
         checkBanHangView = true;
+    }
+
+    public void setHoaDonFormVisible() {
+        hoaDonView = new HoaDonView();
+        add(hoaDonView);
+        // set value check cua cac thang khac la false;
+        checkBanHangView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
+
+        // TODO add your handling code here:
+        if (checkHoaDonView == true) {
+            return;
+        }
+
+        //load lại form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        hoaDonView.setBounds(220, 0, 1700, 1014);
+        hoaDonView.setVisible(true);
+        checkHoaDonView = true;
     }
 
     // Load lại menu khi chuyen form ve false;

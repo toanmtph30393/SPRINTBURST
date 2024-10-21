@@ -22,6 +22,18 @@ public class KhachHangService {
 
     public Session session;
 
+    public void create(KhachHang kh) {
+        try {
+            HibernateConfig.getSessionFactory().inTransaction(s -> {
+                s.persist(kh);
+                s.flush();
+            });
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
+
     public List<KhachHang> getAllKhachHang() {
         session = HibernateConfig.getSessionFactory().openSession();
         List<KhachHang> list = session.createQuery("from KhachHang", KhachHang.class).list();

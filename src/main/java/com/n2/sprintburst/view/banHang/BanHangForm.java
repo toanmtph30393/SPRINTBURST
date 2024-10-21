@@ -17,6 +17,8 @@ import com.n2.sprintburst.service.KhachHangService;
 import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.service.ThanhToanService;
 import com.n2.sprintburst.utils.QRCodeScannerForBanHang;
+import com.n2.sprintburst.view.Home;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -44,12 +46,15 @@ public class BanHangForm extends javax.swing.JPanel {
 
     NhanVien userState;
 
-    public BanHangForm(NhanVien user) {
+    Home home;
+
+    public BanHangForm(NhanVien user, Home parent) {
 
         FlatLightLaf.setup();
         initComponents();
 
         this.userState = user;
+        this.home = parent;
 
         spctTableModel = (DefaultTableModel) tblSanPhamChiTiet.getModel();
         hoaDonTableModel = (DefaultTableModel) tblHoaDon.getModel();
@@ -162,8 +167,8 @@ public class BanHangForm extends javax.swing.JPanel {
             renderGioHangTable();
 
             lblHoaDonMa.setText(chosenHoaDonState.getMaHoaDon());
-            lblTienTong.setText(String.valueOf(chosenHoaDonState.getTongTruocGiamGia()));
-            lblThanhTien.setText(String.valueOf(chosenHoaDonState.getTongSauGiamGia()));
+            lblTienTong.setText(new DecimalFormat("###,###,###").format(chosenHoaDonState.getTongTruocGiamGia()));
+            lblThanhTien.setText(new DecimalFormat("###,###,###").format(chosenHoaDonState.getTongSauGiamGia()));
             lblTienGiam.setText(String.valueOf(chosenHoaDonState.getTongTruocGiamGia() - chosenHoaDonState.getTongSauGiamGia()));
 
             lblKhachHangTen.setText(chosenHoaDonState.getKhachHang() == null ? null : chosenHoaDonState.getKhachHang().getTenKhachHang());
@@ -295,6 +300,7 @@ public class BanHangForm extends javax.swing.JPanel {
 
             refreshStatesAndTables();
 
+            home.setHoaDonFormVisible();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -696,24 +702,21 @@ public class BanHangForm extends javax.swing.JPanel {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(lblKhachHangTen)
-                                .addGap(68, 68, 68)
-                                .addComponent(btnCreateKhachHang))
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnFindKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(62, 62, 62))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblKhachHangDienThoai, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(lblKhachHangTen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCreateKhachHang))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(lblKhachHangDienThoai))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFindKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(62, 62, 62))
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1091,7 +1094,7 @@ public class BanHangForm extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Phai chon hoa don truoc khi them khach hang");
             return;
         }
-        KhachHangQuickCreateForm qcf = new KhachHangQuickCreateForm(this);
+        KhachHangQuickCreateForm qcf = new KhachHangQuickCreateForm(this, userState);
         qcf.setVisible(true);
     }//GEN-LAST:event_btnCreateKhachHangActionPerformed
 

@@ -28,7 +28,7 @@ import javax.swing.table.TableRowSorter;
  * @author Admin
  */
 public class KhachHangQuickCreateForm extends javax.swing.JFrame {
-
+    
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     DefaultTableModel defaultTableModel1 = new DefaultTableModel();
     DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
@@ -37,28 +37,29 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
     NhanVienService nhanVienService = new NhanVienService();
     List<KhachHang> kh = new ArrayList<>();
     List<NhanVien> nhanVienLst = new ArrayList<>();
-
+    
     List<HoaDon> hd = new ArrayList<>();
-
+    
     static int idChon;
-
+    
     BanHangForm parent;
+    NhanVien nhanVien;
 
     /**
      * Creates new form NhanVienView
      */
-    public KhachHangQuickCreateForm(BanHangForm parent) {
+    public KhachHangQuickCreateForm(BanHangForm parent, NhanVien nhanVien) {
         initComponents();
         setFrameIcon();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 //        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
         this.parent = parent;
+        this.nhanVien = nhanVien;
         this.setLocationRelativeTo(null);
         kh = khachHangService.getAllKhachHang();
-
+        
     }
-
+    
     private void setFrameIcon() {
         ImageIcon logoIcon = null;
         java.net.URL imgURL = Home.class.getResource("/icon/mini_logo.png");
@@ -69,7 +70,7 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Icon image not found.");
         }
     }
-
+    
     public String getNewCustomerCode() {
         KhachHang khachHangMoiNhat = Collections.max(kh, Comparator.comparing(s -> s.getId()));
         int newID = khachHangMoiNhat.getId() + 1;
@@ -207,7 +208,7 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(this, "Them?", "Them", JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) {
                 return;
             }
-
+            
             String soDienThoai = txtDienThoai.getText();
 
             // Kiểm tra số điện thoại có trùng không
@@ -222,14 +223,15 @@ public class KhachHangQuickCreateForm extends javax.swing.JFrame {
             newKh.setDienThoai(txtDienThoai.getText());
             newKh.setDiaChi(txtDiaChi.getText());
             newKh.setGhiChu(txtGhiChu.getText());
-            newKh.setNhanVien(new NhanVien());
             newKh.setNgayTao(LocalDateTime.now());
-
-            khachHangService.saveKhachHang(newKh);
-
+            newKh.setNhanVien(nhanVien);
+            
+            khachHangService.create(newKh);
+            
             parent.addChosenKhachHang(newKh);
             this.dispose();
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnThemMouseClicked

@@ -1,5 +1,6 @@
 package com.n2.sprintburst.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.n2.sprintburst.entity.HoaDon;
 import com.n2.sprintburst.entity.HoaDonChiTiet;
 import com.n2.sprintburst.entity.LichSuHoaDon;
@@ -44,6 +45,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
     List<LichSuHoaDon> lshd = new ArrayList<>();
 
     public HoaDonView() {
+        FlatLightLaf.setup();
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
@@ -59,7 +61,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         tblHoaDon.setModel(defaultTableModel);
         defaultTableModel.setColumnIdentifiers(new String[]{
             "STT", "Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày tạo", "Tổng trước giảm giá", "Tổng sau giảm giá", "Tên người nhận", "Số điện thoại",
-             "Trạng thái"});
+            "Trạng thái"});
     }
 
     public void setUpTableChiTiet() {
@@ -139,7 +141,7 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         if (row < 0) {
             return;
         }
-        
+
         modelLichSuHoaDon.setRowCount(0);
         int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
         String ma = tblHoaDon.getValueAt(row, 1).toString();
