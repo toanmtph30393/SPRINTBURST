@@ -61,12 +61,10 @@ public final class Home extends javax.swing.JFrame {
         add(phieuGiamGiaView);
         add(sanPhamView);
         add(thongKeView);
-        
-        
 
         loadForm();
-        
-         trangChuView.setBounds(220, 0, 1700, 1014);
+
+        trangChuView.setBounds(220, 0, 1700, 1014);
         trangChuView.setVisible(true);
         checkTrangChuView = true;
 
@@ -75,10 +73,31 @@ public final class Home extends javax.swing.JFrame {
         displayUserInfo();
 
         if (!user.isLaQuanLy()) {
-            btnThongKe.setVisible(false);
             btnNhanVien.setVisible(false);
 //            pnlMenuBar.setSize(220, height);
         }
+        setBanHangFormVisible();
+    }
+
+    public void setBanHangFormVisible() {
+        checkHoaDonView = false;
+        checkTrangChuView = false;
+        checkKhachHangView = false;
+        checkNhanVienView = false;
+        checkPhieuGiamGiaView = false;
+        checkSanPhamView = false;
+        checkThongKeView = false;
+        // Kiem tra menu da hien thi chua, neu hien thi roi thi thoat ra ngoai
+        if (checkBanHangView == true) {
+            return;
+        }
+
+        // load lai form
+        loadForm();
+        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
+        banHangView.setBounds(220, 0, 1700, 1014);
+        banHangView.setVisible(true);
+        checkBanHangView = true;
     }
 
     // Load lại menu khi chuyen form ve false;
@@ -108,6 +127,7 @@ public final class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Icon image not found.");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,8 +149,6 @@ public final class Home extends javax.swing.JFrame {
         pnlKhachHang = new javax.swing.JPanel();
         btnKhachHang = new javax.swing.JLabel();
         pnlGiamGia = new javax.swing.JPanel();
-        btnThongKe = new javax.swing.JLabel();
-        pnlThongKe = new javax.swing.JPanel();
         btnNhanVien = new javax.swing.JLabel();
         pnlUser = new javax.swing.JPanel();
         txtUsername = new javax.swing.JLabel();
@@ -269,27 +287,6 @@ public final class Home extends javax.swing.JFrame {
 
         pnlGiamGia.setBackground(new java.awt.Color(153, 153, 153));
 
-        btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/3d bar chart.png"))); // NOI18N
-        btnThongKe.setText("Thống kê");
-        btnThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThongKeMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlGiamGiaLayout = new javax.swing.GroupLayout(pnlGiamGia);
-        pnlGiamGia.setLayout(pnlGiamGiaLayout);
-        pnlGiamGiaLayout.setHorizontalGroup(
-            pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnThongKe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        pnlGiamGiaLayout.setVerticalGroup(
-            pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnThongKe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-        );
-
-        pnlThongKe.setBackground(new java.awt.Color(153, 153, 153));
-
         btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Users.png"))); // NOI18N
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -298,14 +295,14 @@ public final class Home extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pnlThongKeLayout = new javax.swing.GroupLayout(pnlThongKe);
-        pnlThongKe.setLayout(pnlThongKeLayout);
-        pnlThongKeLayout.setHorizontalGroup(
-            pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlGiamGiaLayout = new javax.swing.GroupLayout(pnlGiamGia);
+        pnlGiamGia.setLayout(pnlGiamGiaLayout);
+        pnlGiamGiaLayout.setHorizontalGroup(
+            pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        pnlThongKeLayout.setVerticalGroup(
-            pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlGiamGiaLayout.setVerticalGroup(
+            pnlGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
@@ -375,7 +372,6 @@ public final class Home extends javax.swing.JFrame {
             .addComponent(pnlSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -395,9 +391,7 @@ public final class Home extends javax.swing.JFrame {
                 .addComponent(pnlKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(pnlUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -530,28 +524,6 @@ public final class Home extends javax.swing.JFrame {
         checkKhachHangView = true;
     }//GEN-LAST:event_btnKhachHangMouseClicked
 
-    private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
-        // set value check cua cac thang khac la false;
-        checkBanHangView = false;
-        checkHoaDonView = false;
-        checkTrangChuView = false;
-        checkKhachHangView = false;
-        checkNhanVienView = false;
-        checkPhieuGiamGiaView = false;
-        checkSanPhamView = false;
-        // TODO add your handling code here:
-        if (checkThongKeView == true) {
-            return;
-        }
-
-        //load lại form
-        loadForm();
-        // Hien thi menu, set vi tri, kich thuoc, set gia tri bien check
-        thongKeView.setBounds(220, 0, 1700, 1014);
-        thongKeView.setVisible(true);
-        checkThongKeView = true;
-    }//GEN-LAST:event_btnThongKeMouseClicked
-
     private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
 
         // set value check cua cac thang khac la false;
@@ -617,7 +589,6 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel btnKhachHang;
     private javax.swing.JLabel btnNhanVien;
     private javax.swing.JLabel btnSanPham;
-    private javax.swing.JLabel btnThongKe;
     private javax.swing.JLabel btnTrangChu;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -628,7 +599,6 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JPanel pnlKhachHang;
     private javax.swing.JPanel pnlMenuBar;
     private javax.swing.JPanel pnlSanPham;
-    private javax.swing.JPanel pnlThongKe;
     private javax.swing.JPanel pnlUser;
     private javax.swing.JLabel txtUserRole;
     private javax.swing.JLabel txtUsername;
