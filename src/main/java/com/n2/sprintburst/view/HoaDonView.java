@@ -33,10 +33,8 @@ public class HoaDonView extends javax.swing.JInternalFrame {
      * Creates new form Test
      */
     DefaultTableModel defaultTableModel = new DefaultTableModel();
-    DefaultTableModel defaultTableModel1 = new DefaultTableModel();
-    DefaultTableModel defaultTableModel2 = new DefaultTableModel();
-    private DefaultTableModel modelHoaDonChiTiet;
-    private DefaultTableModel modelLichSuHoaDon;
+    DefaultTableModel modelHoaDonChiTiet = new DefaultTableModel();
+    DefaultTableModel modelLichSuHoaDon = new DefaultTableModel();
     HoaDonService hoaDonService = new HoaDonService();
     HoaDonChiTietService hoaDonChiTietService = new HoaDonChiTietService();
     LichSuHoaDonService lichSuHoaDonService = new LichSuHoaDonService();
@@ -49,8 +47,8 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         initComponents();
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
-        defaultTableModel1 = (DefaultTableModel) tblHoaDonChiTiet.getModel();
-        defaultTableModel2 = (DefaultTableModel) tblLichSuHoaDon.getModel();
+        modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
+        modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
         fillData(0);
         setUpTableHoaDon();
         setUpTableChiTiet();
@@ -60,19 +58,19 @@ public class HoaDonView extends javax.swing.JInternalFrame {
     public void setUpTableHoaDon() {
         tblHoaDon.setModel(defaultTableModel);
         defaultTableModel.setColumnIdentifiers(new String[]{
-            "STT", "Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày tạo", "Tổng trước giảm giá", "Tổng sau giảm giá", "Ghi chú", "Tên người nhận", "Số điện thoại",
-            "Địa chỉ", "Trạng thái"});
+            "STT", "Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày tạo", "Tổng trước giảm giá", "Tổng sau giảm giá", "Tên người nhận", "Số điện thoại",
+             "Trạng thái"});
     }
 
     public void setUpTableChiTiet() {
-        tblHoaDonChiTiet.setModel(defaultTableModel1);
-        defaultTableModel1.setColumnIdentifiers(new String[]{
+        tblHoaDonChiTiet.setModel(modelHoaDonChiTiet);
+        modelHoaDonChiTiet.setColumnIdentifiers(new String[]{
             "STT", "Mã hóa đơn", "Sản phẩm chi tiết", "Số lượng", "Gía bán", "Trạng thái"});
     }
 
     public void setUpTableLichSu() {
-        tblLichSuHoaDon.setModel(defaultTableModel2);
-        defaultTableModel2.setColumnIdentifiers(new String[]{
+        tblLichSuHoaDon.setModel(modelLichSuHoaDon);
+        modelLichSuHoaDon.setColumnIdentifiers(new String[]{
             "STT", "Mã hóa đơn", "Nhân viên", "Ghi chú", "Ngày tác động"});
     }
 
@@ -91,10 +89,8 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                     hoaDon.getNgayTao(),
                     hoaDon.getTongTruocGiamGia(),
                     hoaDon.getTongSauGiamGia(),
-                    hoaDon.getGhiChu(),
                     hoaDon.getTenNguoiNhan(),
                     hoaDon.getDienThoaiNguoiNhan(),
-                    hoaDon.getDiaChiNguoiNhan(),
                     hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
                     hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
                 });
@@ -107,10 +103,8 @@ public class HoaDonView extends javax.swing.JInternalFrame {
                     hoaDon.getNgayTao(),
                     hoaDon.getTongTruocGiamGia(),
                     hoaDon.getTongSauGiamGia(),
-                    hoaDon.getGhiChu(),
                     hoaDon.getTenNguoiNhan(),
                     hoaDon.getDienThoaiNguoiNhan(),
-                    hoaDon.getDiaChiNguoiNhan(),
                     hoaDon.getTrangThaiHoaDon() == null ? null : hoaDon.getTrangThaiHoaDon().getTen(),
                     hoaDon.getPhieuGiamGia() == null ? null : hoaDon.getPhieuGiamGia().getTenGiamGia()
                 });
@@ -124,10 +118,9 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         if (row < 0) {
             return;
         }
-        modelHoaDonChiTiet = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         modelHoaDonChiTiet.setRowCount(0);
-        int hdctId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
-        List<HoaDonChiTiet> hdctList = hoaDonChiTietService.getHoaDonByID(hdctId);
+        int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
+        List<HoaDonChiTiet> hdctList = hoaDonChiTietService.getHoaDonChiTietByID(hoaDonId);
         int soThuTu = 1;  // Biến đếm số thứ tự
         for (HoaDonChiTiet hd : hdctList) {
             modelHoaDonChiTiet.addRow(new Object[]{
@@ -145,16 +138,17 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         if (row < 0) {
             return;
         }
-        modelLichSuHoaDon = (DefaultTableModel) tblLichSuHoaDon.getModel();
+        
         modelLichSuHoaDon.setRowCount(0);
         int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
         List<LichSuHoaDon> lshdList = lichSuHoaDonService.getLichHoaDonByID(hoaDonId);
+        System.out.println("sixe" + lshdList.size());
         int soThuTu = 1;  // Biến đếm số thứ tự
         for (LichSuHoaDon hd : lshdList) {
             modelLichSuHoaDon.addRow(new Object[]{
                 soThuTu++, // Thêm số thứ tự
                 hd.getHoaDon().getMaHoaDon(),
-                hd.getNhanVien().getHoTen(),
+                hd.getNhanVien().getId(),
                 hd.getGhiChu(),
                 hd.getNgayTacDong(),});
         }
