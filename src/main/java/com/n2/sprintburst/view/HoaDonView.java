@@ -120,7 +120,8 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         }
         modelHoaDonChiTiet.setRowCount(0);
         int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
-        List<HoaDonChiTiet> hdctList = hoaDonChiTietService.getHoaDonChiTietByID(hoaDonId);
+        String maH = tblHoaDon.getValueAt(row, 1).toString();
+        List<HoaDonChiTiet> hdctList = hoaDonChiTietService.getHoaDonByMa(maH);
         int soThuTu = 1;  // Biến đếm số thứ tự
         for (HoaDonChiTiet hd : hdctList) {
             modelHoaDonChiTiet.addRow(new Object[]{
@@ -141,7 +142,8 @@ public class HoaDonView extends javax.swing.JInternalFrame {
         
         modelLichSuHoaDon.setRowCount(0);
         int hoaDonId = Integer.parseInt(tblHoaDon.getValueAt(row, 0).toString());
-        List<LichSuHoaDon> lshdList = lichSuHoaDonService.getLichHoaDonByID(hoaDonId);
+        String ma = tblHoaDon.getValueAt(row, 1).toString();
+        List<LichSuHoaDon> lshdList = lichSuHoaDonService.getLichSuHoaDonBtMa(ma);
         System.out.println("sixe" + lshdList.size());
         int soThuTu = 1;  // Biến đếm số thứ tự
         for (LichSuHoaDon hd : lshdList) {

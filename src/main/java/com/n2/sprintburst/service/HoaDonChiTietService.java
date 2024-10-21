@@ -39,6 +39,15 @@ public class HoaDonChiTietService {
 
         return list;
     }
+    public List<HoaDonChiTiet> getHoaDonByMa(String maHoaDon) {
+        session = HibernateConfig.getSessionFactory().openSession();
+        List<HoaDonChiTiet> list = session.createQuery("from HoaDonChiTiet where hoaDon.maHoaDon = :ma ", HoaDonChiTiet.class)
+                .setParameter("ma", maHoaDon)
+                .list();
+        session.close();//        
+
+        return list;
+    }
 
     public static void add(HoaDonChiTiet hdct) {
         try {
