@@ -16,7 +16,7 @@ import com.n2.sprintburst.service.HoaDonService;
 import com.n2.sprintburst.service.KhachHangService;
 import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.service.ThanhToanService;
-import com.n2.sprintburst.utils.QRCodeScanner;
+import com.n2.sprintburst.utils.QRCodeScannerForBanHang;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -301,7 +301,7 @@ public class BanHangForm extends javax.swing.JPanel {
     }
 
     private void scanQRCode() {
-        new QRCodeScanner(this).setVisible(true);
+        new QRCodeScannerForBanHang(this).setVisible(true);
 
     }
 

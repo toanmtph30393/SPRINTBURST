@@ -15,7 +15,9 @@ import org.hibernate.Session;
  * @author NhokHip
  */
 public class LichSuHoaDonService {
+
     public Session session;
+
     public List<LichSuHoaDon> getAllLichSu() {
         session = HibernateConfig.getSessionFactory().openSession();
         List<LichSuHoaDon> list = session.createQuery("from LichSuHoaDon", LichSuHoaDon.class).list();
@@ -26,10 +28,8 @@ public class LichSuHoaDonService {
 
     public List<LichSuHoaDon> getLichHoaDonByID(int idHoaDon) {
         session = HibernateConfig.getSessionFactory().openSession();
-        HoaDon hd = new HoaDon();
-        hd.setId(idHoaDon);
-        List<LichSuHoaDon> list = session.createQuery("from LichSuHoaDon where hoaDon = :hoaDon ", LichSuHoaDon.class)
-                .setParameter("hoaDon",hd )
+        List<LichSuHoaDon> list = session.createQuery("from LichSuHoaDon where hoaDon.id = :id ", LichSuHoaDon.class)
+                .setParameter("id", idHoaDon)
                 .list();
         session.close();//        
 

@@ -21,6 +21,7 @@ import com.n2.sprintburst.response.SanPhamChiTietFilterObject;
 import com.n2.sprintburst.service.SanPhamChiTietService;
 import com.n2.sprintburst.service.SanPhamService;
 import com.n2.sprintburst.service.ThuocTinhService;
+import com.n2.sprintburst.utils.QRCodeScannerForSanPham;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -521,6 +522,14 @@ public class SanPhamView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
+    
+    public void scanQR() {
+        new QRCodeScannerForSanPham(this).setVisible(true);
+    }
+    
+    public void displaySPCTUpdateView(SanPhamChiTiet spct) {
+        new SanPhamChiTietUpdateView(spct, this).setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -585,6 +594,7 @@ public class SanPhamView extends javax.swing.JPanel {
         btnAddSPCT = new javax.swing.JButton();
         btnExportExl = new javax.swing.JButton();
         btnSPCTFormReset = new javax.swing.JButton();
+        btnScanQR = new javax.swing.JButton();
         thuocTinhTab = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -1068,6 +1078,14 @@ public class SanPhamView extends javax.swing.JPanel {
             }
         });
 
+        btnScanQR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Search.png"))); // NOI18N
+        btnScanQR.setText("Quét QR");
+        btnScanQR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScanQRActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1078,7 +1096,9 @@ public class SanPhamView extends javax.swing.JPanel {
                     .addComponent(btnAddSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSPCTFormReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(btnExportExl)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExportExl, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnScanQR, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1089,7 +1109,9 @@ public class SanPhamView extends javax.swing.JPanel {
                     .addComponent(btnAddSPCT)
                     .addComponent(btnExportExl))
                 .addGap(36, 36, 36)
-                .addComponent(btnSPCTFormReset)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSPCTFormReset)
+                    .addComponent(btnScanQR))
                 .addGap(52, 52, 52))
         );
 
@@ -1520,8 +1542,12 @@ public class SanPhamView extends javax.swing.JPanel {
 
     private void btnExportExlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExlActionPerformed
         exportExcelSPCT();
-        
+
     }//GEN-LAST:event_btnExportExlActionPerformed
+
+    private void btnScanQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScanQRActionPerformed
+        scanQR();
+    }//GEN-LAST:event_btnScanQRActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup ThuocTinhFilterGroup;
@@ -1537,6 +1563,7 @@ public class SanPhamView extends javax.swing.JPanel {
     private javax.swing.JButton btnExportExl;
     private javax.swing.JButton btnResetFormSanPhamTab;
     private javax.swing.JButton btnSPCTFormReset;
+    private javax.swing.JButton btnScanQR;
     private javax.swing.JButton btnSearchSPCT;
     private javax.swing.JComboBox<String> cbxChatLieu;
     private javax.swing.JComboBox<String> cbxCoGiay;

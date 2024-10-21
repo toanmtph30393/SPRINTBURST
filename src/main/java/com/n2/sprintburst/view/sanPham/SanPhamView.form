@@ -914,8 +914,11 @@
                               <Component id="btnSPCTFormReset" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="36" max="32767" attributes="0"/>
-                          <Component id="btnExportExl" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnExportExl" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnScanQR" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -928,7 +931,10 @@
                               <Component id="btnExportExl" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                          <Component id="btnSPCTFormReset" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnSPCTFormReset" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnScanQR" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -966,6 +972,17 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSPCTFormResetActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnScanQR">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icon/Search.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Qu&#xe9;t QR"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnScanQRActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
